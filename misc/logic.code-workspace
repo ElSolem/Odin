@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../shared/logic"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"ols.debug.engine": "ms-vscode.cpptools"
+	}
+}

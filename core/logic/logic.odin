@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env odin
 package logic
 
 import "core:fmt"
@@ -364,6 +364,7 @@ main :: proc() {
     HelloWorld()
 
     print_runes()
+    fmt.println()
     t2 := time.now()
     dift := time.diff(t1, t2)
     fmt.printfln("%v", dift)

@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env odin
 package vision
 
 import "core:fmt"
@@ -6,7 +6,7 @@ import "core:math"
 import "core:time"
 import "core:log"
 
-Objhex  :: enum {
+Purehex  :: enum {
     // Group 1: Celestia
     Dark    = 0x000000, // "#000000"
     Light   = 0x000000, // "#000000"
@@ -53,23 +53,23 @@ Typehex :: enum {
     Unown  = 0x0f0f0f, // "#0f0f0f"
 }
 
-Arthex :: enum {
-    // Group 5: Munchkin Colors
+Pathhex :: enum {
+    // Group 1: Munchkin Colors
     Mstre  = 0xf1f1f1, // "#f1f1f1"
     Hstre  = 0xe2e2e2, // "#e2e2e2"
     Siren  = 0xd3d3d3, // "#d3d3d3"
     Force  = 0xc4c4c4, // "#c4c4c4"
-    // Group 6: Gillikin Colors
+    // Group 2: Gillikin Colors
     Bless  = 0xb5b5b5, // "#b5b5b5"
     Curse  = 0xa6a6a6, // "#a6a6a6"
     Qemet  = 0x979797, // "#979797"
     Smith  = 0x888888, // "#888888"
-    // Group 7: Quadling Colors
+    // Group 3: Quadling Colors
     Brick  = 0x797979, // "#797979"
     Block  = 0x6a6a6a, // "#6a6a6a"
     Curez  = 0x5b5b5b, // "#5b5b5b"
     Knock  = 0x4c4c4c, // "#4c4c4c"
-    // Group 8: Winkiez Colors
+    // Group 4: Winkiez Colors
     Burna  = 0x3d3d3d, // "#3d3d3d"
     Shock  = 0x2e2e2e, // "#2e2e2e"
     Litez  = 0x1f1f1f, // "#1f1f1f"
@@ -92,13 +92,14 @@ Kindhex :: enum {
     Kymera  = 0x099000, // "#099000" // chimeras/spore
     Nymphi  = 0x000990, // "#000990" // plant types
     // Group 4: Wunder Colors
-    Lagomo  = 0xf00ff0, // "#110ff0" // rabbit/ogres
-    Dracat  = 0xf0110f, // "#11f00f" // cat/dragons
-    Alldog  = 0x11f00f, // "#f0110f" // Talkin dogs/fairy
-    Helbat  = 0x110ff0, // "#f00ff0" // Whatever bats are
+    Lagomo  = 0xf00ff0, // "#aa0ff0" // rabbit/ogres
+    Dracat  = 0xf0110f, // "#aaf00f" // cat/dragons
+    Alldog  = 0x11f00f, // "#f0aa0f" // Talkin dogs/fairy
+    Helbat  = 0x110ff0, // "#faaffa" // Whatever bats are
 }
 
-Pathhex  :: enum {
+Arthex  :: enum {
+    // Group 1
     hack = 0x000000, // "#aaa000"
     code = 0x080607, // "#a4a607"
     data = 0x0d082a, // "#a7a82a"
@@ -120,10 +121,45 @@ Pathhex  :: enum {
     fall = 0x888585, // "#444585"
 }
 
+Acthex :: enum {
+    // Group 1: Kindling
+    kind = 0x000000, // "#000000" // humble
+    piru = 0x000000, // "#000000" // aggressive
+    crip = 0x000000, // "#000000" // sneak around
+    folk = 0x000000, // "#000000" // group up
+    // Group 2: Piruvian
+    comb = 0x000000, // "#000000" // search/find
+    hive = 0x000000, // "#000000" // gather
+    crib = 0x000000, // "#000000" // put down
+    nest = 0x000000, // "#000000" // store
+    // Group 3: Criptone
+    rest = 0x000000, // "#000000" // rest/stop lol
+    raid = 0x000000, // "#000000" // attack/rush
+    rave = 0x000000, // "#000000" // distract/dance
+    reel = 0x000000, // "#000000" // fish
+    // Group 4: Folklore
+    room = 0x000000, // "#000000" // create space
+    tomb = 0x000000, // "#000000" // bury
+    boom = 0x000000, // "#000000" // destroy
+    loom = 0x000000, // "#000000" // loiter, stay command
+}
+
+Objhex  :: enum {
+    crud
+}
+
+Toyhex :: enum {
+
+}
+
+Keyhex  :: enum{
+
+}
+
 Zedex :: enum {
     // Group 1
     _ = 0x000000, // "#000000"
-    _ = 0x080607, // "#080607"
+    femcron = 0x080607, // "#080607"
     _ = 0x0d082a, // "#0d082a"
     _ = 0x0f2e2f, // "#0f2e2f"
     // Group 2
@@ -152,20 +188,20 @@ Zedex :: enum {
     _ = 0xe22f2d, // "#e22f2d"
     _ = 0xd93422, // "#d93422"
     // Group 7
-    _ = 0xde3163, // "#de3163"
-    _ = 0xe34234, // "#e34234"
-    _ = 0xd24e41, // "#d24e41"
-    _ = 0xd10047, // "#d10047"
+    rocioka = 0xde3163, // "#de3163"
+    brianna = 0xe34234, // "#e34234"
+    snitchz = 0xd24e41, // "#d24e41"
+    elkiera = 0xd10047, // "#d10047"
     // Group 8
-    _ = 0xf10405, // "#f10405"
-    _ = 0xcf0506, // "#cf0506"
-    _ = 0xae0405, // "#ae0405"
-    _ = 0x900405, // "#900405"
+    tajerah = 0xf10405, // "#f10405"
+    kiarama = 0xcf0506, // "#cf0506"
+    taijtzu = 0xae0405, // "#ae0405"
+    evrtaye = 0x900405, // "#900405"
     // Group 9
-    _ = 0x710305, // "#710305"
-    _ = 0x4f0304, // "#4f0304"
-    _ = 0xb22222, // "#b22222"
-    _ = 0x671f20, // "#671f20"
+    sicario = 0x710305, // "#710305"
+    hitmanz = 0x4f0304, // "#4f0304"
+    daolong = 0xb22222, // "#b22222"
+    yakuzaz = 0x671f20, // "#671f20"
     // Group 10
     _ = 0x6b3431, // "#6b3431"
     _ = 0x463534, // "#463534"
@@ -292,27 +328,27 @@ Zedex :: enum {
     _ = 0x6ec332, // "#6ec332"
     _ = 0x53c20b, // "#53c20b"
     // Group 35
-    _ = 0x338c00, // "#338c00"
-    _ = 0x5feb0e, // "#5feb0e"
-    _ = 0x297106, // "#297106"
-    _ = 0x33d301, // "#33d301"
+    manisha = 0x338c00, // "#338c00"
+    emogenz = 0x5feb0e, // "#5feb0e"
+    manuxah = 0x297106, // "#297106"
+    luxlana = 0x33d301, // "#33d301"
     // Group 36
-    _ = 0x2bb405, // "#2bb405"
-    _ = 0x31ea0a, // "#31ea0a"
-    _ = 0x065106, // "#065106"
-    _ = 0x068f06, // "#068f06"
+    fkatwig = 0x2bb405, // "#2bb405"
+    chantal = 0x31ea0a, // "#31ea0a"
+    jessica = 0x065106, // "#065106"
+    tinashe = 0x068f06, // "#068f06"
     // Group 37
-    _ = 0x06af06, // "#06af06"
-    _ = 0x08ce08, // "#08ce08"
-    _ = 0x07ed08, // "#07ed08"
-    _ = 0x056f06, // "#056f06"
+    joivial = 0x06af06, // "#06af06"
+    dimanek = 0x08ce08, // "#08ce08"
+    shirley = 0x07ed08, // "#07ed08"
+    justina = 0x056f06, // "#056f06"
     // Group 38
     _ = 0x052f07, // "#052f07"
     _ = 0x09f02c, // "#09f02c"
     _ = 0x07cf31, // "#07cf31"
     _ = 0x05ae32, // "#05ae32"
     // Group 39
-    _ = 0x028f2e, // "#028f2e"
+    elphaba = 0x028f2e, // "#028f2e"
     _ = 0x09f053, // "#09f053"
     _ = 0x27ab58, // "#27ab58"
     _ = 0x01ca4e, // "#01ca4e"
@@ -323,24 +359,24 @@ Zedex :: enum {
     _ = 0x506258, // "#506258"
     // Group 41
     _ = 0x079250, // "#079250"
-    _ = 0x09cb71, // "#09cb71"
+    fernish = 0x09cb71, // "#09cb71"
     _ = 0x708179, // "#708179"
     _ = 0x08a96b, // "#08a96b"
     // Group 42
-    _ = 0x064835, // "#064835"
-    _ = 0x09d4a9, // "#09d4a9"
-    _ = 0x076956, // "#076956"
-    _ = 0x2e655e, // "#2e655e"
+    sorcery = 0x064835, // "#064835" // 7forces, 49powers, 36runes
+    alchemy = 0x09d4a9, // "#09d4a9" // 10numbers, 4dimensions, 20states
+    history = 0x076956, // "#076956" // 1976, 1969, 1956
+    mystery = 0x2e655e, // "#2e655e" // ???
     // Group 43
-    _ = 0x74c3b8, // "#74c3b8"
-    _ = 0x058979, // "#058979"
-    _ = 0x4f837d, // "#4f837d"
-    _ = 0x09504f, // "#09504f"
+    knimbel = 0x74c3b8, // "#74c3b8"
+    rinnego = 0x058979, // "#058979"
+    noireci = 0x4f837d, // "#4f837d"
+    aileens = 0x09504f, // "#09504f"
     // Group 44
-    _ = 0x079fa0, // "#079fa0"
-    _ = 0x0adede, // "#0adede"
-    _ = 0x087071, // "#087071"
-    _ = 0x396b6e, // "#396b6e"
+    britney = 0x079fa0, // "#079fa0"
+    lacinna = 0x0adede, // "#0adede"
+    aryssar = 0x087071, // "#087071"
+    pompoca = 0x396b6e, // "#396b6e"
     // Group 45
     _ = 0x93eff4, // "#93eff4"
     _ = 0x2e4f52, // "#2e4f52"
@@ -392,18 +428,18 @@ Zedex :: enum {
     _ = 0x5105cd, // "#5105cd"
     _ = 0x5d06e0, // "#5d06e0"
     // Group 55
-    _ = 0x6a05ee, // "#6a05ee"
-    _ = 0x6402d9, // "#6402d9"
-    _ = 0x590686, // "#590686"
-    _ = 0x9d02e2, // "#9d02e2"
+    dimeate = 0x6a05ee, // "#6a05ee"
+    ogcandy = 0x6402d9, // "#6402d9"
+    shirliz = 0x590686, // "#590686"
+    baiyula = 0x9d02e2, // "#9d02e2"
     // Group 56
     _ = 0x37044a, // "#37044a"
     _ = 0x7b03a8, // "#7b03a8"
     _ = 0x9804c8, // "#9804c8"
-    _ = 0x55046d, // "#55046d"
+    mykayla = 0x55046d, // "#55046d"
     // Group 57
     _ = 0xb403e8, // "#b403e8"
-    _ = 0x710390, // "#710390"
+    ajayish = 0x710390, // "#710390"
     _ = 0x8e03b0, // "#8e03b0"
     _ = 0xac03cf, // "#ac03cf"
     // Group 58
@@ -453,7 +489,25 @@ Zedex :: enum {
     _ = 0xffffff, // "#ffffff"
 }
 
+Corehex :: enum {
+    Purehex,
+    Typehex,
+    Arthex ,
+    Kindhex,
+    Pathhex,
+    Acthex ,
+    Objhex ,
+    Zedex  ,
+}
 
 main :: proc() {
-    
+    fmt.println(size_of(Purehex))
+    fmt.println(size_of(Typehex))
+    fmt.println(size_of(Arthex ))    
+    fmt.println(size_of(Kindhex))
+    fmt.println(size_of(Pathhex))
+    fmt.println(size_of(Acthex ))
+    fmt.println(size_of(Objhex ))
+    fmt.println(size_of(Zedex  ))
+    fmt.println(size_of(Corehex))
 }

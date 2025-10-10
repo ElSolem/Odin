@@ -14,6 +14,14 @@ HelloWorld :: proc(){
     rune(0x21))
 }
 
+print_runes :: proc(){
+    characters := [dynamic]rune{}
+    for i in 0x00..=0x0000ff { // 0xff == 0x0000ff != 0xff0000 != 0xff
+        append(&characters, rune(i))
+        fmt.printfln("%v::%v", i, characters[:])
+    }
+}
+
 // !?%#WARNING#%$?! :: All types below depend on odins int type. Change anything but ints!
 Runevex :: enum {
     // Group 1
@@ -140,7 +148,7 @@ Runevex :: enum {
 }
 
 
-Keyzvex :: enum {
+Keyvex :: enum {
     // Group 1
     NIND = 0x00, // No Intz No Data
     NISD = 0x01, // No Intz Single Data
@@ -183,57 +191,7 @@ Keyzvex :: enum {
     EIPD = 0x1f, // Error Intz Proc Data
 }
 
-
-Typevex :: enum {
-    // Group 1: The Nativez
-    Nav     = 0x80, // Null And Void
-    Nil     = 0x81, // Not In Listing
-    Inf     = 0x82, // Incremental Numeric Factors 
-    Nan     = 0x83, // Not A Number
-    // Group 2: The Qubitz
-    Tera    = 0x84, // A quaternary boolean (0,1,-1,-0)
-    Deci    = 0x85, // 2x4 Bitz // Binary Bitz // double booleans
-    Vex     = 0x86, // Varidiac Expressions // Vectors/Floats/Bivecs // Complex numbers
-    Hex     = 0x87, // Hecatarian Expressions // Hexadecimal Representation // Colors + Time
-    // Group 3: The Knockerz
-    Plex    = 0x88, // Procedural Lexical Expressions
-    Lex     = 0x89, // Lecture Expressionz // runes/strings
-    Tex     = 0x8a, // Typesetting Expressions // Structs/Arrays
-    Dex     = 0x8b, // Decimal Expressions // union
-    // Group 4: The Pilgrimmz
-    Simplex = 0x8c, // [enum]array
-    Complex = 0x8d, // [enum]struct
-    Perplex = 0x8e, // [enum]union
-    Dieplex = 0x8f, // [enum]map
-    // Group 5: The Munchkinz
-    Ant     = 0x90, // Atomic number type 
-    Ent     = 0x91, // Entity number type
-    Ont     = 0x92, // Orthogonal number type
-    Unt     = 0x93, // Unique number type
-    // Group 6: The Gillikinz
-    Play    = 0x94, // Return {Ant}
-    Pawz    = 0x95, // Return {Ent}
-    Skip    = 0x96, // Return {Out}
-    Stop    = 0x97, // Return {Unt}
-    // Group 7: The Quadlingz
-    Atom    = 0x98, // Atomic Clock Time
-    Tick    = 0x99, // System Clock Time
-    Delta   = 0x9a, // Delta/Emulator time
-    Step    = 0x9b, // Action Step Time
-    // Group 8: The Winkiez
-    Syntax  = 0x9c, // Syntactic and Semantic logging
-    Context = 0x9d, // Context logging
-    Scope   = 0x9e, // Procedural logging
-    OS      = 0x9f, // Operating System logging
-}
-
-
-// Bitsets
-runez :: bit_set[Runevex]
-keyz  :: bit_set[Keyzvex]
-typez :: bit_set[Typevex]
-
-/* Group 1: The Nativez */
+keyz :: bit_set[Keyvex]
 
 
 //null and void *my new "any" type
@@ -242,16 +200,16 @@ Nav     :: proc(x: any) -> (struct {
     w: int, 
     x: int, 
     y: typeid, 
-    z: Keyzvex }) {
+    z: Keyvex }) {
     return struct {
         w: int, 
         x: int, 
         y: typeid, 
-        z: Keyzvex}{
+        z: Keyvex}{
             w = fmt.print(x), 
             x = size_of(x), 
             y = typeid_of(type_of(x)), 
-            z = Keyzvex.NIND
+            z = Keyvex.NIND
         }
 }
 
@@ -383,8 +341,6 @@ Zeroth :: proc() -> (struct {
         }
 }
 
-
-
 main :: proc() {
     t1 := time.now()
 
@@ -398,7 +354,7 @@ main :: proc() {
     my_nav := Nav(100)
     fmt.println(my_nav, "\n")
     
-    for i in Keyzvex {
+    for i in Keyvex {
         fmt.printfln("%v", 
         keyz{i}) // enum{x} -> access nums
         fmt.printfln("This key is :%v bits", size_of(i))
@@ -412,26 +368,3 @@ main :: proc() {
     dift := time.diff(t1, t2)
     fmt.printfln("%v", dift)
 }
-
-// #TODO: I like this implementation I need to do something with 
-// cases that searches hex ranges and applies spacing accordingly
-print_matrix :: proc(m: matrix[4, 4]rune) {
-    for i in 0..<4 {
-        for j in 0..<4 {
-            fmt.print(m[j][i])
-        }
-        fmt.print()
-    }
-    fmt.println()
-}
-
-
-
-print_runes :: proc(){
-    characters := [dynamic]rune{}
-    for i in 0x00..=0x0000ff { // 0xff == 0x0000ff != 0xff0000 != 0xff
-        append(&characters, rune(i))
-        fmt.printfln("%v::%v", i, characters[:])
-    }
-}
-

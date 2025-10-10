@@ -6,73 +6,121 @@ import "core:math"
 import "core:time"
 import "core:log"
 
-
-// Key id colors
-Keyhex :: enum {
-    // Group 1: Native Colors
-    UMBRA  = 0xf0f0f0, // "#f0f0f0"
-    EMBER  = 0xe1e1e1, // "#e1e1e1"
-    VOLTZ  = 0xd2d2d2, // "#d2d2d2"
-    FLAME  = 0xc3c3c3, // "#c3c3c3"
-    // Group 2: Qubit Colors
-    AEROW  = 0xb4b4b4, // "#b4b4b4"
-    WATER  = 0xa5a5a5, // "#a5a5a5"
-    FROST  = 0x969696, // "#969696"
-    STONE  = 0x878787, // "#878787"
-    // Group 3: Knocker Colors
-    METAL  = 0x787878, // "#787878"
-    TOXIN  = 0x696969, // "#696969"
-    SPORE  = 0x5a5a5a, // "#5a5a5a"
-    FLORA  = 0x4b4b4b, // "#4b4b4b"
-    // Group 4: Pilgrimm Colors
-    FAUNA  = 0x3c3c3c, // "#3c3c3c"
-    MUSIC  = 0x2d2d2d, // "#2d2d2d"
-    MAGIC  = 0x1e1e1e, // "#1e1e1e"
-    UNOWN  = 0x0f0f0f, // "#0f0f0f"
-
-    // Group 5: Munchkin Colors
-    MSTRE  = 0xf1f1f1, // "#f1f1f1"
-    HSTRE  = 0xe2e2e2, // "#e2e2e2"
-    SILEN  = 0xd3d3d3, // "#d3d3d3"
-    FORCE  = 0xc4c4c4, // "#c4c4c4"
-    // Group 6: Gillikin Colors
-    BLESS  = 0xb5b5b5, // "#b5b5b5"
-    CURSE  = 0xa6a6a6, // "#a6a6a6"
-    QEMET  = 0x979797, // "#979797"
-    SMITH  = 0x888888, // "#888888"
-    // Group 7: Quadling Colors
-    BRICK  = 0x797979, // "#797979"
-    BLOCK  = 0x6a6a6a, // "#6a6a6a"
-    OCEAN  = 0x5b5b5b, // "#5b5b5b"
-    KNOCK  = 0x4c4c4c, // "#4c4c4c"
-    // Group 8: Winkiez Colors
-    BURNA  = 0x3d3d3d, // "#3d3d3d"
-    SHOCK  = 0x2e2e2e, // "#2e2e2e"
-    LIGHT  = 0x1f1f1f, // "#1f1f1f"
-    CLOCK  = 0x000000, // "#000000"
+Objhex  :: enum {
+    // Group 1: Celestia
+    Dark    = 0x000000, // "#000000"
+    Light   = 0x000000, // "#000000"
+    Thunder = 0x000000, // "#000000"
+    Fire    = 0x000000, // "#000000"
+    // Group 2: Terestria
+    Air     = 0x000000, // "#000000"
+    Water   = 0x000000, // "#000000"
+    Ice     = 0x000000, // "#000000"
+    Rock    = 0x000000, // "#000000"
+    // Group 3: Necromia
+    Metal   = 0x000000, // "#000000"
+    Poison  = 0x000000, // "#000000"
+    Fungi   = 0x000000, // "#000000"
+    Plant   = 0x000000, // "#000000"
+    // Group 4: Hexomnia
+    Beast   = 0x000000, // "#000000"
+    Sound   = 0x000000, // "#000000"
+    Sight   = 0x000000, // "#000000"
+    Soul    = 0x000000, // "#000000"
 }
+
 
 Typehex :: enum {
-    // Group 1: Plexcity Colors
-    Noirz  = 0x111111, // "#111111"
-    Vampz  = 0xf0000f, // "#f0000f"
-    Glamz  = 0x0ff000, // "#0ff000"
-    Kindz  = 0x000ff0, // "#000ff0"
-    // Group 2: Endian Colors
-    Vectz  = 0xf0f000, // "#f0f000"
-    Hectz  = 0x00f0f0, // "#00f0f0"
-    Linkz  = 0xf000f0, // "#f000f0"
-    Tinkz  = 0xffffff, // "#ffffff"
-    // Group 4: Gamebo Colors
-    Catz   = 0xf0110f, // "#f0110f"
-    Dogz   = 0x11f00f, // "#11f00f"
-    Batz   = 0x110ff0, // "#110ff0"
-    Ratz   = 0xf00ff0, // "#f00ff0"
+    // Group 1: Native Colors
+    Umbra  = 0xf0f0f0, // "#f0f0f0"
+    Ember  = 0xe1e1e1, // "#e1e1e1"
+    Voltz  = 0xd2d2d2, // "#d2d2d2"
+    Flame  = 0xc3c3c3, // "#c3c3c3"
+    // Group 2: Qubit Colors
+    Aerow  = 0xb4b4b4, // "#b4b4b4"
+    Hydro  = 0xa5a5a5, // "#a5a5a5"
+    Frost  = 0x969696, // "#969696"
+    Stone  = 0x878787, // "#878787"
+    // Group 3: Knocker Colors
+    Metal  = 0x787878, // "#787878"
+    Toxin  = 0x696969, // "#696969"
+    Spore  = 0x5a5a5a, // "#5a5a5a"
+    Flora  = 0x4b4b4b, // "#4b4b4b"
+    // Group 4: Pilgrimm Colors
+    Fauna  = 0x3c3c3c, // "#3c3c3c"
+    Music  = 0x2d2d2d, // "#2d2d2d"
+    Magic  = 0x1e1e1e, // "#1e1e1e"
+    Unown  = 0x0f0f0f, // "#0f0f0f"
 }
 
-// Valhex is Zedex I wont be making one beyond that
+Arthex :: enum {
+    // Group 5: Munchkin Colors
+    Mstre  = 0xf1f1f1, // "#f1f1f1"
+    Hstre  = 0xe2e2e2, // "#e2e2e2"
+    Siren  = 0xd3d3d3, // "#d3d3d3"
+    Force  = 0xc4c4c4, // "#c4c4c4"
+    // Group 6: Gillikin Colors
+    Bless  = 0xb5b5b5, // "#b5b5b5"
+    Curse  = 0xa6a6a6, // "#a6a6a6"
+    Qemet  = 0x979797, // "#979797"
+    Smith  = 0x888888, // "#888888"
+    // Group 7: Quadling Colors
+    Brick  = 0x797979, // "#797979"
+    Block  = 0x6a6a6a, // "#6a6a6a"
+    Curez  = 0x5b5b5b, // "#5b5b5b"
+    Knock  = 0x4c4c4c, // "#4c4c4c"
+    // Group 8: Winkiez Colors
+    Burna  = 0x3d3d3d, // "#3d3d3d"
+    Shock  = 0x2e2e2e, // "#2e2e2e"
+    Litez  = 0x1f1f1f, // "#1f1f1f"
+    Clock  = 0x000000, // "#000000"
+}
+Kindhex :: enum {
+    // Group 1: Plexci Colors
+    Noirel  = 0x111111, // "#111111" // angel
+    Vampyr  = 0xf0000f, // "#f0000f" // demon
+    Frankz  = 0x0ff000, // "#0ff000" // cherub
+    Kindrz  = 0x000ff0, // "#000ff0" // djinn
+    // Group 2: Endian Colors
+    Vector  = 0xf0f000, // "#f0f000" // beez
+    Hecton  = 0x00f0f0, // "#00f0f0" // giantz
+    Jotanz  = 0xf000f0, // "#f000f0" // antz
+    Golemz  = 0xffffff, // "#ffffff" // ghost
+    // Group 3: Gamebo Colors
+    Tinker  = 0x999999, // "#999999" // machines
+    Chemix  = 0x900009, // "#900009" // poison
+    Kymera  = 0x099000, // "#099000" // chimeras/spore
+    Nymphi  = 0x000990, // "#000990" // plant types
+    // Group 4: Wunder Colors
+    Lagomo  = 0xf00ff0, // "#110ff0" // rabbit/ogres
+    Dracat  = 0xf0110f, // "#11f00f" // cat/dragons
+    Alldog  = 0x11f00f, // "#f0110f" // Talkin dogs/fairy
+    Helbat  = 0x110ff0, // "#f00ff0" // Whatever bats are
+}
+
+Pathhex  :: enum {
+    hack = 0x000000, // "#aaa000"
+    code = 0x080607, // "#a4a607"
+    data = 0x0d082a, // "#a7a82a"
+    navi = 0x0f2e2f, // "#a8ae2f"
+    // Group 2
+    link = 0x2b0a09, // "#129a09"
+    wave = 0x302a0c, // "#159a0c"
+    trip = 0x302c2d, // "#159c2d"
+    save = 0x1f1e1e, // "#089e1e"
+    // Group 3
+    rust = 0x32423b, // "#15923b"
+    sick = 0x2b3c43, // "#169c43"
+    grow = 0x545151, // "#272151"
+    risk = 0x505a62, // "#252a62"
+    // Group 4
+    join = 0x534c4d, // "#272c4d"
+    call = 0x787b86, // "#393b86"
+    emit = 0x707070, // "#353070"
+    fall = 0x888585, // "#444585"
+}
+
 Zedex :: enum {
-    // === Blacks, Grays, and Near-Blacks (Neutral) ===
     // Group 1
     _ = 0x000000, // "#000000"
     _ = 0x080607, // "#080607"
@@ -98,8 +146,6 @@ Zedex :: enum {
     _ = 0xb4c7b3, // "#b4c7b3"
     _ = 0xece6e5, // "#ece6e5"
     _ = 0xff0800, // "#ff0800"
-
-    // === Reds and Deep Pinks/Magentas ===
     // Group 6
     _ = 0xe82809, // "#e82809"
     _ = 0xcd2f09, // "#cd2f09"
@@ -120,8 +166,6 @@ Zedex :: enum {
     _ = 0x4f0304, // "#4f0304"
     _ = 0xb22222, // "#b22222"
     _ = 0x671f20, // "#671f20"
-
-    // === Brown-Reds and Earth Tones ===
     // Group 10
     _ = 0x6b3431, // "#6b3431"
     _ = 0x463534, // "#463534"
@@ -137,8 +181,6 @@ Zedex :: enum {
     _ = 0x967187, // "#967187"
     _ = 0x8a6d72, // "#8a6d72"
     _ = 0xcea79f, // "#cea79f"
-
-    // === Oranges and Orange-Reds ===
     // Group 13
     _ = 0xb83025, // "#b83025"
     _ = 0x973629, // "#973629"
@@ -164,8 +206,6 @@ Zedex :: enum {
     _ = 0x6b3509, // "#6b3509"
     _ = 0xd16b0f, // "#d16b0f"
     _ = 0xb7410e, // "#b7410e"
-
-    // === Yellows and Browns (Orange-Yellows) ===
     // Group 18
     _ = 0xa0532f, // "#a0532f"
     _ = 0xa77157, // "#a77157"
@@ -186,8 +226,6 @@ Zedex :: enum {
     _ = 0xe8d5a9, // "#e8d5a9"
     _ = 0x97875d, // "#97875d"
     _ = 0xbe7420, // "#be7420"
-
-    // === Bright Yellows and Yellow-Greens ===
     // Group 22
     _ = 0xf59529, // "#f59529"
     _ = 0x89570f, // "#89570f"
@@ -228,8 +266,6 @@ Zedex :: enum {
     _ = 0x9ba30b, // "#9ba30b"
     _ = 0xb9c60c, // "#b9c60c"
     _ = 0xd7ed11, // "#d7ed11"
-
-    // === Greens ===
     // Group 30
     _ = 0x596308, // "#596308"
     _ = 0x788809, // "#788809"
@@ -270,8 +306,6 @@ Zedex :: enum {
     _ = 0x08ce08, // "#08ce08"
     _ = 0x07ed08, // "#07ed08"
     _ = 0x056f06, // "#056f06"
-
-    // === Cyan and Aqua (Blue-Greens) ===
     // Group 38
     _ = 0x052f07, // "#052f07"
     _ = 0x09f02c, // "#09f02c"
@@ -312,7 +346,6 @@ Zedex :: enum {
     _ = 0x2e4f52, // "#2e4f52"
     _ = 0x457276, // "#457276"
     _ = 0x579aa2, // "#579aa2"
-    // === Blues ===
     // Group 46
     _ = 0x73d1db, // "#73d1db"
     _ = 0x085c67, // "#085c67"
@@ -348,7 +381,6 @@ Zedex :: enum {
     _ = 0x0302ae, // "#0302ae"
     _ = 0xa4a4cb, // "#a4a4cb"
     _ = 0x0302d0, // "#0302d0"
-    // === Indigos, Violets and Magentas ===
     // Group 53
     _ = 0x0202f3, // "#0202f3"
     _ = 0x04024e, // "#04024e"
@@ -419,4 +451,9 @@ Zedex :: enum {
     _ = 0xab7395, // "#ab7395"
     _ = 0xa5497f, // "#a5497f"
     _ = 0xffffff, // "#ffffff"
+}
+
+
+main :: proc() {
+    
 }

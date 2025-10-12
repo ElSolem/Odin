@@ -217,7 +217,7 @@ Zeroth :: proc() -> (struct {
     a: bool, b: int , c: f64 , d: f64 , 
     e: f64 , f: f64 , g: f64 , h: f64 , 
     i: bool, j: bool, k: f64 , l: i64 ,
-    w: int , x: i64 , y: i64 , z: f64 ,}) 
+    w: int , x: i64 , y: i64 , z: f64 ,}, bool) 
 {
     alpha := time.now()
     
@@ -328,7 +328,32 @@ Zeroth :: proc() -> (struct {
     // Z is a rand time seed/ a rand seed generator. 
     z := math.pow(time.duration_microseconds(delta), 3)
     //------------------------\\
+    //---------------------------------------------------------\\
 
+
+    // 4D Initialiazation
+    Fourdime :: proc() -> bool {
+        now := f64(time.now()._nsec)
+        fibprime := 2.971215073e9
+        max := fibprime * now //Randomized "4D" number
+        for x in 0..<max {
+            for y in 0..<max {
+                nx := x
+                ny := y
+                return ((math.log(math.tan((nx * nx)), 0) == math.log(math.tan((nx /ny)), 0)) || 
+                 (math.log(math.tan((nx * ny)), 0) == math.log(math.tan((nx /ny)), 0)) ||
+                 (math.log(math.tan((ny * ny)), 0) == math.log(math.tan((nx /ny)), 0)) || 
+                 (math.log(math.tan((nx * nx)), 0) != math.log(math.tan((nx /ny)), 0)) ||
+                 (math.log(math.tan((nx * ny)), 0) != math.log(math.tan((nx /ny)), 0)) ||
+                 (math.log(math.tan((ny * ny)), 0) != math.log(math.tan((nx /ny)), 0)))
+            }
+        }
+        time1 := (fibprime * now)
+        time2 := (fibprime / now)
+        return (math.log(math.tan((time1 * time2)), 0) == math.log(math.tan((time1 / time2)), 0))
+    }
+    //---------------------------------------------------------\\
+    //---------------------------------------------------------\\
     return struct {
         a: bool, b: int , c: f64 , d: f64 , 
         e: f64 , f: f64 , g: f64 , h: f64 , 
@@ -338,20 +363,20 @@ Zeroth :: proc() -> (struct {
             e = e, f = f, g = g, h = h, 
             i = i, j = j, k = k, l = l,
             w = w, x = x, y = y, z = z,
-        }
+        }, Fourdime()
 }
 
 main :: proc() {
     t1 := time.now()
 
-    zeroth := Zeroth()
+    zeroth, zok := Zeroth()
     fmt.println(zeroth, "\n")
 
     nav := Nav(zeroth)
     fmt.printfln("%v\n", nav)
 
 
-    my_nav := Nav(100)
+    my_nav := nav.z
     fmt.println(my_nav, "\n")
     
     for i in Keyvex {

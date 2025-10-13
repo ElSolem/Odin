@@ -19,6 +19,7 @@ print_runes :: proc(){
     for i in 0x00..=0x0000ff { // 0xff == 0x0000ff != 0xff0000 != 0xff
         append(&characters, rune(i))
         fmt.printfln("%v::%v", i, characters[:])
+        fmt.println(size_of(characters))
     }
 }
 

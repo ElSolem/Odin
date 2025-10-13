@@ -196,6 +196,7 @@ keyz :: bit_set[Keyvex]
 
 //null and void *my new "any" type
 // it returns a nav
+// It can be optimized :)
 Nav     :: proc(x: any) -> (struct {
     w: int, 
     x: int, 

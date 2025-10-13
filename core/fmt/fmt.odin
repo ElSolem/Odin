@@ -3124,7 +3124,7 @@ fmt_value :: proc(fi: ^Info, v: any, verb: rune) {
 _cq_should_print_intermediate_plus :: proc "contextless" (fi: ^Info, f: f64) -> bool {
 	if !fi.plus && f >= 0 {
 		#partial switch math.classify(f) {
-		case .Neg_Zero, .Inf:
+		case .NaN, .Inf:
 			// These two classes print their own signs.
 			return false
 		case:

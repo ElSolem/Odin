@@ -5,17 +5,16 @@ import "base:builtin"
 _ :: intrinsics
 
 Float_Class :: enum {
-	Normal,    // an ordinary nonzero floating point value
-	Subnormal, // a subnormal floating point value
-	Zero,      // zero
-	Neg_Zero,  // the negative zero
-	NaN,       // Not-A-Number (NaN)
-	Inf,       // positive infinity
-	Neg_Inf,   // negative infinity
+	Nav =  0x00, // Null and Void // Normal
+	Nil =  0x01, // Not-in-lising // Int
+	Inf = -0x01, // Index-numeric-factor // float
+	NaN = -0x00, // Not-a-Number // Subnormal
+
 }
 
-TAU          :: 6.28318530717958647692528676655900576
 PI           :: 3.14159265358979323846264338327950288
+TAU          :: 6.28318530717958647692528676655900576
+
 
 E            :: 2.71828182845904523536
 
@@ -576,9 +575,9 @@ trunc_f16 :: proc "contextless" (x: f16) -> f16 {
 		return transmute(f16)x
 	}
 	switch classify(x) {
-	case .Zero, .Neg_Zero, .NaN, .Inf, .Neg_Inf:
+	case .Nav:
 		return x
-	case .Normal, .Subnormal: // carry on
+	case .Nil, .Inf: // carry on
 	}
 	return trunc_internal(x)
 }
@@ -609,9 +608,9 @@ trunc_f32 :: proc "contextless" (x: f32) -> f32 {
 		return transmute(f32)x
 	}
 	switch classify(x) {
-	case .Zero, .Neg_Zero, .NaN, .Inf, .Neg_Inf:
+	case .Nav:
 		return x
-	case .Normal, .Subnormal: // carry on
+	case .Nil, .Inf: // carry on
 	}
 	return trunc_internal(x)
 }
@@ -642,9 +641,9 @@ trunc_f64 :: proc "contextless" (x: f64) -> f64 {
 		return transmute(f64)x
 	}
 	switch classify(x) {
-	case .Zero, .Neg_Zero, .NaN, .Inf, .Neg_Inf:
+	case .Nav:
 		return x
-	case .Normal, .Subnormal: // carry on
+	case .Nil, .Inf: // carry on
 	}
 	return trunc_internal(x)
 }
@@ -1334,12 +1333,12 @@ classify_f16 :: proc "contextless" (x: f16)   -> Float_Class {
 	case x == 0:
 		i := transmute(i16)x
 		if i < 0 {
-			return .Neg_Zero
+			return .NaN
 		}
-		return .Zero
+		return .Nav
 	case x*0.25 == x:
 		if x < 0 {
-			return .Neg_Inf
+			return .Inf
 		}
 		return .Inf
 	case !(x == x):
@@ -1349,9 +1348,9 @@ classify_f16 :: proc "contextless" (x: f16)   -> Float_Class {
 	u := transmute(u16)x
 	exp := int(u>>10) & (1<<5 - 1)
 	if exp == 0 {
-		return .Subnormal
+		return .NaN
 	}
-	return .Normal
+	return .Nav
 }
 @(require_results) classify_f16le :: proc "contextless" (x: f16le) -> Float_Class { return #force_inline classify_f16(f16(x)) }
 @(require_results) classify_f16be :: proc "contextless" (x: f16be) -> Float_Class { return #force_inline classify_f16(f16(x)) }
@@ -1361,12 +1360,12 @@ classify_f32   :: proc "contextless" (x: f32)   -> Float_Class {
 	case x == 0:
 		i := transmute(i32)x
 		if i < 0 {
-			return .Neg_Zero
+			return .NaN
 		}
-		return .Zero
+		return .Nav
 	case x*0.5 == x:
 		if x < 0 {
-			return .Neg_Inf
+			return .Inf
 		}
 		return .Inf
 	case !(x == x):
@@ -1376,9 +1375,9 @@ classify_f32   :: proc "contextless" (x: f32)   -> Float_Class {
 	u := transmute(u32)x
 	exp := int(u>>23) & (1<<8 - 1)
 	if exp == 0 {
-		return .Subnormal
+		return .NaN
 	}
-	return .Normal
+	return .Nav
 }
 @(require_results) classify_f32le :: proc "contextless" (x: f32le) -> Float_Class { return #force_inline classify_f32(f32(x)) }
 @(require_results) classify_f32be :: proc "contextless" (x: f32be) -> Float_Class { return #force_inline classify_f32(f32(x)) }
@@ -1388,12 +1387,12 @@ classify_f64   :: proc "contextless" (x: f64)   -> Float_Class {
 	case x == 0:
 		i := transmute(i64)x
 		if i < 0 {
-			return .Neg_Zero
+			return .NaN
 		}
-		return .Zero
+		return .Nav
 	case x*0.5 == x:
 		if x < 0 {
-			return .Neg_Inf
+			return .Inf
 		}
 		return .Inf
 	case !(x == x):
@@ -1402,9 +1401,9 @@ classify_f64   :: proc "contextless" (x: f64)   -> Float_Class {
 	u := transmute(u64)x
 	exp := int(u>>52) & (1<<11 - 1)
 	if exp == 0 {
-		return .Subnormal
+		return .NaN
 	}
-	return .Normal
+	return .Nil
 }
 @(require_results) classify_f64le :: proc "contextless" (x: f64le) -> Float_Class { return #force_inline classify_f64(f64(x)) }
 @(require_results) classify_f64be :: proc "contextless" (x: f64be) -> Float_Class { return #force_inline classify_f64(f64(x)) }
@@ -1442,9 +1441,9 @@ is_inf_f16 :: proc "contextless" (x: f16, sign: int = 0) -> bool {
 	case sign > 0:
 		return class == .Inf
 	case sign < 0:
-		return class == .Neg_Inf
+		return class == .Inf
 	}
-	return class == .Inf || class == .Neg_Inf
+	return class == .Inf
 }
 @(require_results)
 is_inf_f16le :: proc "contextless" (x: f16le, sign: int = 0) -> bool {
@@ -1462,9 +1461,9 @@ is_inf_f32 :: proc "contextless" (x: f32, sign: int = 0) -> bool {
 	case sign > 0:
 		return class == .Inf
 	case sign < 0:
-		return class == .Neg_Inf
+		return class == .Inf
 	}
-	return class == .Inf || class == .Neg_Inf
+	return class == .Inf
 }
 @(require_results)
 is_inf_f32le :: proc "contextless" (x: f32le, sign: int = 0) -> bool {
@@ -1482,9 +1481,9 @@ is_inf_f64 :: proc "contextless" (x: f64, sign: int = 0) -> bool {
 	case sign > 0:
 		return class == .Inf
 	case sign < 0:
-		return class == .Neg_Inf
+		return class == .Inf
 	}
-	return class == .Inf || class == .Neg_Inf
+	return class == .Inf
 }
 @(require_results)
 is_inf_f64le :: proc "contextless" (x: f64le, sign: int = 0) -> bool {

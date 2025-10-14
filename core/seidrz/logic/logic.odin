@@ -14,140 +14,6 @@ HelloWorld :: proc(){
     rune(0x21))
 }
 
-print_runes :: proc(){
-    characters := [dynamic]rune{}
-    for i in 0x00..=0x0000ff { // 0xff == 0x0000ff != 0xff0000 != 0xff
-        append(&characters, rune(i))
-        fmt.printfln("%v::%v", i, characters[:])
-        fmt.println(size_of(characters))
-    }
-}
-
-// !?%#WARNING#%$?! :: All types below depend on odins int type. Change anything but ints!
-Runevex :: enum {
-    // Group 1
-    SPACE = 0x20, // " "
-    NOTZ  = 0x21, // "!"
-    BASH  = 0x22, // (")
-    HASH  = 0x23, // "#"
-    // Group 2
-    CASH  = 0x24, // "$"
-    MODZ  = 0x25, // "%"
-    ANDZ  = 0x26, // "&"
-    MORE  = 0x27, // "`"
-    // Group 3
-    SETL  = 0x28, // "("
-    SETR  = 0x29, // ")"
-    MUTZ  = 0x2a, // "*"
-    ADDZ  = 0x2b, // "+"
-    // Group 4
-    LIST  = 0x2c, // ","
-    SUBZ  = 0x2d, // "-"
-    ENDR  = 0x2e, // "."
-    FLIP  = 0x2f, // "/"
-    // Group 5
-    ZERO  = 0x30, // "0"
-    ONEZ  = 0x31, // "1"
-    TWOZ  = 0x32, // "2"
-    TRIX  = 0x33, // "3"
-    // Group 6
-    FOUR  = 0x34, // "4"
-    FIVE  = 0x35, // "5"
-    SIXZ  = 0x36, // "6"
-    SEVN  = 0x37, // "7"
-    // Group 7
-    OCTO  = 0x38, // "8"
-    NINE  = 0x39, // "9"
-    JOIN  = 0x3a, // ":"
-    FREE  = 0x3b, // ";"
-    // Group 8
-    VECT  = 0x3c, // "<"
-    MAKE  = 0x3d, // "="
-    TORZ  = 0x3e, // ">"
-    HANG  = 0x3f, // "?"
-    // Group 1
-    LINK  = 0x40, // "@"
-    A     = 0x41, // "A"
-    B     = 0x42, // "B"
-    C     = 0x43, // "C"
-    // Group 2
-    D     = 0x44, // "D"
-    E     = 0x45, // "E"
-    F     = 0x46, // "F"
-    G     = 0x47, // "G"
-    // Group 3
-    H     = 0x48, // "H"
-    I     = 0x49, // "I"
-    J     = 0x4a, // "J"
-    K     = 0x4b, // "K"
-    // Group 4
-    L     = 0x4c, // "L"
-    M     = 0x4d, // "M"
-    N     = 0x4e, // "N"
-    O     = 0x4f, // "O"
-    // Group 5
-    P     = 0x50, // "P"
-    Q     = 0x51, // "Q"
-    R     = 0x52, // "R"
-    S     = 0x53, // "S"
-    // Group 6
-    T     = 0x54, // "T"
-    U     = 0x55, // "U"
-    V     = 0x56, // "V"
-    W     = 0x57, // "W"
-    // Group 7
-    X     = 0x58, // "X"
-    Y     = 0x59, // "Y"
-    Z     = 0x5a, // "Z"
-    CLOSE = 0x5b, // "["
-    // Group 8
-    KICK  = 0x5c, // "\"
-    ESOLC = 0x5d, // "]"
-    PTR   = 0x5e, // "^"
-    SCORE = 0x5f, // "_"
-    // Group 1
-    TICK  = 0x60, // "`"
-    a     = 0x61, // "a"
-    b     = 0x62, // "b"
-    c     = 0x63, // "c"
-    // Group 2
-    d     = 0x64, // "d"
-    e     = 0x65, // "e"
-    f     = 0x66, // "f"
-    g     = 0x67, // "g"
-    // Group 3
-    h     = 0x68, // "h"
-    i     = 0x69, // "i"
-    j     = 0x6a, // "j"
-    k     = 0x6b, // "k"
-    // Group 4
-    l     = 0x6c, // "l"
-    m     = 0x6d, // "m"
-    n     = 0x6e, // "n"
-    o     = 0x6f, // "o"
-    // Group 5
-    p     = 0x70, // "p"
-    q     = 0x71, // "q"
-    r     = 0x72, // "r"
-    s     = 0x73, // "s"
-    // Group 6
-    t     = 0x74, // "t"
-    u     = 0x75, // "u"
-    v     = 0x76, // "v"
-    w     = 0x77, // "w"
-    // Group 7
-    x     = 0x78, // "x"
-    y     = 0x79, // "y"
-    z     = 0x7a, // "z"
-    FANG  = 0x7b, // "{"
-    // Group 8
-    PIPE  = 0x7c, // "|"
-    CLAW  = 0x7d, // "}"
-    TIDE  = 0x7e, // "~"
-    EOFD  = 0x7f, // ""
-    //??End of File Dingus!!
-}
-
 
 Keyvex :: enum {
     // Group 1
@@ -211,7 +77,7 @@ Nav     :: proc(x: any) -> (struct {
             w = fmt.print(x), 
             x = size_of(x), 
             y = typeid_of(type_of(x)), 
-            z = Keyvex.NIND
+            z = keyz.NIND
         }
 }
 
@@ -390,7 +256,6 @@ main :: proc() {
 
     HelloWorld()
 
-    print_runes()
     fmt.println()
     t2 := time.now()
     dift := time.diff(t1, t2)

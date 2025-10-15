@@ -64,7 +64,7 @@ keyz :: bit_set[Keyvex]
 //null and void *my new "any" type
 // it returns a nav
 // It can be optimized :)
-Nav     :: proc(x: any) -> (struct {
+Nth     :: proc(x: any) -> (struct {
     w: int, 
     x: int, 
     y: typeid, 
@@ -240,7 +240,7 @@ main :: proc() {
     zeroth, zok := Zeroth()
     fmt.println(zeroth, "\n")
 
-    nav := Nav(zeroth)
+    nav := Nth(zeroth)
     fmt.printfln("%v\n", nav)
 
 

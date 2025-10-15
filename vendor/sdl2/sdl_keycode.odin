@@ -297,7 +297,7 @@ Keycode :: enum i32 {
 	AUDIOFASTFORWARD = auto_cast (Scancode.AUDIOFASTFORWARD|SCANCODE_MASK),
 }
 
-KeymodFlag :: enum u16 {
+Keymodz :: enum u16 {
 	LSHIFT   = 0x0,
 	RSHIFT   = 0x1,
 	LCTRL    = 0x6,
@@ -312,7 +312,7 @@ KeymodFlag :: enum u16 {
 	RESERVED = 0xf,
 }
 
-Keymod :: distinct bit_set[KeymodFlag; u16]
+Keymod :: distinct bit_set[Keymodz]
 
 KMOD_NONE     :: Keymod{}
 KMOD_LSHIFT   :: Keymod{.LSHIFT}

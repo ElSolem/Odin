@@ -14,6 +14,30 @@ HelloWorld :: proc(){
     rune(0x21))
 }
 
+scancode :: enum {
+    start = 0x00,
+    endof = 0xfff,
+}
+
+Scancode :: proc()-> (struct{a: #sparse[scancode]rune, b:bool}) {
+    table: #sparse[scancode]rune
+    for i in scancode.start..<scancode.endof {
+        code := scancode(i)
+        table[code] = rune(code) 
+    }
+    for k, v in table {
+        if u32(k) == u32(v) {
+            return {table, true}
+        }
+    }
+
+    return {table, false}
+}
+
+print_scancode :: proc(x: rune) -> (bool) {
+    return u32(scancode(x)) == u32(scancode(x))
+}
+
 
 Keyvex :: enum {
     // Group 1

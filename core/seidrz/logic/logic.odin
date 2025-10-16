@@ -16,7 +16,7 @@ HelloWorld :: proc(){
 
 scancode :: enum {
     start = 0x00,
-    endof = 0xfff,
+    endof = 0xffff,
 }
 
 Scancode :: proc()-> (struct{a: #sparse[scancode]rune, b:bool}) {
@@ -34,10 +34,16 @@ Scancode :: proc()-> (struct{a: #sparse[scancode]rune, b:bool}) {
     return {table, false}
 }
 
-print_scancode :: proc(x: rune) -> (bool) {
+check_scancode :: proc(x: rune) -> (bool) {
     return u32(scancode(x)) == u32(scancode(x))
 }
 
+print_scancode :: proc(){
+    table := Scancode().a
+    for k, v in table{
+        fmt.printfln("%02x === %v", k, rune(v))
+    }
+}
 
 Keyvex :: enum {
     // Group 1
@@ -84,6 +90,14 @@ Keyvex :: enum {
 
 keyz :: bit_set[Keyvex]
 
+print_keyz :: proc() {
+    for i in Keyvex {
+        fmt.printfln("%v", 
+        keyz{i}) // enum{x} -> access nums
+        fmt.printfln("This key is :%v bits", size_of(i))
+    }
+    fmt.printfln("keyz are the size of :%v bits", size_of(keyz))
+}
 
 //null and void *my new "any" type
 // it returns a nav
@@ -98,7 +112,7 @@ Nth     :: proc(x: any) -> (struct {
         x: int, 
         y: typeid, 
         z: Keyvex}{
-            w = fmt.print(x), 
+            w = fmt.println(x), 
             x = size_of(x), 
             y = typeid_of(type_of(x)), 
             z = keyz.NIND
@@ -262,22 +276,16 @@ main :: proc() {
     t1 := time.now()
 
     zeroth, zok := Zeroth()
-    fmt.println(zeroth, "\n")
+    //fmt.println(zeroth, "\n")
 
     nav := Nth(zeroth)
-    fmt.printfln("%v\n", nav)
-
+    //fmt.printfln("%v\n", nav)
 
     my_nav := nav.z
-    fmt.println(my_nav, "\n")
+    fmt.printfln("%v", my_nav)
     
-    for i in Keyvex {
-        fmt.printfln("%v", 
-        keyz{i}) // enum{x} -> access nums
-        fmt.printfln("This key is :%v bits", size_of(i))
-    }
-    fmt.printfln("keyz are the size of :%v bits", size_of(keyz))
-
+    //print_keyz()
+    print_scancode()
     HelloWorld()
 
     fmt.println()

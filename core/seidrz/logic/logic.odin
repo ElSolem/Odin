@@ -247,11 +247,11 @@ Zeroth :: proc() -> (struct {
                 nx := x
                 ny := y
                 return ((math.log(math.tan((nx * nx)), 0) == math.log(math.tan((nx /ny)), 0)) || 
-                 (math.log(math.tan((nx * ny)), 0) == math.log(math.tan((nx /ny)), 0)) ||
-                 (math.log(math.tan((ny * ny)), 0) == math.log(math.tan((nx /ny)), 0)) || 
-                 (math.log(math.tan((nx * nx)), 0) != math.log(math.tan((nx /ny)), 0)) ||
-                 (math.log(math.tan((nx * ny)), 0) != math.log(math.tan((nx /ny)), 0)) ||
-                 (math.log(math.tan((ny * ny)), 0) != math.log(math.tan((nx /ny)), 0)))
+                        (math.log(math.tan((nx * ny)), 0) == math.log(math.tan((nx /ny)), 0)) ||
+                        (math.log(math.tan((ny * ny)), 0) == math.log(math.tan((nx /ny)), 0)) || 
+                        (math.log(math.tan((nx * nx)), 0) != math.log(math.tan((nx /ny)), 0)) ||
+                        (math.log(math.tan((nx * ny)), 0) != math.log(math.tan((nx /ny)), 0)) ||
+                        (math.log(math.tan((ny * ny)), 0) != math.log(math.tan((nx /ny)), 0)))
             }
         }
         time1 := (fibprime * now)

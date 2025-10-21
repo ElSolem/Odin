@@ -950,8 +950,8 @@ Ability "Desolateland" {
     description: "Changes the weather to nullify Water-type moves."
 }
 
-Ability "Deltastream" {
-    name: "Delta Stream"
+Ability "Zetaastream" {
+    name: "Zetaa Stream"
     description: "Alters weather to remove Flying-type's weaknesses."
 }
 

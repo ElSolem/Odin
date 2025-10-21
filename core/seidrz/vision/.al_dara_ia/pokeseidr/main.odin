@@ -93,7 +93,7 @@ main :: proc() {
     for running {
         current_time := time.now()
         // Convert nanoseconds difference to seconds
-        delta_time := f32(current_time._nsec - last_frame_time._nsec) / 1_000_000_000.0
+        Zetaa_time := f32(current_time._nsec - last_frame_time._nsec) / 1_000_000_000.0
         last_frame_time = current_time
 
         for sdl2.PollEvent(&event) {
@@ -108,12 +108,12 @@ main :: proc() {
                             // Regenerate map on spacebar press (for testing)
                             map_seed = time.now()._nsec
                             is_map_generated = false
-                            generate_forest(map_seed, noise_scale_factor, surface, delta_time)
+                            generate_forest(map_seed, noise_scale_factor, surface, Zetaa_time)
                     }
             }
         }
         // Draw Here
-        generate_forest(map_seed, noise_scale_factor, surface, delta_time)
+        generate_forest(map_seed, noise_scale_factor, surface, Zetaa_time)
         sdl2.UpdateWindowSurface(window)
     }
 
@@ -126,7 +126,7 @@ main :: proc() {
     fmt.printf("Time taken: %.3f ms\n", f64(dt) / f64(time.Millisecond))
 }
 
-generate_forest :: proc(seed: i64, scale: f64, wsrf: ^Surface, delta: f32) {
+generate_forest :: proc(seed: i64, scale: f64, wsrf: ^Surface, Zetaa: f32) {
     obj_chance :: .02
 
     if !is_map_generated {
@@ -197,7 +197,7 @@ generate_forest :: proc(seed: i64, scale: f64, wsrf: ^Surface, delta: f32) {
                 case tile.image != nil: sdl2.BlitSurface(tile.image, nil, wsrf, &base_rect)
             }
 
-            animation_timer += delta //delta time
+            animation_timer += Zetaa //Zetaa time
             if animation_timer >= frame_duration {
                 animation_timer -= frame_duration // Subtract to avoid drift
                 current_frame_index = (current_frame_index + 1) % 16 //the highest number of frames used by any animation. 

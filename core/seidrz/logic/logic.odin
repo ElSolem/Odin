@@ -6,6 +6,8 @@ import "core:math"
 import "core:time"
 import "core:log"
 
+
+
 HelloWorld :: proc(){
     // Runic 'Hello World!'
     fmt.printfln("%v%v%v%v%v %v%v%v%v%v%v\n", 
@@ -132,7 +134,7 @@ Zeroth :: proc() -> (struct {
     // cause they take care of all the silly math stuff 
     // and math is from hell
     tick  := int(alpha._nsec) // Delta = tick
-    I     := imag(complex(0.0, 1.0)) // Value = i
+    I     := 0.1 // Value = i
     pie   := math.PI 
     //-------------------------------------------\\
     
@@ -209,7 +211,7 @@ Zeroth :: proc() -> (struct {
 
 
     // Nbody Solution // cos(xy) + isin(xy) * t :: gives you a unit circle/oval based on coordinates
-    // If applied to other things this is the hear of n-body solutions
+    // If applied to other things this is the heart of n-body solutions
     k     := (math.cos(f64(a) * c) + (I * math.sin(f64(a) * c))) * f64(tick)
     //--------------------------------------------------------\\
 
@@ -221,9 +223,6 @@ Zeroth :: proc() -> (struct {
 
 
     // These are meant to be Atomic, Tick , Delta and Step time
-    // They are different enough and may not vary much cause of
-    // above codes being modifiers and normalizers. These are meant
-    // as more reference than real implementation, but may change when i do.
     l     := time.to_unix_nanoseconds(omega)
     w     := tick
     x     := i64(delta)
@@ -282,12 +281,11 @@ main :: proc() {
     //fmt.printfln("%v\n", nav)
 
     my_nav := nav.z
-    fmt.printfln("%v", my_nav)
+    //fmt.printfln("%v", my_nav)
     
     //print_keyz()
-    print_scancode()
+    //print_scancode()
     HelloWorld()
-
     fmt.println()
     t2 := time.now()
     dift := time.diff(t1, t2)

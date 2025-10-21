@@ -1,46 +1,45 @@
 # MewTex: Comptime Evaluation 
 
 # MewTex CTE Master Grid
-// (36 base types × 8 symbols)
+// (32 base types × 8 symbols)
 
 ## MewTex: Key Graphs
 
-| Pattern | Name       | Encoding                  | Meaning / Notes               |
-|---------|------------|---------------------------|-------------------------------|
-| NIND    | Nav        | `${0}`                    | Null And Void                 |
-| NISD    | Nil        | `${1}`                    | Not In Listing                |
-| NIMD    | Inf        | `${-1}`                   | Incremental Numeric Factors   |
-| NIPD    | Nan        | `${-0}`                   | Not-a-Number / invalid        |
-| SIND    | Tera       | `${0.1}`                  | Quaternary boolean            |
-| SISD    | Deci       | `${-0.1}`                 | Binary Bitz                   |
-| SIMD    | Vex        | `${1 + i}`                | Vectors / Complex nums        |
-| SIPD    | Hex        | `${0xff}`                 | Hectares / Hex Expressions    |
-| MIND    | Plex       | `$"(:#:)"`                | Procedural Lexical Expressions|
-| MISD    | Lex        | `${(:":)}`                | String / lexeme               |
-| MIMD    | Tex        | `$[(:*:)]`                | Composite container           |
-| MIPD    | Dex        | `$<(:/:)>`                | Union / Switch type           |
-| PIND    | Simplex    | `${[plex]lex}`            | Enumerated type               |
-| PISD    | Memplex    | `${[plex]tex}`            | Structured record             |
-| PIMD    | Perplex    | `${[plex]dex}`            | Key–value map                 |
-| PIPD    | Dieplex    | `${[plex]plex}`           | Union / sum type              |
-| AIND    | Ant        | `$<[{(any)}]>`            | Atomic Number Type            |
-| AISD    | Ent        | `$<[{(entity)}]>`         | Entity Number Type            |
-| AIMD    | Out        | `$<[{(output)}]>`         | Orthogonal Number Type        |
-| AIPD    | Int        | `$<[{(input)}]>`          | Unique Number Type            |
-| QIND    | Play       | `$<{?}>`                  | Run / execute                 |
-| QISD    | Pause      | `$<{.}>`                  | Suspend / wait                |
-| QIMD    | Skip       | `$<{~}>`                  | Skip / jump                   |
-| QIPD    | Stop       | `$<{!}>`                  | Terminate                     |
-| TIND    | Atom       | `$#Time.atom#`            | Atomic time unit              |
-| TISD    | Tick       | `$#Time.sys#`             | System clock                  |
-| TIMD    | Delta      | `$#Time.delta#`           | Delta / frame step            |
-| TIPD    | Step       | `$#Time.step#`            | Incremental step              |
-| EIND    | Syntax     | `$(%Log.syntax%)`         | Syntax error                  |
-| EISD    | Context    | `${%Log.context%}`        | Contextual error              |
-| EIMD    | Scope      | `$[%Log.scope%]`          | Scope / namespace error       |
-| EIPD    | OS         | `$<%Log.os%>`             | System / environment error    |
-|---------|------------|---------------------------|-------------------------------|
-
+| Opcode | Name  | Encoding           | Meaning / Notes                 |
+| ------ | ----- | ------------------ | ------------------------------- |
+| NIND   | Navz  | `${0}`             | No-Instruction-No-Data          |
+| NISD   | Nilz  | `${1}`             | No-Instruction-Single-Data      |
+| NIMD   | Infz  | `${-1}`            | No-Instruction-Multiple-Data    |
+| NIPD   | Nanz  | `${-0}`            | No-Instruction-Proc-Data        |
+| SIND   | Link  | `${0.1}`           | Single-Instruction-No-Data      |
+| SISD   | Wave  | `${-0.1}`          | Single-Instruction-Single-Data  |
+| SIMD   | Path  | `${1 + i}`         | Single-Instruction-Multi-Data   |
+| SIPD   | Save  | `${0xff}`          | Single-Instruction-Proc-Data    |
+| MIND   | Rust  | `$"(:#:)"`         | Multi-Instruction-No-Data       |
+| MISD   | Sick  | `${(:":)}`         | Multi-Instruction-Single-Data   |
+| MIMD   | Grow  | `$[(:*:)]`         | Multi-Instruction-Multi-Data    |
+| MIPD   | Risk  | `$<(:/:)>`         | Multi-Instruction-Proc-Data     |
+| PIND   | Join  | `${[plex]}`        | Proc-Instruction-No-Data        |
+| PISD   | Call  | `${[plex]}`        | Proc-Instruction-Single-Data    |
+| PIMD   | Cast  | `${[plex]}`        | Proc-Instruction-Multiple-Data  |
+| PIPD   | Fall  | `${[plex]}`        | Proc-Instruction-Proc-Data      |
+| AIND   | Antz  | `$<[{(any)}]>`     | Atomic-Instruction-No-Data      |
+| AISD   | Entz  | `$<[{(entity)}]>`  | Atomic-Instruction-Single-Data  |
+| AIMD   | Ontz  | `$<[{(output)}]>`  | Atomic-Instruction-Multi-Data   |
+| AIPD   | Intz  | `$<[{(input)}]>`   | Atomic-Instruction-Proc-Data    |
+| QIND   | Comb  | `$<{?}>`           | Quantum-Instruction-No-Data     |
+| QISD   | Hive  | `$<{.}>`           | Quantum-Instruction-Single-Data |
+| QIMD   | Crib  | `$<{~}>`           | Quantum-Instruction-Multi-Data  |
+| QIPD   | Nest  | `$<{!}>`           | Quantum-Instruction-Proc-Data   |
+| TIND   | Atom  | `$#Time.atom#`     | Time-Instruction-No-Data        |
+| TISD   | Tick  | `$#Time.sys#`      | Time-Instruction-Single-Data    |
+| TIMD   | Delt  | `$#Time.delta#`    | Time-Instruction-Multiple-Data  |
+| TIPD   | Step  | `$#Time.step#`     | Time-Instruction-Proc-Data      |
+| EIND   | Code  | `$(%code%)`        | Error-Instruction-No-Data       |
+| EISD   | Data  | `${%data%}`        | Error-Instruction-Single-Data   |
+| EIMD   | Hack  | `$[%hack%]`        | Error-Instruction-Multiple-Data |
+| EIPD   | File  | `$<%file%>`        | Error-Instruction-Proc-Data     |
+| ------ | ----- | ------------------ | ------------------------------- |
 ## Symbols
 - `!` = Negate Signal/Address
 - `@` = Context Signal/Address
@@ -105,7 +104,7 @@
 // | QISD | Pawz    | !0x15 | @0x15 | #0x15 | $0x15 | %0x15 | ^"0x15" | &0x15 | ?0x15 |
 // | QIMD | Skip    | !0x16 | @0x16 | #0x16 | $0x16 | %0x16 | ^"0x16" | &0x16 | ?0x16 |
 // | QIPD | Stop    | !0x17 | @0x17 | #0x17 | $0x17 | %0x17 | ^"0x17" | &0x17 | ?0x17 |
-// ------|---------|-------|-------|-------|-------|-------|---------|-------|-------|
+// |------|---------|-------|-------|-------|-------|-------|---------|-------|-------|
 
 ## TIND Family (Time / Signals)
 // | Base | Type    | !     | @     | #     | $     | %     | ^       | &     | ?     |
@@ -124,4 +123,3 @@
 // | EIMD | Scope   | !0x1e | @0x1e | #0x1e | $0x1e | %0x1e | ^"0x1e" | &0x1e | ?0x1e |
 // | EIPD | OS      | !0x1f | @0x1f | #0x1f | $0x1f | %0x1f | ^"0x1f" | &0x1f | ?0x1f |
 // |------|---------|-------|-------|-------|-------|-------|---------|-------|-------|
-// ________________________________________________

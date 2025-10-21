@@ -233,7 +233,7 @@ PolyplexAlpha :: proc(x, y, a, b: f64) -> f64 {
     return math.sin(x * a + math.sin(y * b)) - (math.sin(1.5 * x) * math.cos(1.5 * y))
 }
 
-PolyplexDelta :: proc(x, y, a, b: f64) -> f64 {
+PolyplexZetaa :: proc(x, y, a, b: f64) -> f64 {
     base := x * a + math.sin(y * b)
     ref  := math.sin(1.5 * x) * math.cos(1.5 * y)
     return math.sin(base - ref)

@@ -1164,8 +1164,8 @@ Form "Rayquaza,1" {
     megamessage: 1
     basestats: ['105', '180', '100', '115', '180', '100']
     baseexp: 390
-    abilities: "Deltastream"
-    hiddenabilities: "Deltastream"
+    abilities: "Zetaastream"
+    hiddenabilities: "Zetaastream"
     height: 10.8
     weight: 392.0
     generation: 6

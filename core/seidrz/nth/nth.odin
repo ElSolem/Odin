@@ -1,8 +1,6 @@
 package wisdom
 
-import "core:log"
 import "core:fmt"
-import "core:math"
 
 HEAD_ASEprite :: enum {
     _ = 0x00, _ = 0xa5, _ = 0x0f, _ = 0x00,

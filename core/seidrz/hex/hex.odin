@@ -1,4 +1,4 @@
-package vision
+package hex
 
 import "core:seidrz/nth"
 
@@ -57,15 +57,15 @@ Adject :: enum {
 	Ice     = int(Zeedex.ireneah), //# "#d16b0f"
 	Rock    = int(Zeedex.lauriew), //# "#c49976"
 	//# Group 3: Necromia
-	Metal   = int(Zeedex.slivana), //# "#ebb60d"
+	Metal   = int(Zeedex.elixser), //# "#ebb60d"
 	Poison  = int(Zeedex.hopeyyh), //# "#534d08"
 	Fungi   = int(Zeedex.lajoiaz), //# "#706e0a"
 	Plant   = int(Zeedex.aileena), //# "#50930f"
 	//# Group 4: Hexomnia
-	Beast   = 0x08a96b, //# "#08a96b"
-	Logic   = 0x07316b, //# "#07316b"
-	Memory  = 0x590686, //# "#590686"
-	Wisdom  = 0xea78cb, //# "#ea78cb"
+	Beast   = int(Zeedex.serenaz), //# "#08a96b"
+	Logic   = int(Zeedex.ajayish), //# "#1368ae"
+	Memory  = int(Zeedex.shirliz), //# "#590686"
+	Wisdom  = int(Zeedex.jillian), //# "#cf6daf"
 }
 
 //# Elemental/Spiritual
@@ -356,7 +356,7 @@ Zeedex :: enum {
 	teyonah = 0x917009, //# "#917009" 
 	lashana = 0xc8980a, //# "#c8980a" 
 	//# Group 25 - Striking, pure yellow, unmixed
-	slivana = 0xebb60d, //# "#ebb60d" 
+	silvana = 0xebb60d, //# "#ebb60d" 
 	elixser = 0xb28c09, //# "#b28c09" 
 	whitney = 0xd1aa0c, //# "#d1aa0c" 
 	sydneys = 0xf9ce26, //# "#f9ce26" 
@@ -366,10 +366,10 @@ Zeedex :: enum {
 	hopeyyh = 0x534d08, //# "#534d08" 
 	lajoiaz = 0x706e0a, //# "#706e0a" 
 	//# Group 27 - The brilliance of new life, pure light and chlorophyll
-	//#alchemi = 0xf7f40c, //# "#f7f40c"
-	//#naturaa = 0xf0ec23, //# "#f0ec23" 
-	//#lucinda = 0x90910b, //# "#90910b"
-	//#jocelyn = 0xb0b00c, //# "#b0b00c"
+	summerz = 0xf7f40c, //# "#f7f40c"
+	wunmize = 0xf0ec23, //# "#f0ec23" 
+	diamond = 0x90910b, //# "#90910b"
+	jocelyn = 0xb0b00c, //# "#b0b00c"
 	//# Group 28 - Muted, stable, domestic greens
 	//#vestala = 0xcfcf0f, //# "#cfcf0f"
 	//#harvest = 0x6a6a24, //# "#6a6a24" 
@@ -438,8 +438,8 @@ Zeedex :: enum {
 	//# Group 41 - Measured, controlled, and wise greens
 	hespira = 0x079250, //# "#079250"
 	fernish = 0x09cb71, //# "#09cb71"
-	serenea = 0x708179, //# "#708179" 
-	valkyra = 0x08a96b, //# "#08a96b" 
+	ejionde = 0x708179, //# "#708179" 
+	serenaz = 0x08a96b, //# "#08a96b" 
 	//# Group 42 - Named Blues/Greens: Elements of a magical/intellectual world
 	//#sorcery = 0x064835, //# "#064835"
 	//#alchemo = 0x09d4a9, //# "#09d4a9"
@@ -478,7 +478,7 @@ Zeedex :: enum {
 	//# Group 49 - Deep Blue: The realm of the mind and spirit
 	//#mindset = 0x154e91, //# "#154e91" (Focused, controlled thought)
 	//#project = 0x1478eb, //# "#1478eb" (Clear, bright goal)
-	//#mythica = 0x07316b, //# "#07316b" (Dark blue of ancient truth)
+	frankyz = 0x07316b, //# "#07316b" (Dark blue of ancient truth)
 	//#truthel = 0x074bb8, //# "#074bb8" (Clear, undeniable reality)
 	//# Group 50 - The power of the source, deep and electric
 	//#sparkle = 0x213b6f, //# "#213b6f" (Hidden energy)

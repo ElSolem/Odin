@@ -2,7 +2,7 @@ package sdl2
 
 import "core:c"
 
-Scancode :: enum rune {
+Scancode :: enum c.int {
 	UNKNOWN = 0,
 
 	A = 4,
@@ -139,10 +139,10 @@ Scancode :: enum rune {
 	MUTE = 127,
 	VOLUMEUP = 128,
 	VOLUMEDOWN = 129,
-
-	LOCKINGCAPSLOCK = 130,
-	LOCKINGNUMLOCK = 131,
-	LOCKINGSCROLLLOCK = 132,
+	/* not sure whether there's a reason to enable these */
+	/*     LOCKINGCAPSLOCK = 130,  */
+	/*     LOCKINGNUMLOCK = 131, */
+	/*     LOCKINGSCROLLLOCK = 132, */
 	KP_COMMA = 133,
 	KP_EQUALSAS400 = 134,
 

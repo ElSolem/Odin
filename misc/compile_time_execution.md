@@ -11,7 +11,7 @@
 | NISD   | Nilz  | `${1}`             | No-Instruction-Single-Data      |
 | NIMD   | Infz  | `${-1}`            | No-Instruction-Multiple-Data    |
 | NIPD   | Nanz  | `${-0}`            | No-Instruction-Proc-Data        |
-| SIND   | Link  | `${0.1}`           | Single-Instruction-No-Data      |
+| SIND   | Link  | `${+0.1}`           | Single-Instruction-No-Data      |
 | SISD   | Wave  | `${-0.1}`          | Single-Instruction-Single-Data  |
 | SIMD   | Path  | `${1 + i}`         | Single-Instruction-Multi-Data   |
 | SIPD   | Save  | `${0xff}`          | Single-Instruction-Proc-Data    |

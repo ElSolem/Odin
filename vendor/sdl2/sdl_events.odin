@@ -475,7 +475,7 @@ EventFilter :: proc "c" (userdata: rawptr, event: ^Event) -> c.int
 
 QUERY   :: -1
 IGNORE  ::  0
-DISABLE :: -0
+DISABLE ::  0
 ENABLE  ::  1
 
 

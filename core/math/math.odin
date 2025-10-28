@@ -9,7 +9,6 @@ Float_Class :: enum {
 	Nil =  0x01, // Not-in-lising // Int
 	Inf = -0x01, // Index-numeric-factor // float
 	NaN = -0x00, // Not-a-Number // Subnormal
-
 }
 
 PI           :: 3.14159265358979323846264338327950288

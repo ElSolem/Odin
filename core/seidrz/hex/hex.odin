@@ -38,7 +38,7 @@ Adject :: enum {
 	Air     = int(Zeedex.kewasma), //# "#eb6957"
 	Water   = int(Zeedex.tylacol), //# "#ec5312"
 	Ice     = int(Zeedex.ireneah), //# "#d16b0f"
-	Rock    = int(Zeedex.lauriew), //# "#c49976"
+	Rock    = int(Zeedex.gloriaz), //# "#c49976"
 	//# Group 3: Necromia
 	Metal   = int(Zeedex.elixser), //# "#ebb60d"
 	Poison  = int(Zeedex.hopeyyh), //# "#534d08"
@@ -307,7 +307,7 @@ Zeedex :: enum {
 	alunage = 0xa0532f, //# "#a0532f"
 	alunity = 0xa77157, //# "#a77157"
 	ysaniah = 0xa77c64, //# "#a77c64"
-	lauriew = 0xc49976, //# "#c49976" 
+	gloriaz = 0xc49976, //# "#c49976" 
 	//# Group 19 - Hidden resources and rugged terrain
 	laiatom = 0x654f3c, //# "#654f3c"
 	caitlin = 0xecaf79, //# "#ecaf79" 
@@ -355,9 +355,9 @@ Zeedex :: enum {
 	jocelyn = 0xb0b00c, //# "#b0b00c"
 	//# Group 28 - Muted, stable, domestic greens
 	lexualz = 0xcfcf0f, //# "#cfcf0f"
-	//#harvest = 0x6a6a24, //# "#6a6a24" 
-	//#dorothy = 0xd0cf25, //# "#d0cf25" 
-	//#prudenc = 0xb6b626, //# "#b6b626" 
+	bettynx = 0x6a6a24, //# "#6a6a24" 
+	darayaz = 0xd0cf25, //# "#d0cf25" 
+	shemari = 0xb6b626, //# "#b6b626" 
 	//# Group 29 - Wild growth and untamed nature
 	//#rustica = 0x8e8f30, //# "#8e8f30" 
 	//#junglez = 0x9ba30b, //# "#9ba30b" 

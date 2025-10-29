@@ -354,7 +354,7 @@ Zeedex :: enum {
 	diamond = 0x90910b, //# "#90910b"
 	jocelyn = 0xb0b00c, //# "#b0b00c"
 	//# Group 28 - Muted, stable, domestic greens
-	//#vestala = 0xcfcf0f, //# "#cfcf0f"
+	lexualz = 0xcfcf0f, //# "#cfcf0f"
 	//#harvest = 0x6a6a24, //# "#6a6a24" 
 	//#dorothy = 0xd0cf25, //# "#d0cf25" 
 	//#prudenc = 0xb6b626, //# "#b6b626" 

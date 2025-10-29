@@ -81,26 +81,30 @@ Keyvex :: enum {
     QIMD = 0x16, // Quant Intz Multi Data
     QIPD = 0x17, // Quant Intz Proc Data
     // Group 7
-    TIND = 0x18, // Timed Intz No Data
-    TISD = 0x19, // Timed Intz Single Data
-    TIMD = 0x1a, // Timed Intz Multi Data
-    TIPD = 0x1b, // Timed Intz Proc Data
+    RIND = 0x18, // Quant Intz No Data
+    RISD = 0x19, // Quant Intz Single Data
+    RIMD = 0x1a, // Quant Intz Multi Data
+    RIPD = 0x1b, // Quant Intz Proc Data
     // Group 8
-    EIND = 0x1c, // Error Intz No Data
-    EISD = 0x1d, // Error Intz Single Data
-    EIMD = 0x1e, // Error Intz Multi Data
-    EIPD = 0x1f, // Error Intz Proc Data
+    TIND = 0x1c, // Timed Intz No Data
+    TISD = 0x1d, // Timed Intz Single Data
+    TIMD = 0x1e, // Timed Intz Multi Data
+    TIPD = 0x1f, // Timed Intz Proc Data
+    // Group 9
+    EIND = 0xec, // Error Intz No Data
+    EISD = 0xed, // Error Intz Single Data
+    EIMD = 0xee, // Error Intz Multi Data
+    EIPD = 0xef, // Error Intz Proc Data
 }
 
-keyz :: bit_set[Keyvex]
 
 print_keyz :: proc() {
     for i in Keyvex {
         fmt.printfln("%v", 
-        keyz{i}) // enum{x} -> access nums
+        Keyvex(i)) // enum{x} -> access nums
         fmt.printfln("This key is :%v bits", size_of(i))
     }
-    fmt.printfln("keyz are the size of :%v bits", size_of(keyz))
+    fmt.printfln("keyz are the size of :%v bits", size_of(Keyvex))
 }
 
 //null and void *my new "any" type
@@ -119,7 +123,7 @@ Nth     :: proc(x: any) -> (struct {
             w = fmt.println(x), 
             x = size_of(x), 
             y = typeid_of(type_of(x)), 
-            z = keyz.NIND
+            z = Keyvex.NIND
         }
 }
 

@@ -11,7 +11,7 @@
 | NISD   | Nilz  | `${1}`             | No-Instruction-Single-Data      |
 | NIMD   | Infz  | `${-1}`            | No-Instruction-Multiple-Data    |
 | NIPD   | Nanz  | `${-0}`            | No-Instruction-Proc-Data        |
-| SIND   | Link  | `${+0.1}`           | Single-Instruction-No-Data      |
+| SIND   | Link  | `${+0.1}`          | Single-Instruction-No-Data      |
 | SISD   | Wave  | `${-0.1}`          | Single-Instruction-Single-Data  |
 | SIMD   | Path  | `${1 + i}`         | Single-Instruction-Multi-Data   |
 | SIPD   | Save  | `${0xff}`          | Single-Instruction-Proc-Data    |
@@ -31,14 +31,14 @@
 | QISD   | Hive  | `$<{.}>`           | Quantum-Instruction-Single-Data |
 | QIMD   | Crib  | `$<{~}>`           | Quantum-Instruction-Multi-Data  |
 | QIPD   | Nest  | `$<{!}>`           | Quantum-Instruction-Proc-Data   |
-| RIND   | Ranw  | `$#Rand.ranw#`     | Random-Instruction-No-Data      |
-| RISD   | Ranx  | `$#Rand.ranx#`     | Random-Instruction-Single-Data  |
-| RIMD   | Rany  | `$#Rand.rany#`     | Random-Instruction-Multi-Data   |
-| RIPD   | Ranz  | `$#Rand.ranz#`     | Random-Instruction-Proc-Data    |
+| RIND   | Rand  | `$#Rand.rand#`     | Random-Instruction-No-Data      |
+| RISD   | Rend  | `$#Rand.rend#`     | Random-Instruction-Single-Data  |
+| RIMD   | Rind  | `$#Rand.rind#`     | Random-Instruction-Multi-Data   |
+| RIPD   | Rond  | `$#Rand.rond#`     | Random-Instruction-Proc-Data    |
 | TIND   | Atom  | `$#Time.atom#`     | Time-Instruction-No-Data        |
 | TISD   | Tick  | `$#Time.sys#`      | Time-Instruction-Single-Data    |
-| TIMD   | Delt  | `$#Time.delta#`    | Time-Instruction-Multiple-Data  |
-| TIPD   | Step  | `$#Time.step#`     | Time-Instruction-Proc-Data      |
+| TIMD   | Zeta  | `$#Time.delta#`    | Time-Instruction-Multiple-Data  |
+| TIPD   | Stop  | `$#Time.step#`     | Time-Instruction-Proc-Data      |
 | EIND   | Code  | `$(%code%)`        | Error-Instruction-No-Data       |
 | EISD   | Data  | `${%data%}`        | Error-Instruction-Single-Data   |
 | EIMD   | Hack  | `$[%hack%]`        | Error-Instruction-Multiple-Data |
@@ -114,10 +114,10 @@
 ## RIND Family (Time / Signals)
 // | Base | Type    | !     | @     | #     | $     | %     | ^       | &     | ?     |
 // | ---- | ------- | ----- | ----- | ----- | ----- | ----- | ------- | ----- | ----- |
-// | RIND | Rana    | !0x18 | @0x18 | #0x18 | $0x18 | %0x18 | ^"0x18" | &0x18 | ?0x18 |
-// | RISD | Rane    | !0x19 | @0x19 | #0x19 | $0x19 | %0x19 | ^"0x19" | &0x19 | ?0x19 |
-// | RIMD | Rani    | !0x1a | @0x1a | #0x1a | $0x1a | %0x1a | ^"0x1a" | &0x1a | ?0x1a |
-// | RIPD | Rano    | !0x1b | @0x1b | #0x1b | $0x1b | %0x1b | ^"0x1b" | &0x1b | ?0x1b |
+// | RIND | Rand    | !0x18 | @0x18 | #0x18 | $0x18 | %0x18 | ^"0x18" | &0x18 | ?0x18 |
+// | RISD | Rend    | !0x19 | @0x19 | #0x19 | $0x19 | %0x19 | ^"0x19" | &0x19 | ?0x19 |
+// | RIMD | Rind    | !0x1a | @0x1a | #0x1a | $0x1a | %0x1a | ^"0x1a" | &0x1a | ?0x1a |
+// | RIPD | Rond    | !0x1b | @0x1b | #0x1b | $0x1b | %0x1b | ^"0x1b" | &0x1b | ?0x1b |
 // |------|---------|-------|-------|-------|-------|-------|---------|-------|-------|
 
 ## TIND Family (Errors / Contexts)
@@ -126,7 +126,7 @@
 // | TIND | Atom    | !0x1c | @0x1c | #0x1c | $0x1c | %0x1c | ^"0x1c" | &0x1c | ?0x1c |
 // | TISD | Tick    | !0x1d | @0x1d | #0x1d | $0x1d | %0x1d | ^"0x1d" | &0x1d | ?0x1d |
 // | TIMD | Zeta    | !0x1e | @0x1e | #0x1e | $0x1e | %0x1e | ^"0x1e" | &0x1e | ?0x1e |
-// | TIPD | Step    | !0x1f | @0x1f | #0x1f | $0x1f | %0x1f | ^"0x1f" | &0x1f | ?0x1f |
+// | TIPD | Stop    | !0x1f | @0x1f | #0x1f | $0x1f | %0x1f | ^"0x1f" | &0x1f | ?0x1f |
 // |------|---------|-------|-------|-------|-------|-------|---------|-------|-------|
 
 ## EIND Family (Errors / Contexts)

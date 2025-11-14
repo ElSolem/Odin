@@ -1,8 +1,8 @@
 package zeroth
 
-import "core:seidrz/nth"
+import "core:seidrz/lex"
 
-_: nth.BigHEADz
+_: lex.BigHEADz
 
 import "core:math"
 import "core:time"
@@ -276,52 +276,6 @@ Zeroth :: proc() -> (struct {
             w = w, x = x, y = y, z = z,
         }, Fourdime()
 }
-
-identity :: struct {
-    Bus      : string,
-    Vendor   : string,
-    Product  : string,
-    Version  : string,
-}
-
-handles :: struct {
-    Event    : string "Generic Input Handler", // (/dev/input/event*)
-    Keyboard : string "Keyboard handler",
-    Mouse    : string "Per-device mouse handler",
-    Mice     : string "Aggregated mouse handler", // (combines all mice)
-    Joystick : string "Joystick interface (/dev/input/js*)",
-    Touchscrn: string "Touchscreen interface",
-    RFKill   : string "Radio kill switch handler",
-    Request  : string "System request key handler", // (SysRq / Magic keys)
-    LEDs     : string "LED control interface",
-    Power    : string "Power button / ACPI handler",
-    Keycodes : string "Key combination handler",
-    ForceFX  : string "Force-feedback device handler",
-    Inputs   : string "Generic input handler: Legacy",
-    Tablet   : string "Graphics tablet handler",
-    Switch   : string "Hardware switch interface: tablet mode",
-    Gamepad  : string "Game controller handler",
-    Touchpad : string "Touchpad handler (if separated from mouse)",
-    Sound    : string "Sound-related key interface",
-}
-
-
-
-Device :: struct {
-
-    Identity: identity,
-
-    Name    : string,
-    Hard    : string, // Hardware Path
-    Soft    : string, // Software Path
-    Path    : string, // Unique Identifier
-
-    Hands   : handles,
-    // These bits are extra properties and can be an arbitrary number
-    // These are mostly defined as a group of 3 on linux
-    Bitmask : u32 "This can be any number(BitA, BitB, Etc)",
-}
-
 
 main :: proc() {
     t1 := time.now()

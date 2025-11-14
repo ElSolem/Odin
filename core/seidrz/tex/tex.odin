@@ -4,9 +4,7 @@ import "core:seidrz/lex"
 
 _: lex.BigHEADz
 
-import "core:math"
 import "core:time"
-import "core:log"
 import "core:fmt"
 
 

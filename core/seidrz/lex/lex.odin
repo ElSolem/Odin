@@ -238,9 +238,10 @@ BigHEADz :: enum {
 }
 
 main :: proc(){
-    for i in 0..<len(BigHEADz) {
+    /*for i in 0..<len(BigHEADz) {
         fmt.printfln("%v == %02x : %v : %v", 
         BigHEADz(i), rune(BigHEADz(i)), 
         i, int(i) + 1)
-    }
+    }*/
+    return
 }

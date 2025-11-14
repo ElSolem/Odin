@@ -126,6 +126,7 @@ Any     :: proc(x: any) -> (struct {
 }
 
 main :: proc() {
+    /*
     t1 := time.now()
 
     //print_keyz()
@@ -136,5 +137,7 @@ main :: proc() {
     t2 := time.now()
     dift := time.diff(t1, t2)
     fmt.printfln("%v", dift)
+    */
+    return
 }
 

@@ -122,15 +122,15 @@ Arcana :: enum {
 
 // Elemental Type
 Chakra :: enum {
-	Umbra = 0x46a0, // "#46a0" // 
-	Ember = 0x46a1, // "#46a1" // 
-	Voltz = 0x46a2, // "#46a2" // 
-	Flame = 0x46a3, // "#46a3" // 
+	Umber = 0x46a0, // "#46a0" // 
+	Omber = 0x46a1, // "#46a1" // 
+	Flash = 0x46a2, // "#46a2" // 
+	Ember = 0x46a3, // "#46a3" // 
 	
 	Aerow = 0x46a4, // "#46a4" // 
-	Hydro = 0x46a5, // "#46a5" // 
+	Imber = 0x46a5, // "#46a5" // 
 	Frost = 0x46a6, // "#46a6" // 
-	Earth = 0x46a7, // "#46a7" // 
+	Amber = 0x46a7, // "#46a7" // 
 	
 	Alloy = 0x46a8, // "#46a8" // 
 	Toxin = 0x46a9, // "#46a9" // 

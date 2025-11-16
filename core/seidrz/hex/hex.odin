@@ -4,6 +4,12 @@ import "core:seidrz/lex"
 
 _: lex.BigHEADz
 
+// Each of these will have four states. 
+	// Affect → modifies a property of something else
+  // Effect → produces an outcome on its own
+	// Infect → links or chains into another action/state
+	// Defect → breaks, cancels, nullifies, or rejects another action/state
+
 // Key Items
 OOParts :: enum {
 	TORCH = 0x9300, // "#9300" 

@@ -167,7 +167,7 @@ Adject :: enum {
 }
 
 Actions :: enum {
-	GRAB = 0xf600, // "#f600"
+	KILL = 0xf600, // "#f600"
 	SHOW = 0xf601, // "#f601"
 	DASH = 0xf602, // "#f602"
 	TOSS = 0xf603, // "#f603"
@@ -178,11 +178,11 @@ Actions :: enum {
 	ROCK = 0xf607, // "#f607"
 
 	POUR = 0xf608, // "#f608"
-	PULL = 0xf609, // "#f609"
-	RIDE = 0xf60a, // "#f60a"
+	OPEN = 0xf609, // "#f609"
+	LOCK = 0xf60a, // "#f60a"
 	PICK = 0xf60b, // "#f60b"
 
-	ROAR = 0xf60c, // "#f60c"
+	CALL = 0xf60c, // "#f60c"
 	TALK = 0xf60d, // "#f60d"
 	HIDE = 0xf60e, // "#f60e"
 	FALL = 0xf60f, // "#f60f" 

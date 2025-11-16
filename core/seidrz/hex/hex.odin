@@ -173,7 +173,7 @@ Actions :: enum {
 	TOSS = 0xf603, // "#f603"
 
 	JUMP = 0xf604, // "#f604"
-	SWIM = 0xf605, // "#f605"
+	DIVE = 0xf605, // "#f605"
 	HOLD = 0xf606, // "#f606"
 	ROCK = 0xf607, // "#f607"
 

@@ -128,11 +128,7 @@ Arcana :: enum {
 
 // Elemental Type
 Chakra :: enum {
-<<<<<<< HEAD
 	Umber = 0x46a0, // "#46a0" // 
-=======
-	Umbra = 0x46a0, // "#46a0" // 
->>>>>>> 313ee82 (fixes)
 	Omber = 0x46a1, // "#46a1" // 
 	Flash = 0x46a2, // "#46a2" // 
 	Ember = 0x46a3, // "#46a3" // 

@@ -17,17 +17,17 @@ OOParts :: enum {
 	WATCH = 0x9302, // "#9302" 
 	FLARE = 0x9303, // "#9303" 
 
-	BROOM = 0x9304, // "#9304" 
+	CLOUD = 0x9304, // "#9304" 
 	SHELL = 0x9305, // "#9305" 
-	GLASS = 0x9306, // "#9306" 
+	SHARD = 0x9306, // "#9306" 
 	SPADE = 0x9307, // "#9307" 
 	
 	FLINT = 0x9308, // "#9308" 
-	FLASK = 0x9309, // "#9309" 
+	HEART = 0x9309, // "#9309" 
 	LAMPS = 0x930a, // "#930a" 
 	SHEAR = 0x930b, // "#930b" 
 
-	BATON = 0x930c, // "#930c" 
+	CLUBS = 0x930c, // "#930c" 
 	FLUTE = 0x930d, // "#930d" 
 	CARDZ = 0x930e, // "#930e" 
 	MONEY = 0x930f, // "#930f"
@@ -58,25 +58,25 @@ Physic :: enum {
 // AI Settings
 Genius :: enum {
 	// Simple Tribez
-	House   = 0x00ff, // "#00ff" // gifts
-	Market  = 0x11ff, // "#11ff" // stores
-	Arena   = 0x22ff, // "#22ff" // Combat
-	Clinic  = 0x33ff, // "#33ff" // Dungeon
+	Anverse = 0x00ff, // "#00ff" // gifts
+	Enverse = 0x11ff, // "#11ff" // stores
+	Inverse = 0x22ff, // "#22ff" // Combat
+	Unverse = 0x33ff, // "#33ff" // Dungeon
 	// Wander Tribez
-	Whisper = 0x44ff, // "#44ff" // Static NPCs  / stay in one spot
-	Wander  = 0x55ff, // "#55ff" // Dynamic NPCs / wander around scene
-	Wunder  = 0x66ff, // "#66ff" // Event NPCs / await player
-	Knocker = 0x77ff, // "#77ff" // Rival NPCs / synch player
+	Intitys = 0x44ff, // "#44ff" // Static NPCs  / stay in one spot
+	Antitys = 0x55ff, // "#55ff" // Dynamic NPCs / wander around scene
+	Entitys = 0x66ff, // "#66ff" // Event NPCs / await player
+	Untitys = 0x77ff, // "#77ff" // Rival NPCs / synch player
 	// Indian Tribez
-	Endian  = 0x88ff, // "#88ff" // Forest objects
-	Andian  = 0x99ff, // "#99ff" // Mountain objects
-	Ondian  = 0xaaff, // "#aaff" // Desert objects
-	Undian  = 0xbbff, // "#bbff" // Ocean objects
+	Endians = 0x88ff, // "#88ff" // Forest objects
+	Andians = 0x99ff, // "#99ff" // Mountain objects
+	Ondians = 0xaaff, // "#aaff" // Desert objects
+	Undians = 0xbbff, // "#bbff" // Ocean objects
 	// Wunder Tribez
-	Intern  = 0xccff, // "#ccff" // PopStar / Follow Mons
-	Anthem  = 0xddff, // "#ddff" // Elysium / Music objects
-	Entity  = 0xeeff, // "#eeff" // Gehenna / Visual Objects
-	Untold  = 0xffff, // "#ffff" // Wunderland / Invisible objects
+	Ancanis = 0xccff, // "#ccff" // PopStar / Follow Mons
+	Encanis = 0xddff, // "#ddff" // Elysium / Music objects
+	Oncanis = 0xeeff, // "#eeff" // Gehenna / Visual Objects
+	Uncanis = 0xffff, // "#ffff" // Wunderland / Invisible objects
 }
 
 // AI behavior and Appearances
@@ -128,7 +128,11 @@ Arcana :: enum {
 
 // Elemental Type
 Chakra :: enum {
+<<<<<<< HEAD
 	Umber = 0x46a0, // "#46a0" // 
+=======
+	Umbra = 0x46a0, // "#46a0" // 
+>>>>>>> 313ee82 (fixes)
 	Omber = 0x46a1, // "#46a1" // 
 	Flash = 0x46a2, // "#46a2" // 
 	Ember = 0x46a3, // "#46a3" // 
@@ -194,29 +198,30 @@ Actions :: enum {
 	FALL = 0xf60f, // "#f60f" 
 }
 
-/*
-ReParts :: enum {
-	_TORCH = 0x0039, // "#0039" 
-	_CLOAK = 0x1039, // "#1039" 
-	_WATCH = 0x2039, // "#2039" 
-	_FLARE = 0x3039, // "#3039" 
 
-	_BROOM = 0x4039, // "#4039" 
-	_SHELL = 0x5039, // "#5039" 
-	_GLASS = 0x6039, // "#6039" 
-	_SPADE = 0x7039, // "#7039" 
+Dredds :: enum {
+	VOID = 0x0039, // "#0039" 
+	ORBS = 0x1039, // "#1039" 
+	RIFT = 0x2039, // "#2039" 
+	BURN = 0x3039, // "#3039" 
+
+	VENT = 0x4039, // "#4039" 
+	DEEP = 0x5039, // "#5039" 
+	COLD = 0x6039, // "#6039" 
+	IDOL = 0x7039, // "#7039" 
 	
-	_FLINT = 0x8039, // "#8039" 
-	_FLASK = 0x9039, // "#9039" 
-	_LAMPS = 0xa039, // "#a039" 
-	_SHEAR = 0xb039, // "#b039" 
+	DISK = 0x8039, // "#8039" 
+	POTS = 0x9039, // "#9039" 
+	GERM = 0xa039, // "#a039" 
+	BUDS = 0xb039, // "#b039" 
 
-	_BATON = 0xc039, // "#c039" 
-	_FLUTE = 0xd039, // "#d039" 
-	_CARDZ = 0xe039, // "#e039" 
-	_MONEY = 0xf039, // "#f039" 
+	NEST = 0xc039, // "#c039" 
+	DAIS = 0xd039, // "#d039" 
+	VEIL = 0xe039, // "#e039" 
+	CUBE = 0xf039, // "#f039" 
 }
 
+/*
 RePhysic :: enum {
 	_Archon   = 0xf00f, // "#f00f"
 	_Photon   = 0xf10f, // "#f10f"

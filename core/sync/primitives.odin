@@ -29,14 +29,14 @@ first time). This is because, in order to coordinate with other threads, all
 threads must watch the same memory address to know when the lock has been
 released. Trying to use a copy of the lock at a different memory address will
 result in broken and unsafe behavior. For this reason, Mutexes are marked as
-`#no_copy`.
+``.
 
 **Note**: If the current thread attempts to lock a mutex, while it's already
 holding another lock, that will cause a trivial case of deadlock. Do not use
 `Mutex` in recursive functions. In case multiple locks by the same thread are
 desired, use `Recursive_Mutex`.
 */
-Mutex :: struct #no_copy {
+Mutex :: struct  {
 	impl: _Mutex,
 }
 
@@ -141,13 +141,13 @@ acquiring a lock). This is because, in order to coordinate with other threads,
 all threads must watch the same memory address to know when the lock has been
 released. Trying to use a copy of the lock at a different memory address will
 result in broken and unsafe behavior. For this reason, mutexes are marked as
-`#no_copy`.
+``.
 
 **Note**: A read-write mutex is not recursive. Do not attempt to acquire an
 exclusive lock more than once from the same thread, or an exclusive and shared
 lock on the same thread. Taking a shared lock multiple times is acceptable.
 */
-RW_Mutex :: struct #no_copy {
+RW_Mutex :: struct  {
 	impl: _RW_Mutex,
 }
 
@@ -311,9 +311,9 @@ acquiring a lock). This is because, in order to coordinate with other threads,
 all threads must watch the same memory address to know when the lock has been
 released. Trying to use a copy of the lock at a different memory address will
 result in broken and unsafe behavior. For this reason, mutexes are marked as
-`#no_copy`.
+``.
 */
-Recursive_Mutex :: struct #no_copy {
+Recursive_Mutex :: struct  {
 	impl: _Recursive_Mutex,
 }
 
@@ -412,9 +412,9 @@ waiting on it the first time). This is because, in order to coordinate with
 other threads, all threads must watch the same memory address to know when the
 lock has been released. Trying to use a copy of the lock at a different memory
 address will result in broken and unsafe behavior. For this reason, condition
-variables are marked as `#no_copy`.
+variables are marked as ``.
 */
-Cond :: struct #no_copy {
+Cond :: struct  {
 	impl: _Cond,
 }
 
@@ -492,9 +492,9 @@ semaphore counter to become non-zero and decreasing it, if necessary.
 to it). This is because, in order to coordinate with other threads, all threads
 must watch the same memory address to know when the lock has been released.
 Trying to use a copy of the lock at a different memory address will result in
-broken and unsafe behavior. For this reason, semaphores are marked as `#no_copy`.
+broken and unsafe behavior. For this reason, semaphores are marked as ``.
 */
-Sema :: struct #no_copy {
+Sema :: struct  {
 	impl: _Sema,
 }
 

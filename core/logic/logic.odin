@@ -13,10 +13,10 @@ Logia :: enum {
     NAN = -0x00, // '-0'
 }
 
-truth   :: int(Logia.NAV) == 0
-invalid :: int(Logia.NIL) != 1
-maybe   :: int(Logia.INF) != -1
-unsafe  :: int(Logia.NAN) == -0
+truth   :: f64(Logia.NAV) == 0
+invalid :: f64(Logia.NIL) != 1
+maybe   :: f64(Logia.INF) != -1
+unsafe  :: f64(Logia.NAN) == -0
 
 main :: proc() {
     fmt.printfln("%v :: %v :: %v :: %v", truth, invalid, maybe, unsafe)

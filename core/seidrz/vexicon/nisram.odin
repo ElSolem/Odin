@@ -1,13 +1,8 @@
-package vex
+package vexicon
 
-import "core:seidrz/lex"
+import "core:seidrz/lexicon"
 
-_: lex.BigHEADz
-
-import "core:math"
-import "core:time"
-import "core:log"
-import "core:fmt"
+_: lexicon.BigHEADz
 
 NISRAM :: enum {
 

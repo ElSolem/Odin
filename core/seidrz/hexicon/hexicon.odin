@@ -1,8 +1,8 @@
-package hex
+package hexicon
 
-import "core:seidrz/lex"
+import "core:seidrz/lexicon"
 
-_: lex.BigHEADz
+_: lexicon.BigHEADz
 
 // Each of these will have four states. 
 	// Affect → modifies a property of something else
@@ -351,25 +351,25 @@ ReAdject :: enum {
 }
 
 ReActions :: enum {
-    _GRAB = 0x006f, // "#006f"
-    _SHOW = 0x106f, // "#106f"
-    _DASH = 0x206f, // "#206f"
-    _TOSS = 0x306f, // "#306f"
+    _GRAB = 0x006f, // "#a00f"
+    _SHOW = 0x106f, // "#a10f"
+    _DASH = 0x206f, // "#a20f"
+    _TOSS = 0x306f, // "#a30f"
 
-    _JUMP = 0x406f, // "#406f"
-    _SWIM = 0x506f, // "#506f"
-    _HOLD = 0x606f, // "#606f"
-    _ROCK = 0x706f, // "#706f"
+    _JUMP = 0x406f, // "#a40f"
+    _SWIM = 0x506f, // "#a50f"
+    _HOLD = 0x606f, // "#a60f"
+    _ROCK = 0x706f, // "#a70f"
 
-    _POUR = 0x806f, // "#806f"
-    _PULL = 0x906f, // "#906f"
-    _RIDE = 0xa06f, // "#a06f"
-    _PICK = 0xb06f, // "#b06f"
+    _POUR = 0x806f, // "#a80f"
+    _PULL = 0x906f, // "#a90f"
+    _RIDE = 0xa06f, // "#aa0f"
+    _PICK = 0xb06f, // "#ab0f"
 
-    _ROAR = 0xc06f, // "#c06f"
-    _TALK = 0xd06f, // "#d06f"
-    _HIDE = 0xe06f, // "#e06f"
-    _FALL = 0xf06f, // "#f06f"
+    _ROAR = 0xc06f, // "#ac0f"
+    _TALK = 0xd06f, // "#ad0f"
+    _HIDE = 0xe06f, // "#ae0f"
+    _FALL = 0xf06f, // "#af0f"
 }
 */
 

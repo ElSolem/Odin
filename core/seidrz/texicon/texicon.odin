@@ -1,8 +1,8 @@
-package tex
+package texicon
 
-import "core:seidrz/lex"
+import "core:seidrz/lexicon"
 
-_: lex.BigHEADz
+_: lexicon.BigHEADz
 
 import "core:time"
 import "core:fmt"

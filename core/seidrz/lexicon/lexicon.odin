@@ -1,4 +1,4 @@
-package wisdom
+package lexicon
 
 import "core:math"
 import "core:time"

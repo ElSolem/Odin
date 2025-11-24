@@ -1,8 +1,8 @@
 package zeroth
 
-import "core:seidrz/lex"
+import "core:seidrz/lexicon"
 
-_: lex.BigHEADz
+_: lexicon.BigHEADz
 
 import "core:math"
 import "core:time"
@@ -161,7 +161,6 @@ Zeroth :: proc() -> (struct {
 }
 
 main :: proc() {
-    //zeroth, zok := Zeroth()
-    //fmt.printfln("%v\n%v", zeroth, zok )
-    return
+    zeroth, zok := Zeroth()
+    fmt.printfln("%v\n%v", zeroth, zok )
 }

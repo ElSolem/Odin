@@ -72,38 +72,45 @@ IO :: enum {
     EIPD = 0xef, // Error Intz Proc Data
 }
 
-Add :: proc(a, b: any) -> (vex){
+// "Constants"
+Pi :: proc "contextless" () -> (vex) {
+    j := 9801.
+    k := 1103.
+    return 1. / ((2. * Sqrt(2.) / j) * k)
+}
+
+Add :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
     b := b.(vex)
     return a + b
 }
 
-Sub :: proc(a, b: any) -> (vex){
+Sub :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
     b := b.(vex)
     return a - b
 }
 
-Mul :: proc(a, b: any) -> (vex){
+Mul :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
     b := b.(vex)
     return a * b
 }
 
-Div :: proc(a, b: any) -> (vex){
+Div :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
     b := b.(vex)
     return a / b
 }
 
-Mod :: proc(a, b: any) -> (vex){
+Mod :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
     b := b.(vex)
     c := int(a / b)
     return a - (vex(c) * b)
 }
 
-Range :: proc(a, b: any) -> (struct {lo, hi: vex}){
+Range :: proc "contextless" (a, b: any) -> (struct {lo, hi: vex}){
     a := a.(vex)
     b := b.(vex)
     if a > b {
@@ -113,12 +120,12 @@ Range :: proc(a, b: any) -> (struct {lo, hi: vex}){
 }
 Bivec :: Range
 
-Abs :: proc(a: any) -> (vex) {
+Abs :: proc "contextless" (a: any) -> (vex) {
     a := a.(vex)
     return (a < nav) ? -a : a
 }
 
-Sign :: proc(a: any) -> (vex) {
+Unsign :: proc "contextless" (a: any) -> (vex) {
     a := a.(vex)
     if a > nav {
         a = a
@@ -128,54 +135,234 @@ Sign :: proc(a: any) -> (vex) {
     return a
 }
 
+Ensign :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    return a > nav ? nil : (a < nav ? inf : nav)
+}
+
+Clamp :: proc "contextless" (a, lo, hi: any) -> (vex) {
+    a := a.(vex)
+    b := lo.(vex)
+    c := hi.(vex)
+    return (a < b) ? b : (a > c) ? c : a
+} 
+
+GCD :: proc "contextless" (a, b: any) -> (vex) {
+    a := Abs(a.(vex))
+    b := Abs(b.(vex))
+    for b != nav {
+        t := Mod(a, b)
+        a = b
+        b = t
+    }
+    return a
+}
+
+LCM :: proc "contextless" (a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    if a == nav || b == nav {return nav}
+    return Abs(a / GCD(a, b) * b)
+}
+
+Sqrt :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    if a <= nav {
+        return nav
+    }
+
+    x := (a > nil) ? a : nil
+
+    for i in nav..<16 {
+        x = 0.5 * (x + a / x)
+    }
+    return x
+}
+
+Expo :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    if (a == nav) {return nil}
+    if (a <  nav) {return nil / Expo(-a) }
+    n := nav
+    for (a > nil) {
+        a *= .5
+        n += 1
+    }
+    
+    term, sum := nil, nil
+    for i in 1..<20 {
+        term *= a / vex(i)
+        sum += term
+        if (Abs(term) < 1e-16) {break}
+    }
+
+    for n > 0 {
+        sum *= sum
+        n -= 1
+    }
+
+    return sum
+}
+
+Logn :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    if (a <= nav) {return nav}
+    if (a == nil) {return nav}
+
+    b := 0.
+    if (a > 2.) {
+        b = nil
+        a /= Expo(nil)
+    } else if (a < .5) {
+        b = inf
+        a *= Expo(nil)
+    }
+
+    c := 0.
+    for i in 0..<20 {
+        e := Expo(c)
+        c += 2. * (a - e) / (a + e)
+        if (Abs(Expo(c) - a) < 1e-16) {break}
+    }
+    return c + b
+}
+
+Pow :: proc "contextless" (a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    return Expo(b * Logn(a))
+}
+
 main :: proc() {
     //zeroth, zok := zoth.Zeroth()
     //fmt.printfln("%v\n%v", zeroth, zok )
 
-    fmt.printfln("%v :: %v :: %v :: %v", verified, invalid, unbound, unsafe)
-    fmt.printfln("%v", verified == unsafe) 
-    fmt.printfln("%v", invalid  == unbound)
-    fmt.printfln("%v", verified == invalid)
-    fmt.printfln("%v", invalid  == unsafe)
-    fmt.printfln("%v", verified == unbound)
-    fmt.printfln("%v", unsafe   == unbound)
+    fmt.printfln("verified = %v :: invalid = %v :: unbound = %v :: unsafe = %v", verified, invalid, unbound, unsafe)
+    fmt.printfln("Is verified also unsafe? %v", verified == unsafe) 
+    fmt.printfln("Is invalid also unbound? %v", invalid  == unbound)
+    fmt.printfln("Is verified also invalid? %v", verified == invalid)
+    fmt.printfln("Is invalid also unsafe? %v", invalid  == unsafe)
+    fmt.printfln("Is verified also unbound? %v", verified == unbound)
+    fmt.printfln("Is unsafe also unbound? %v", unsafe   == unbound)
 
-    fmt.printfln("%v", Add(10., 100.))
-    fmt.printfln("%v", Add(10., 100.) + 25.)
-    fmt.printfln("%v", Add(10., 100.) + .25)
-    fmt.printfln("%v", Add((8./15.), (16./48.)))
+    fmt.printfln("Pi : %v", Pi())
 
-    fmt.printfln("%v", Sub(10., 100.))
-    fmt.printfln("%v", Sub(10., 100.) + 25.)
-    fmt.printfln("%v", Sub(10., 100.) + .25)
-    fmt.printfln("%v", Sub((8./15.), (16./48.)))
+    fmt.printfln("Add: %v", Add(10., 100.))
+    fmt.printfln("Add: %v", Add(10., 100.) + 25.)
+    fmt.printfln("Add: %v", Add(10., 100.) + .25)
+    fmt.printfln("Add: %v", Add((8./15.), (16./48.)))
 
-    fmt.printfln("%v", Mul(10., 100.))
-    fmt.printfln("%v", Mul(10., 100.) + 25.)
-    fmt.printfln("%v", Mul(10., 100.) + .25)
-    fmt.printfln("%v", Mul((8./15.), (16./48.)))
+    fmt.printfln("Sub: %v", Sub(10., 100.))
+    fmt.printfln("Sub: %v", Sub(10., 100.) + 25.)
+    fmt.printfln("Sub: %v", Sub(10., 100.) + .25)
+    fmt.printfln("Sub: %v", Sub((8./15.), (16./48.)))
 
-    fmt.printfln("%v", Div(10., 100.))
-    fmt.printfln("%v", Div(10., 100.) + 25.)
-    fmt.printfln("%v", Div(10., 100.) + .25)
-    fmt.printfln("%v", Div((8./15.), (16./48.)))
-    fmt.printfln("%v", Div(6., 0.) + 2.)
+    fmt.printfln("Mul: %v", Mul(10., 100.))
+    fmt.printfln("Mul: %v", Mul(10., 100.) + 25.)
+    fmt.printfln("Mul: %v", Mul(10., 100.) + .25)
+    fmt.printfln("Mul: %v", Mul((8./15.), (16./48.)))
 
-    fmt.printfln("%v", Mod(10., 100.))
-    fmt.printfln("%v", Mod(10., 100.) + 25.)
-    fmt.printfln("%v", Mod(10., 100.) + .25)
-    fmt.printfln("%v", Mod((8./15.), (16./48.)))
-    fmt.printfln("%v", Mod(6., 0.) + 2.)
+    fmt.printfln("Div: %v", Div(10., 100.))
+    fmt.printfln("Div: %v", Div(10., 100.) + 25.)
+    fmt.printfln("Div: %v", Div(10., 100.) + .25)
+    fmt.printfln("Div: %v", Div((8./15.), (16./48.)))
+    fmt.printfln("Div: %v", Div(6., 0.) + 2.)
 
-    fmt.printfln("%v", Range(10., 100.))
-    fmt.printfln("%v", Range(56., 17.))
-    fmt.printfln("%v", Range(23., .45))
-    fmt.printfln("%v", Range((8./15.), (16./48.)))
-    fmt.printfln("%v", Range(6., 0.))
+    fmt.printfln("Mod: %v", Mod(10., 100.))
+    fmt.printfln("Mod: %v", Mod(10., 100.) + 25.)
+    fmt.printfln("Mod: %v", Mod(10., 100.) + .25)
+    fmt.printfln("Mod: %v", Mod((8./15.), (16./48.)))
+    fmt.printfln("Mod: %v", Mod(6., 0.) + 2.)
 
-    fmt.printfln("%v : %v : %v : %v", Abs(0.), Abs(1.), Abs(-1.), Abs(-0.))
-    fmt.printfln("%v : %v : %v : %v", Abs(0.8), Abs(7.), Abs(-16.), Abs(-10.))
+    fmt.printfln("Range: %v", Range(10., 100.))
+    fmt.printfln("Range: %v", Range(56., 17.))
+    fmt.printfln("Range: %v", Range(23., .45))
+    fmt.printfln("Range: %v", Range((8./15.), (16./48.)))
+    fmt.printfln("Range: %v", Range(6., 0.))
 
-    fmt.printfln("%v : %v : %v : %v", Sign(0.), Sign(1.), Sign(-1.), Sign(-0.))
-    fmt.printfln("%v : %v : %v : %v", Sign(0.8), Sign(7.), Sign(-16.), Sign(-10.))
+    fmt.printfln("Abs: %v", Abs(0.))
+    fmt.printfln("Abs: %v", Abs(1.))
+    fmt.printfln("Abs: %v", Abs(-1.))
+    fmt.printfln("Abs: %v", Abs(-0.))
+    fmt.printfln("Abs: %v", Abs(0.8))
+    fmt.printfln("Abs: %v", Abs(7.))
+    fmt.printfln("Abs: %v", Abs(-16.))
+    fmt.printfln("Abs: %v", Abs(-10.))
+
+    fmt.printfln("Unsign: %v", Unsign(0.))
+    fmt.printfln("Unsign: %v", Unsign(1.))
+    fmt.printfln("Unsign: %v", Unsign(-1.))
+    fmt.printfln("Unsign: %v", Unsign(-0.))
+    fmt.printfln("Unsign: %v", Unsign(0.8))
+    fmt.printfln("Unsign: %v", Unsign(7.))
+    fmt.printfln("Unsign: %v", Unsign(-16.))
+    fmt.printfln("Unsign: %v", Unsign(-10.))
+
+    fmt.printfln("Ensign: %v", Ensign(0.))
+    fmt.printfln("Ensign: %v", Ensign(1.))
+    fmt.printfln("Ensign: %v", Ensign(-1.))
+    fmt.printfln("Ensign: %v", Ensign(-0.))
+    fmt.printfln("Ensign: %v", Ensign(0.8))
+    fmt.printfln("Ensign: %v", Ensign(7.))
+    fmt.printfln("Ensign: %v", Ensign(-16.))
+    fmt.printfln("Ensign: %v", Ensign(-10.))
+
+    fmt.printfln("Clamp: %v", Clamp(10., 16., 24.))
+    fmt.printfln("Clamp: %v", Clamp(.8, 17., 25.67))
+    fmt.printfln("Clamp: %v", Abs(Clamp(0., 1., -1.)))
+    fmt.printfln("Clamp: %v", Abs(Clamp(1., -1., -0.)))
+    fmt.printfln("Clamp: %v", Abs(Clamp(-1., -0., 0.)))
+    fmt.printfln("Clamp: %v", Abs(Clamp(-0., 0., 1.)))
+
+    fmt.printfln("GCD: %v", GCD(10., 100.))
+    fmt.printfln("GCD: %v", GCD(10., 100.) + 25.)
+    fmt.printfln("GCD: %v", GCD(10., 100.) + .25)
+    fmt.printfln("GCD: %v", GCD((8./15.), (16./48.)))
+
+    fmt.printfln("LCM: %v", LCM(10., 100.))
+    fmt.printfln("LCM: %v", LCM(10., 100.) + 25.)
+    fmt.printfln("LCM: %v", LCM(10., 100.) + .25)
+    fmt.printfln("LCM: %v", LCM((8./15.), (16./48.)))
+
+    fmt.printfln("Sqrt: %v", Sqrt(0.))
+    fmt.printfln("Sqrt: %v", Sqrt(1.))
+    fmt.printfln("Sqrt: %v", Sqrt(-1.))
+    fmt.printfln("Sqrt: %v", Sqrt(-0.))
+    fmt.printfln("Sqrt: %v", Sqrt(0.8))
+    fmt.printfln("Sqrt: %v", Sqrt(7.))
+    fmt.printfln("Sqrt: %v", Sqrt(16.))
+    fmt.printfln("Sqrt: %v", Sqrt(10.))
+
+    fmt.printfln("Expo: %v", Expo(0.))
+    fmt.printfln("Expo: %v", Expo(1.))
+    fmt.printfln("Expo: %v", Expo(-1.))
+    fmt.printfln("Expo: %v", Expo(-0.))
+    fmt.printfln("Expo: %v", Expo(0.8))
+    fmt.printfln("Expo: %v", Expo(7.))
+    fmt.printfln("Expo: %v", Expo(16.))
+    fmt.printfln("Expo: %v", Expo(10.))
+
+    fmt.printfln("Logn: %v", Logn(0.))
+    fmt.printfln("Logn: %v", Logn(1.))
+    fmt.printfln("Logn: %v", Logn(-1.))
+    fmt.printfln("Logn: %v", Logn(-0.))
+    fmt.printfln("Logn: %v", Logn(0.8))
+    fmt.printfln("Logn: %v", Logn(7.))
+    fmt.printfln("Logn: %v", Logn(16.))
+    fmt.printfln("Logn: %v", Logn(10.))
+
+    fmt.printfln("Pow: %v", Pow(10., 10.))
+    fmt.printfln("Pow: %v", Pow(8., 4.))
+    fmt.printfln("Pow: %v", Pow(2., 100.))
+    fmt.printfln("Pow: %v", Pow((8./15.), (16./48.)))
+    fmt.printfln("Pow: %v", Pow(6., 0.))
+
+    // fmt.printfln("Sin: %v", Sin(0.))
+    // fmt.printfln("Sin: %v", Sin(1.))
+    // fmt.printfln("Sin: %v", Sin(-1.))
+    // fmt.printfln("Sin: %v", Sin(-0.))
+    // fmt.printfln("Sin: %v", Sin(0.8))
+    // fmt.printfln("Sin: %v", Sin(7.))
+    // fmt.printfln("Sin: %v", Sin(16.))
+    // fmt.printfln("Sin: %v", Sin(10.))
 }

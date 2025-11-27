@@ -79,6 +79,68 @@ Pi :: proc "contextless" () -> (vex) {
     return 1. / ((2. * Sqrt(2.) / j) * k)
 }
 
+Tau :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return 2 * pi 
+}
+
+// Xi = half-pi
+Xi :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return pi * .5
+}
+
+Lambda :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return pi * .25
+}
+
+Beta :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return 1. / pi
+}
+
+Delta :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return 2. / pi
+}
+
+Theta :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return 4. / pi
+}
+
+Alpha :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return Sqrt(Pi())
+}
+
+Omega :: proc "contextless" () -> (vex) {
+    a := Alpha()
+    return 1. / a
+}
+
+Psi :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return pi * pi
+}
+
+Mu :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return pi / 180.
+}
+
+Nu :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return 180. / pi
+}
+
+Abraxas :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return Pow(Pi(), Pi())
+}
+
+// 
 Add :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
     b := b.(vex)
@@ -238,14 +300,26 @@ main :: proc() {
     //fmt.printfln("%v\n%v", zeroth, zok )
 
     fmt.printfln("verified = %v :: invalid = %v :: unbound = %v :: unsafe = %v", verified, invalid, unbound, unsafe)
-    fmt.printfln("Is verified also unsafe? %v", verified == unsafe) 
-    fmt.printfln("Is invalid also unbound? %v", invalid  == unbound)
+    fmt.printfln("Is verified also unsafe? %v", verified  == unsafe) 
+    fmt.printfln("Is invalid also unbound? %v", invalid   == unbound)
     fmt.printfln("Is verified also invalid? %v", verified == invalid)
-    fmt.printfln("Is invalid also unsafe? %v", invalid  == unsafe)
+    fmt.printfln("Is invalid also unsafe? %v", invalid    == unsafe)
     fmt.printfln("Is verified also unbound? %v", verified == unbound)
-    fmt.printfln("Is unsafe also unbound? %v", unsafe   == unbound)
+    fmt.printfln("Is unsafe also unbound? %v", unsafe     == unbound)
 
     fmt.printfln("Pi : %v", Pi())
+    fmt.printfln("Tau: %v", Tau())
+    fmt.printfln("Xi : %v", Xi())
+    fmt.printfln("Lambda: %v", Lambda())
+    fmt.printfln("Beta: %v", Beta())
+    fmt.printfln("Delta: %v", Delta())
+    fmt.printfln("Theta: %v", Theta())
+    fmt.printfln("Alpha: %v", Alpha())
+    fmt.printfln("Omega: %v", Omega())
+    fmt.printfln("Psi: %v", Psi())
+    fmt.printfln("Mu : %v", Mu())
+    fmt.printfln("Nu : %v", Nu())
+    fmt.printfln("Abraxas: %v", Abraxas())
 
     fmt.printfln("Add: %v", Add(10., 100.))
     fmt.printfln("Add: %v", Add(10., 100.) + 25.)

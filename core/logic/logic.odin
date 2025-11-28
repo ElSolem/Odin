@@ -384,31 +384,28 @@ Vector :: proc "contextless" (a, b: any) -> (struct {x, y: vex}) {
     return {a, b}
 }
 
-// Vector 2 Sorted to Lo-Range first
-Range :: proc "contextless" (a, b: any) -> (struct {lo, hi: vex}){
+// Vector 2 Type
+Bivec :: struct {
+    x: vex,
+    y: vex
+}
+
+// "lil" = {lo, hi}, "big" = {hi, lo}
+// "lil" = Lil Endian, "big" = Big Endian
+Range :: proc (a, b, c: any) -> (Bivec) {
     a := a.(vex)
     b := b.(vex)
-    if a > b {
-        a, b = b, a
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {a, b}
     }
     return {a, b}
 }
-
-// Vector 2 Sorted to Hi-Range first
-Range2 :: proc "contextless" (a, b: any) -> (struct {hi, lo: vex}){
-    a := a.(vex)
-    b := b.(vex)
-    if a < b {
-        a, b = b, a
-    }
-    return {a, b}
-}
-
-// Vector 2 Big Endian 
-Bivec :: Range
-
-// Vector 2 Lil Endian
-Vivec :: Range2
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
@@ -661,29 +658,23 @@ main :: proc() {
     fmt.printfln("Vector: %v", Vector((8./15.), (16./48.)))
     fmt.printfln("Vector: %v", Vector(6., 0.))
     Newline()
-    fmt.printfln("Range: %v", Range(10., 100.))
-    fmt.printfln("Range: %v", Range(56., 17.))
-    fmt.printfln("Range: %v", Range(23., .45))
-    fmt.printfln("Range: %v", Range((8./15.), (16./48.)))
-    fmt.printfln("Range: %v", Range(6., 0.))
+    fmt.printfln("Bivec: %v", Range(10., 100., "lil"))
+    fmt.printfln("Bivec: %v", Range(56., 17., "lil"))
+    fmt.printfln("Bivec: %v", Range(23., .45, "lil"))
+    fmt.printfln("Bivec: %v", Range((8./15.), (16./48.), "lil"))
+    fmt.printfln("Bivec: %v", Range(6., 0., "lil"))
     Newline()
-    fmt.printfln("Range2: %v", Range2(10., 100.))
-    fmt.printfln("Range2: %v", Range2(56., 17.))
-    fmt.printfln("Range2: %v", Range2(23., .45))
-    fmt.printfln("Range2: %v", Range2((8./15.), (16./48.)))
-    fmt.printfln("Range2: %v", Range2(6., 0.))
+    fmt.printfln("Vivec: %v", Range(10., 100., "big"))
+    fmt.printfln("Vivec: %v", Range(56., 17., "big"))
+    fmt.printfln("Vivec: %v", Range(23., .45, "big"))
+    fmt.printfln("Vivec: %v", Range((8./15.), (16./48.), "big"))
+    fmt.printfln("Vivec: %v", Range(6., 0., "big"))
     Newline()
-    fmt.printfln("Bivec: %v", Bivec(10., 100.))
-    fmt.printfln("Bivec: %v", Bivec(56., 17.))
-    fmt.printfln("Bivec: %v", Bivec(23., .45))
-    fmt.printfln("Bivec: %v", Bivec((8./15.), (16./48.)))
-    fmt.printfln("Bivec: %v", Bivec(6., 0.))
-    Newline()
-    fmt.printfln("Vivec: %v", Vivec(10., 100.))
-    fmt.printfln("Vivec: %v", Vivec(56., 17.))
-    fmt.printfln("Vivec: %v", Vivec(23., .45))
-    fmt.printfln("Vivec: %v", Vivec((8./15.), (16./48.)))
-    fmt.printfln("Vivec: %v", Vivec(6., 0.))
+    fmt.printfln("Mivec: %v", Range(10., 100., ""))
+    fmt.printfln("Mivec: %v", Range(56., 17., ""))
+    fmt.printfln("Mivec: %v", Range(23., .45, ""))
+    fmt.printfln("Mivec: %v", Range((8./15.), (16./48.), ""))
+    fmt.printfln("Mivec: %v", Range(6., 0., ""))
     Newline()
     fmt.printfln("Simplex: %v", Simplex(10., 100.))
     fmt.printfln("Simplex: %v", Simplex(56., 17.))

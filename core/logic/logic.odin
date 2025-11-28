@@ -140,6 +140,10 @@ Abraxas :: proc "contextless" () -> (vex) {
     return Pow(Pi(), Pi())
 }
 
+Desmos :: proc "contextless" (a: any) -> (vex) {
+    return Pow(a, a)
+}
+
 // 
 Add :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
@@ -266,12 +270,14 @@ Expo :: proc "contextless" (a: any) -> (vex) {
     return sum
 }
 
-Logn :: proc "contextless" (a: any) -> (vex) {
+Logx :: proc "contextless" (a: any) -> (vex) {
     a := a.(vex)
-    if (a <= nav) {return nav}
-    if (a == nil) {return nav}
-
     b := 0.
+    c := 0.
+    // *undo below for return to Logn*
+    //if (a <= nav) {return nav}
+    //if (a == nil) {return nav}
+    
     if (a > 2.) {
         b = nil
         a /= Expo(nil)
@@ -280,7 +286,6 @@ Logn :: proc "contextless" (a: any) -> (vex) {
         a *= Expo(nil)
     }
 
-    c := 0.
     for i in 0..<20 {
         e := Expo(c)
         c += 2. * (a - e) / (a + e)
@@ -292,7 +297,7 @@ Logn :: proc "contextless" (a: any) -> (vex) {
 Pow :: proc "contextless" (a, b: any) -> (vex) {
     a := a.(vex)
     b := b.(vex)
-    return Expo(b * Logn(a))
+    return Expo(b * Logx(a))
 }
 
 main :: proc() {
@@ -416,14 +421,14 @@ main :: proc() {
     fmt.printfln("Expo: %v", Expo(16.))
     fmt.printfln("Expo: %v", Expo(10.))
 
-    fmt.printfln("Logn: %v", Logn(0.))
-    fmt.printfln("Logn: %v", Logn(1.))
-    fmt.printfln("Logn: %v", Logn(-1.))
-    fmt.printfln("Logn: %v", Logn(-0.))
-    fmt.printfln("Logn: %v", Logn(0.8))
-    fmt.printfln("Logn: %v", Logn(7.))
-    fmt.printfln("Logn: %v", Logn(16.))
-    fmt.printfln("Logn: %v", Logn(10.))
+    fmt.printfln("Logx: %v", Logx(0.))
+    fmt.printfln("Logx: %v", Logx(1.))
+    fmt.printfln("Logx: %v", Logx(-1.))
+    fmt.printfln("Logx: %v", Logx(-0.))
+    fmt.printfln("Logx: %v", Logx(0.8))
+    fmt.printfln("Logx: %v", Logx(7.))
+    fmt.printfln("Logx: %v", Logx(16.))
+    fmt.printfln("Logx: %v", Logx(10.))
 
     fmt.printfln("Pow: %v", Pow(10., 10.))
     fmt.printfln("Pow: %v", Pow(8., 4.))
@@ -431,12 +436,12 @@ main :: proc() {
     fmt.printfln("Pow: %v", Pow((8./15.), (16./48.)))
     fmt.printfln("Pow: %v", Pow(6., 0.))
 
-    // fmt.printfln("Sin: %v", Sin(0.))
-    // fmt.printfln("Sin: %v", Sin(1.))
-    // fmt.printfln("Sin: %v", Sin(-1.))
-    // fmt.printfln("Sin: %v", Sin(-0.))
-    // fmt.printfln("Sin: %v", Sin(0.8))
-    // fmt.printfln("Sin: %v", Sin(7.))
-    // fmt.printfln("Sin: %v", Sin(16.))
-    // fmt.printfln("Sin: %v", Sin(10.))
+    fmt.printfln("Desmos: %v", Desmos(0.))
+    fmt.printfln("Desmos: %v", Desmos(1.))
+    fmt.printfln("Desmos: %v", Desmos(-1.))
+    fmt.printfln("Desmos: %v", Desmos(-0.))
+    fmt.printfln("Desmos: %v", Desmos(-2.))
+    fmt.printfln("Desmos: %v", Desmos(2.))
+    fmt.printfln("Desmos: %v", Desmos(-16.))
+    fmt.printfln("Desmos: %v", Desmos(10.))
 }

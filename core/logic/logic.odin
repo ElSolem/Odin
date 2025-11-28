@@ -23,7 +23,7 @@ invalid  :: nil == inf
 unbound  :: inf != nil
 unsafe   :: nan != nav
 
-Veria :: proc() -> (struct {ant, ent, int, unt: vex}) { 
+Veria :: proc() -> (struct {ant, ent, int, ont, unt: vex}) { 
     if verified {
         switch {
             case invalid:
@@ -34,7 +34,7 @@ Veria :: proc() -> (struct {ant, ent, int, unt: vex}) {
                 fmt.printfln("%v", unsafe)
         }
     }
-    return {.1, -.1, Sqrt(-1.), Sqrt(1.)}
+    return {.1, -.1, Sqrt(-1.), Sqrt(.1), Sqrt(-.1)}
 }
 
 Pistis :: enum {
@@ -483,6 +483,7 @@ main :: proc() {
     fmt.printfln("%v", v.ant)
     fmt.printfln("%v", v.ent)
     fmt.printfln("%v", v.int)
+    fmt.printfln("%v", v.ont)
     fmt.printfln("%v", v.unt)
     Newline()
     fmt.printfln("Is verified also unsafe? %v", verified  == unsafe) 

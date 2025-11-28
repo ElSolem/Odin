@@ -8,12 +8,11 @@ hex :: f64le // Visual/Graphical Values
 lex :: f64be // Textual/Audio Values
 
 Logia :: enum {
-    NAV =  0x00, // '+0'
-    NIL =  0x01, // '+1'
-    INF = -0x01, // '-1'
-    NAN = -0x00, // '-0'
+    NAV =  0x00, // '+0' // Null and void
+    NIL =  0x01, // '+1' // Not in list
+    INF = -0x01, // '-1' // Indexed Numeric Factor
+    NAN = -0x00, // '-0' // Not a number
 }
-
 nav :: vex(Logia.NAV)
 nil :: vex(Logia.NIL)
 inf :: vex(Logia.INF)
@@ -24,7 +23,21 @@ invalid  :: nil == inf
 unbound  :: inf != nil
 unsafe   :: nan != nav
 
-IO :: enum {
+Veria :: proc() -> (struct {ant, ent, int, unt: vex}) { 
+    if verified {
+        switch {
+            case invalid:
+                fmt.printfln("%v", invalid)
+            case unbound:
+                fmt.printfln("%v", unbound)
+            case:
+                fmt.printfln("%v", unsafe)
+        }
+    }
+    return {.1, -.1, Sqrt(-1.), Sqrt(1.)}
+}
+
+Pistis :: enum {
     // Group 1
     NIND = 0x00, // No Intz No Data // Input
     NISD = 0x01, // No Intz Single Data // Output
@@ -399,37 +412,66 @@ Vivec :: Range2
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Simplex :: proc "contextless" (a, b: any) -> (vex) {
+Simplex :: proc "contextless" (a, b: any) -> (struct {value, real, imag: vex}) {
     a := a.(vex)
     b := b.(vex) * .1
-    return a + b
+    return {a + b, a, b}
 }
 
 // Opposite of Simplex
-Misplex :: proc "contextless" (a, b: any) -> (vex) {
+Misplex :: proc "contextless" (a, b: any) -> (struct {value, real, imag: vex})  {
     a := a.(vex)
     b := b.(vex) * .1
-    return a - b
+    return {a - b, a, b}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Complex :: proc "contextless" (a, b: any) -> (vex) {
+Complex :: proc "contextless" (a, b: any) -> (struct {value, real, imag: vex})  {
     a := a.(vex)
     b := b.(vex) * Sqrt(-1.)
-    return a + b
+    return {a + b, a ,b}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Mocplex :: proc "contextless" (a, b: any) -> (vex) {
+Mocplex :: proc "contextless" (a, b: any) -> (struct {value, real, imag: vex})  {
     a := a.(vex)
     b := b.(vex) * Sqrt(-1.)
-    return a - b
+    return {a - b, a, b}
 }
 
+// A real complex number and not odins impl
+// *Conflicted about the value of i thing
+Polyplex :: proc "contextless" (a, b: any) -> (struct {value, real, imag: vex})  {
+    a := a.(vex)
+    b := Sin(b.(vex)) * .1
+    return {Cos(a) + b, a, b}
+}
 
+// A real complex number and not odins impl
+// *Conflicted about the value of i thing
+Ylopplex :: proc "contextless" (a, b: any) -> (struct {value, real, imag: vex})  {
+    a := a.(vex)
+    b := Sin(b.(vex)) * .1
+    return {Cos(a) - b, a, b}
+}
 
+// A real complex number and not odins impl
+// *Conflicted about the value of i thing
+Perplex :: proc "contextless" (a, b: any) -> (struct {value, real, imag: vex})  {
+    a := a.(vex)
+    b := Sin(b.(vex)) * Sqrt(-1.)
+    return {Cos(a) + b, a, b}
+}
+
+// A real complex number and not odins impl
+// *Conflicted about the value of i thing
+Repplex :: proc "contextless" (a, b: any) -> (struct {value, real, imag: vex})  {
+    a := a.(vex)
+    b := Sin(b.(vex)) * Sqrt(-1.)
+    return {Cos(a) - b, a, b}
+}
 
 Newline :: proc() -> (vex) {
     return vex(fmt.println())
@@ -440,7 +482,12 @@ main :: proc() {
     //zeroth, zok := zoth.Zeroth()
     //fmt.printfln("%v\n%v", zeroth, zok )
     Newline()
-    fmt.printfln("verified = %v :: invalid = %v :: unbound = %v :: unsafe = %v", verified, invalid, unbound, unsafe)
+    v := Veria()
+    fmt.printfln("%v", v.ant)
+    fmt.printfln("%v", v.ent)
+    fmt.printfln("%v", v.int)
+    fmt.printfln("%v", v.unt)
+    Newline()
     fmt.printfln("Is verified also unsafe? %v", verified  == unsafe) 
     fmt.printfln("Is invalid also unbound? %v", invalid   == unbound)
     fmt.printfln("Is verified also invalid? %v", verified == invalid)
@@ -575,12 +622,12 @@ main :: proc() {
     fmt.printfln("Pow: %v", Pow((8./15.), (16./48.)))
     fmt.printfln("Pow: %v", Pow(6., 0.))
     Newline()
-    fmt.printfln("Sin: %v", Sin(0.))
-    fmt.printfln("Sin: %v", Sin(1.))
+    fmt.printfln("Sin: %v", Sin(00.))
+    fmt.printfln("Sin: %v", Sin(01.))
     fmt.printfln("Sin: %v", Sin(-1.))
     fmt.printfln("Sin: %v", Sin(-0.))
     fmt.printfln("Sin: %v", Sin(0.8))
-    fmt.printfln("Sin: %v", Sin(7.))
+    fmt.printfln("Sin: %v", Sin(07.))
     fmt.printfln("Sin: %v", Sin(16.))
     fmt.printfln("Sin: %v", Sin(10.))
     Newline()
@@ -661,4 +708,28 @@ main :: proc() {
     fmt.printfln("Mocplex: %v", Mocplex(23., .45))
     fmt.printfln("Mocplex: %v", Mocplex((8./15.), (16./48.)))
     fmt.printfln("Mocplex: %v", Mocplex(6., 0.))
+    Newline()
+    fmt.printfln("Polyplex: %v", Polyplex(10., 100.))
+    fmt.printfln("Polyplex: %v", Polyplex(56., 17.))
+    fmt.printfln("Polyplex: %v", Polyplex(23., .45))
+    fmt.printfln("Polyplex: %v", Polyplex((8./15.), (16./48.)))
+    fmt.printfln("Polyplex: %v", Polyplex(6., 0.))
+    Newline()
+    fmt.printfln("Ylopplex: %v", Ylopplex(10., 100.))
+    fmt.printfln("Ylopplex: %v", Ylopplex(56., 17.))
+    fmt.printfln("Ylopplex: %v", Ylopplex(23., .45))
+    fmt.printfln("Ylopplex: %v", Ylopplex((8./15.), (16./48.)))
+    fmt.printfln("Ylopplex: %v", Ylopplex(6., 0.))
+    Newline()
+    fmt.printfln("Perplex: %v", Perplex(10., 100.))
+    fmt.printfln("Perplex: %v", Perplex(56., 17.))
+    fmt.printfln("Perplex: %v", Perplex(23., .45))
+    fmt.printfln("Perplex: %v", Perplex((8./15.), (16./48.)))
+    fmt.printfln("Perplex: %v", Perplex(6., 0.))
+    Newline()
+    fmt.printfln("Repplex: %v", Repplex(10., 100.))
+    fmt.printfln("Repplex: %v", Repplex(56., 17.))
+    fmt.printfln("Repplex: %v", Repplex(23., .45))
+    fmt.printfln("Repplex: %v", Repplex((8./15.), (16./48.)))
+    fmt.printfln("Repplex: %v", Repplex(6., 0.))
 }

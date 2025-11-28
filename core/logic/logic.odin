@@ -314,6 +314,49 @@ Pow :: proc "contextless" (a, b: any) -> (vex) {
     return Expo(b * Logx(a))
 }
 
+// Sin Function
+Sin :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    pi  := Pi()
+    tau := 2 * pi
+
+    r := Mod(a, tau)
+    if r >  pi  do r -= tau
+    if r < -pi  do r += tau
+
+    t := r
+    t2 := t * t
+
+    return t - (t * t2 / 6.) + (t * t2 * t2 / 120.) - (t * t2 * t2 * t2 / 5040.)
+}
+
+
+// Cos Function
+Cos :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    pi  := Pi()
+    tau := Tau()
+
+    r := Mod(a, tau)
+    if r >  pi  do r -= tau
+    if r < -pi  do r += tau
+
+    t := r
+    t2 := t * t
+
+    return 1. - (t2 / 2.) + (t2 * t2 / 24.) - (t2 * t2 * t2 / 720.)
+}
+
+// Tan Function
+Tan :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    b := Sin(a)
+    c := Cos(a)
+    if c == 0 { return nav }
+    return b / c
+}
+
+
 // Atomic Vector :: Vector 1
 Avex :: proc "contextless" (a: any) -> (struct {x, y: vex}) {
     a := a.(vex)
@@ -531,6 +574,33 @@ main :: proc() {
     fmt.printfln("Pow: %v", Pow(2., 100.))
     fmt.printfln("Pow: %v", Pow((8./15.), (16./48.)))
     fmt.printfln("Pow: %v", Pow(6., 0.))
+    Newline()
+    fmt.printfln("Sin: %v", Sin(0.))
+    fmt.printfln("Sin: %v", Sin(1.))
+    fmt.printfln("Sin: %v", Sin(-1.))
+    fmt.printfln("Sin: %v", Sin(-0.))
+    fmt.printfln("Sin: %v", Sin(0.8))
+    fmt.printfln("Sin: %v", Sin(7.))
+    fmt.printfln("Sin: %v", Sin(16.))
+    fmt.printfln("Sin: %v", Sin(10.))
+    Newline()
+    fmt.printfln("Cos: %v", Cos(0.))
+    fmt.printfln("Cos: %v", Cos(1.))
+    fmt.printfln("Cos: %v", Cos(-1.))
+    fmt.printfln("Cos: %v", Cos(-0.))
+    fmt.printfln("Cos: %v", Cos(0.8))
+    fmt.printfln("Cos: %v", Cos(7.))
+    fmt.printfln("Cos: %v", Cos(16.))
+    fmt.printfln("Cos: %v", Cos(10.))
+    Newline()
+    fmt.printfln("Tan: %v", Tan(0.))
+    fmt.printfln("Tan: %v", Tan(1.))
+    fmt.printfln("Tan: %v", Tan(-1.))
+    fmt.printfln("Tan: %v", Tan(-0.))
+    fmt.printfln("Tan: %v", Tan(0.8))
+    fmt.printfln("Tan: %v", Tan(7.))
+    fmt.printfln("Tan: %v", Tan(16.))
+    fmt.printfln("Tan: %v", Tan(10.))
     Newline()
     fmt.printfln("Avex: %v", Avex(10.))
     fmt.printfln("Avex: %v", Avex(56.))

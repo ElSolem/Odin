@@ -400,19 +400,33 @@ Tan :: proc "contextless" (a: any) -> (vex) {
     return b / c
 }
 
+// Vector 2 
+Vec2 :: struct {
+    x, y: vex
+}
+
+// Vector 3
+Vec3 :: struct {
+    x, y, z: vex
+}
+
+// Vector 4
+Vec4 :: struct {
+    w, x, y, z: vex
+}
 
 // Atomic Vector :: Vector 1
-Avex :: proc "contextless" (a: any) -> (struct {x, y: vex}) {
+Avex :: proc "contextless" (a: any) -> (Vec2) {
     a := a.(vex)
     b := 0.
     return {a, b}
 }
 
 // Vector 2 cause one is just {x, y = 0}
-Vector :: proc "contextless" (a, b: any) -> (struct {x, y: vex}) {
+Vector :: proc "contextless" (a, b: any) -> (any) {
     a := a.(vex)
     b := b.(vex)
-    return {a, b}
+    return Vec2{a, b}
 }
 
 // Vector 2 Type
@@ -440,71 +454,143 @@ Range :: proc (a, b, c: any) -> (Bivec) {
 
 // Vector 2 Type
 Trivec :: struct {
-    sumo: vex,
+    suma: vex,
     real: vex,
     imag: vex
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Simplex :: proc "contextless" (a, b: any) -> (Trivec) {
+Simplex :: proc "contextless" (a, b, c: any) -> (Trivec) {
     a := a.(vex)
     b := b.(vex) * .1
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {a + b, a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {a + b, a, b}
+    }
     return {a + b, a, b}
 }
 
 // Opposite of Simplex
-Misplex :: proc "contextless" (a, b: any) -> (Trivec)  {
+Misplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     a := a.(vex)
     b := b.(vex) * .1
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {a - b, a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {a - b, a, b}
+    }
     return {a - b, a, b}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Complex :: proc "contextless" (a, b: any) -> (Trivec)  {
+Complex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     a := a.(vex)
     b := b.(vex) * Sqrt(-1.)
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {a + b, a ,b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {a + b, a ,b}
+    }
     return {a + b, a ,b}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Mocplex :: proc "contextless" (a, b: any) -> (Trivec)  {
+Mocplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     a := a.(vex)
     b := b.(vex) * Sqrt(-1.)
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {a - b, a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {a - b, a, b}
+    }
     return {a - b, a, b}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Polyplex :: proc "contextless" (a, b: any) -> (Trivec)  {
+Polyplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     a := a.(vex)
     b := Sin(b.(vex)) * .1
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {Cos(a) + b, a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {Cos(a) + b, a, b}
+    }
     return {Cos(a) + b, a, b}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Ylopplex :: proc "contextless" (a, b: any) -> (Trivec)  {
+Ylopplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     a := a.(vex)
     b := Sin(b.(vex)) * .1
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {Cos(a) - b, a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {Cos(a) - b, a, b}
+    }
     return {Cos(a) - b, a, b}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Perplex :: proc "contextless" (a, b: any) -> (Trivec)  {
+Perplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     a := a.(vex)
     b := Sin(b.(vex)) * Sqrt(-1.)
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {Cos(a) + b, a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {Cos(a) + b, a, b}
+    }
     return {Cos(a) + b, a, b}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Repplex :: proc "contextless" (a, b: any) -> (Trivec)  {
+Repplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     a := a.(vex)
     b := Sin(b.(vex)) * Sqrt(-1.)
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {Cos(a) - b, a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {Cos(a) - b, a, b}
+    }
     return {Cos(a) - b, a, b}
 }
 
@@ -719,51 +805,51 @@ main :: proc() {
     fmt.printfln("Mivec: %v", Range((8./15.), (16./48.), ""))
     fmt.printfln("Mivec: %v", Range(6., 0., ""))
     Newline()
-    fmt.printfln("Simplex: %v", Simplex(10., 100.))
-    fmt.printfln("Simplex: %v", Simplex(56., 17.))
-    fmt.printfln("Simplex: %v", Simplex(23., .45))
-    fmt.printfln("Simplex: %v", Simplex((8./15.), (16./48.)))
-    fmt.printfln("Simplex: %v", Simplex(6., 0.))
+    fmt.printfln("Simplex: %v", Simplex(10., 100., "lil"))
+    fmt.printfln("Simplex: %v", Simplex(56., 17., "lil"))
+    fmt.printfln("Simplex: %v", Simplex(23., .45, "lil"))
+    fmt.printfln("Simplex: %v", Simplex((8./15.), (16./48.), "lil"))
+    fmt.printfln("Simplex: %v", Simplex(6., 0., "lil"))
     Newline()
-    fmt.printfln("Misplex: %v", Misplex(10., 100.))
-    fmt.printfln("Misplex: %v", Misplex(56., 17.))
-    fmt.printfln("Misplex: %v", Misplex(23., .45))
-    fmt.printfln("Misplex: %v", Misplex((8./15.), (16./48.)))
-    fmt.printfln("Misplex: %v", Misplex(6., 0.))
+    fmt.printfln("Misplex: %v", Misplex(10., 100., "big"))
+    fmt.printfln("Misplex: %v", Misplex(56., 17., "big"))
+    fmt.printfln("Misplex: %v", Misplex(23., .45, "big"))
+    fmt.printfln("Misplex: %v", Misplex((8./15.), (16./48.), "big"))
+    fmt.printfln("Misplex: %v", Misplex(6., 0., "big"))
     Newline()
-    fmt.printfln("Complex: %v", Complex(10., 100.))
-    fmt.printfln("Complex: %v", Complex(56., 17.))
-    fmt.printfln("Complex: %v", Complex(23., .45))
-    fmt.printfln("Complex: %v", Complex((8./15.), (16./48.)))
-    fmt.printfln("Complex: %v", Complex(6., 0.))
+    fmt.printfln("Complex: %v", Complex(10., 100., "lil"))
+    fmt.printfln("Complex: %v", Complex(56., 17., "lil"))
+    fmt.printfln("Complex: %v", Complex(23., .45, "lil"))
+    fmt.printfln("Complex: %v", Complex((8./15.), (16./48.), "lil"))
+    fmt.printfln("Complex: %v", Complex(6., 0., "lil"))
     Newline()
-    fmt.printfln("Mocplex: %v", Mocplex(10., 100.))
-    fmt.printfln("Mocplex: %v", Mocplex(56., 17.))
-    fmt.printfln("Mocplex: %v", Mocplex(23., .45))
-    fmt.printfln("Mocplex: %v", Mocplex((8./15.), (16./48.)))
-    fmt.printfln("Mocplex: %v", Mocplex(6., 0.))
+    fmt.printfln("Mocplex: %v", Mocplex(10., 100., "big"))
+    fmt.printfln("Mocplex: %v", Mocplex(56., 17., "big"))
+    fmt.printfln("Mocplex: %v", Mocplex(23., .45, "big"))
+    fmt.printfln("Mocplex: %v", Mocplex((8./15.), (16./48.), "big"))
+    fmt.printfln("Mocplex: %v", Mocplex(6., 0., "big"))
     Newline()
-    fmt.printfln("Polyplex: %v", Polyplex(10., 100.))
-    fmt.printfln("Polyplex: %v", Polyplex(56., 17.))
-    fmt.printfln("Polyplex: %v", Polyplex(23., .45))
-    fmt.printfln("Polyplex: %v", Polyplex((8./15.), (16./48.)))
-    fmt.printfln("Polyplex: %v", Polyplex(6., 0.))
+    fmt.printfln("Polyplex: %v", Polyplex(10., 100., "lil"))
+    fmt.printfln("Polyplex: %v", Polyplex(56., 17., "lil"))
+    fmt.printfln("Polyplex: %v", Polyplex(23., .45, "lil"))
+    fmt.printfln("Polyplex: %v", Polyplex((8./15.), (16./48.), "lil"))
+    fmt.printfln("Polyplex: %v", Polyplex(6., 0., "lil"))
     Newline()
-    fmt.printfln("Ylopplex: %v", Ylopplex(10., 100.))
-    fmt.printfln("Ylopplex: %v", Ylopplex(56., 17.))
-    fmt.printfln("Ylopplex: %v", Ylopplex(23., .45))
-    fmt.printfln("Ylopplex: %v", Ylopplex((8./15.), (16./48.)))
-    fmt.printfln("Ylopplex: %v", Ylopplex(6., 0.))
+    fmt.printfln("Ylopplex: %v", Ylopplex(10., 100., "big"))
+    fmt.printfln("Ylopplex: %v", Ylopplex(56., 17., "big"))
+    fmt.printfln("Ylopplex: %v", Ylopplex(23., .45, "big"))
+    fmt.printfln("Ylopplex: %v", Ylopplex((8./15.), (16./48.), "big"))
+    fmt.printfln("Ylopplex: %v", Ylopplex(6., 0., "big"))
     Newline()
-    fmt.printfln("Perplex: %v", Perplex(10., 100.))
-    fmt.printfln("Perplex: %v", Perplex(56., 17.))
-    fmt.printfln("Perplex: %v", Perplex(23., .45))
-    fmt.printfln("Perplex: %v", Perplex((8./15.), (16./48.)))
-    fmt.printfln("Perplex: %v", Perplex(6., 0.))
+    fmt.printfln("Perplex: %v", Perplex(10., 100., "lil"))
+    fmt.printfln("Perplex: %v", Perplex(56., 17., "lil"))
+    fmt.printfln("Perplex: %v", Perplex(23., .45, "lil"))
+    fmt.printfln("Perplex: %v", Perplex((8./15.), (16./48.), "lil"))
+    fmt.printfln("Perplex: %v", Perplex(6., 0., "lil"))
     Newline()
-    fmt.printfln("Repplex: %v", Repplex(10., 100.))
-    fmt.printfln("Repplex: %v", Repplex(56., 17.))
-    fmt.printfln("Repplex: %v", Repplex(23., .45))
-    fmt.printfln("Repplex: %v", Repplex((8./15.), (16./48.)))
-    fmt.printfln("Repplex: %v", Repplex(6., 0.))
+    fmt.printfln("Repplex: %v", Repplex(10., 100., "big"))
+    fmt.printfln("Repplex: %v", Repplex(56., 17., "big"))
+    fmt.printfln("Repplex: %v", Repplex(23., .45, "big"))
+    fmt.printfln("Repplex: %v", Repplex((8./15.), (16./48.), "big"))
+    fmt.printfln("Repplex: %v", Repplex(6., 0., "big"))
 }

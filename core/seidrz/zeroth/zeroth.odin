@@ -8,7 +8,7 @@ import "core:logic"
 import "core:time"
 import "core:fmt"
 
-
+// Replacement for rand, will change the other values later
 Zeroth :: proc() -> (struct {
     t: bool, u: f64 , v: f64 , 
     w: f64 , x: i64 , y: i64 , z: f64 ,}, bool) 

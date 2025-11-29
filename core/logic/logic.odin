@@ -157,18 +157,35 @@ Nu :: proc "contextless" () -> (vex) {
     return 180. / pi
 }
 
+// Circumference of a Circle
+Iota :: proc "contextless" (a: any) -> (vex) {
+    a   := a.(vex)
+    tau := Tau()
+    return tau * a
+}
+
+// Volume of a Sphere
+Rho :: proc "contextless" (a: any) -> (vex) {
+    a   := a.(vex)
+    tau := Tau()
+    return 2. * tau * a 
+}
+
 // X^X Constant
+// Qubit Normals
 Desmos :: proc "contextless" (a: any) -> (vex) {
     return Pow(a, a)
 }
 
-// Pi ^ Pi constant 
+// Pi ^ Pi constant
+// Tile size constant
 Abraxas :: proc "contextless" () -> (vex) {
     pi := Pi()
     return Desmos(pi)
 }
 
 // Al Dara Ia Sive Agyos Vocor
+// Audio/Video encoding constants
 Aldaraia :: proc "contextless" (a: any) -> (vex) {
     a := a.(string)
     if !unsafe {
@@ -524,6 +541,8 @@ main :: proc() {
     fmt.printfln("Psi: %v", Psi())
     fmt.printfln("Mu : %v", Mu())
     fmt.printfln("Nu : %v", Nu())
+    fmt.printfln("Iota : %v", Iota(2.))
+    fmt.printfln("Rho : %v", Rho(2.))
     fmt.printfln("Abraxas: %v", Abraxas())
     fmt.printfln("Aldaraia: %v", Aldaraia(""))
     fmt.printfln("Aldaraia: %v", Aldaraia("JohnD"))

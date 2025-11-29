@@ -10,40 +10,17 @@ import "core:fmt"
 
 // Replacement for rand, will change the other values later
 Zeroth :: proc() -> (struct {
-    t: bool, u: f64 , v: f64 , 
-    w: f64 , x: i64 , y: i64 , z: f64 ,}, bool) 
+    s: bool, t: bool, u: f64 , v: f64 , 
+    w: f64 , x: i64 , y: i64 , z: f64 ,}) 
 {
     alpha := time.now()
-    
-    
-    // Hellpairz: A play on helpers and aupairs,
-    // cause they take care of all the silly math stuff 
-    // and math is from hell
     tick  := logic.vex(alpha._nsec) // Delta = tick
     I     := 0.1 // Value = i
     pie   := logic.Pi()
     //-------------------------------------------\\
-    
-    
-    //--------------------------------------------\\
-    // Qubit Normal // |x|^x :: creates 4d normals
-    // This returns the value of x in a 4d-plane.
-    // | X | logic.Abs(x)^x|
-    // |---|---------|
-    // |-2 |  0.25   |
-    // |-1 |   1     |
-    // | 0 |   1     |
-    // | 1 |   1     |
-    // | 2 |   4     |
-    // |---|---------|
-    // This is proof of XY == X/Y \\ XY = X/Y \\
-    // Two pies given to 2 ppl each is 4 pies
-    // Two pies split into 2 pcs each is 4 pcs
-    // Multiple is Big Endian, Dividend is Lil Endian
-    a := logic.Pow(tick, tick)
+		// Qubit Normal // Abs(x)^x
+    a := logic.Desmos(tick)
     //----------------------------------------------\\
-
-    
     // Focalor Point // logic.Abs(xy) < 1 :: creates parallax normal
     b     := logic.Abs(a * tick) < 1
     //-----------------------------------------------\\
@@ -146,11 +123,11 @@ Zeroth :: proc() -> (struct {
     //---------------------------------------------------------\\
     //---------------------------------------------------------\\
     return struct {
-        t: bool, u: f64 , v: f64 , 
+        s: bool, t: bool, u: f64 , v: f64 , 
         w: f64 , x: i64 , y: i64 , z: f64 ,} {
             t = b, u = h, v = l, 
             w = w, x = x, y = y, z = z,
-        }, Fourdime()
+        }
 }
 
 main :: proc() {

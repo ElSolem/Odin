@@ -1,6 +1,7 @@
 package logic
 
 import "core:fmt"
+import "base:runtime"
 
 vex :: f64   // Vector/Logical Values
 hex :: f64le // Visual/Graphical Values
@@ -21,20 +22,6 @@ verified :: nav == nan
 invalid  :: nil == inf
 unbound  :: inf != nil
 unsafe   :: nan != nav
-
-Veria :: proc() -> (struct {ant, ent, int, ont, unt: vex}) { 
-    if verified {
-        switch {
-            case invalid:
-                fmt.printfln("%v", invalid)
-            case unbound:
-                fmt.printfln("%v", unbound)
-            case:
-                fmt.printfln("%v", unsafe)
-        }
-    }
-    return {.1, -.1, Sqrt(-1.), Sqrt(.1), Sqrt(-.1)}
-}
 
 Pistis :: enum {
     // Group 1: Functions
@@ -423,10 +410,38 @@ Avex :: proc "contextless" (a: any) -> (Vec2) {
 }
 
 // Vector 2 cause one is just {x, y = 0}
-Vector :: proc "contextless" (a, b: any) -> (any) {
+Vector :: proc "contextless" (a, b, c, d, e: any) -> (Vec4) {
     a := a.(vex)
     b := b.(vex)
-    return Vec2{a, b}
+    c := c.(vex)
+    d := d.(vex)
+    e := e.(string)
+    if verified {
+        switch {
+            case e == "2":
+                if a > b {a, b = b, a}
+                if a < b {
+                    a, b = b, a 
+                    return Vec4{a, b, c, d}
+                }
+                return Vec4{a, b, c, d}
+            case e == "3":
+                if a > b && b > c {a, b, c = b, c, a}
+                if a < b && b < c {
+                    a, b, c = b, c, a 
+                    return Vec4{a, b, c, d}
+                }
+                return Vec4{a, b, c, d}
+            case e == "4":
+                if a > b && b > c && c > d {a, b, c, d = c, d, a, b}
+                if a < b && b < c && c < d {
+                    a, b, c, d = c, d, a, b 
+                    return Vec4{a, b, c, d}
+                }
+                return Vec4{a, b, c, d}
+        }
+    }
+    return Vec4{a, b, c, d}
 }
 
 // Vector 2 Type
@@ -452,7 +467,7 @@ Range :: proc (a, b, c: any) -> (Bivec) {
     return {a, b}
 }
 
-// Vector 2 Type
+// Trinary Vector type
 Trivec :: struct {
     suma: vex,
     real: vex,
@@ -594,6 +609,32 @@ Repplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     return {Cos(a) - b, a, b}
 }
 
+// Quintessent vector
+Quarvec :: struct {
+    suma, real, imag, jmag, kmag: vex
+}
+
+// Real Quaternion values
+Quaternion :: proc (a, b, c, d, e: any) -> (Quarvec) {
+    a := a.(vex)
+    b := Sin(b.(vex)) * .1
+    c := c.(vex)
+    c  = b * .1
+    d := d.(vex)
+    d  = b * .1
+    e := e.(string)
+    switch {
+        case e == "lil":
+            if a > b {a, b = b, a}
+            return {Cos(a) + b + c + d, a, b, c, d}
+        case e == "big":
+            if a < b {a, b = b, a}
+            return {Cos(a) + b + c + d, a, b, c, d}
+    }
+    return {Cos(a) + b + c + d, a, b, c, d}
+}
+
+// mew line
 Newline :: proc() -> (vex) {
     return vex(fmt.println())
 }
@@ -601,12 +642,6 @@ Newline :: proc() -> (vex) {
 // Testing the output of the library
 main :: proc() {
     Newline()
-    v := Veria()
-    fmt.printfln("%v", v.ant)
-    fmt.printfln("%v", v.ent)
-    fmt.printfln("%v", v.int)
-    fmt.printfln("%v", v.ont)
-    fmt.printfln("%v", v.unt)
     Newline()
     fmt.printfln("Is verified also unsafe? %v", verified  == unsafe) 
     fmt.printfln("Is invalid also unbound? %v", invalid   == unbound)
@@ -781,11 +816,11 @@ main :: proc() {
     fmt.printfln("Avex: %v", Avex((8./15.)))
     fmt.printfln("Avex: %v", Avex(6.))
     Newline()
-    fmt.printfln("Vector: %v", Vector(10., 100.))
-    fmt.printfln("Vector: %v", Vector(56., 17.))
-    fmt.printfln("Vector: %v", Vector(23., .45))
-    fmt.printfln("Vector: %v", Vector((8./15.), (16./48.)))
-    fmt.printfln("Vector: %v", Vector(6., 0.))
+    fmt.printfln("Vector: %v", Vector(10., 100., 0., 0., "2"))
+    fmt.printfln("Vector: %v", Vector(56., 17., 0., 0., "2"))
+    fmt.printfln("Vector: %v", Vector(23., .45, 0., 0., "2"))
+    fmt.printfln("Vector: %v", Vector((8./15.), (16./48.), 0., 0., "2"))
+    fmt.printfln("Vector: %v", Vector(6., 0., 0., 0., "2"))
     Newline()
     fmt.printfln("Bivec: %v", Range(10., 100., "lil"))
     fmt.printfln("Bivec: %v", Range(56., 17., "lil"))
@@ -852,4 +887,10 @@ main :: proc() {
     fmt.printfln("Repplex: %v", Repplex(23., .45, "big"))
     fmt.printfln("Repplex: %v", Repplex((8./15.), (16./48.), "big"))
     fmt.printfln("Repplex: %v", Repplex(6., 0., "big"))
+    Newline()
+    fmt.printfln("Quaternion: %v",Quaternion(1., 2., 3., 4., "lil"))
+    fmt.printfln("Quaternion: %v",Quaternion(2., 4, 8, 16, "big"))
+    fmt.printfln("Quaternion: %v",Quaternion(3., 9., 27., 81., "lil"))
+    fmt.printfln("Quaternion: %v",Quaternion(4., 16., 64., 256., "big"))
+    fmt.printfln("Quaternion: %v",Quaternion(5., 25., 125, 625., "lil"))
 }

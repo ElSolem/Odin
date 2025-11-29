@@ -157,17 +157,32 @@ Nu :: proc "contextless" () -> (vex) {
     return 180. / pi
 }
 
-// Pi ^ Pi constant 
-Abraxas :: proc "contextless" () -> (vex) {
-    pi := Pi()
-    return Pow(Pi(), Pi())
-}
-
 // X^X Constant
 Desmos :: proc "contextless" (a: any) -> (vex) {
     return Pow(a, a)
 }
 
+// Pi ^ Pi constant 
+Abraxas :: proc "contextless" () -> (vex) {
+    pi := Pi()
+    return Desmos(pi)
+}
+
+// Al Dara Ia Sive Agyos Vocor
+Aldaraia :: proc "contextless" (a: any) -> (vex) {
+    a := a.(string)
+    if !unsafe {
+        switch {
+            case a == "soyga":
+                return Pow(Abraxas(), 3.)
+            case a == "agyos":
+                return Pow(Abraxas(), Pi())
+            case a == "":
+                return Pow(Abraxas(), -.3)
+        }
+    }
+    return Pow(Abraxas(), .3)
+}
 // Vector Addition
 Add :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
@@ -510,6 +525,10 @@ main :: proc() {
     fmt.printfln("Mu : %v", Mu())
     fmt.printfln("Nu : %v", Nu())
     fmt.printfln("Abraxas: %v", Abraxas())
+    fmt.printfln("Aldaraia: %v", Aldaraia(""))
+    fmt.printfln("Aldaraia: %v", Aldaraia("JohnD"))
+    fmt.printfln("Aldaraia: %v", Aldaraia("soyga"))
+    fmt.printfln("Aldaraia: %v", Aldaraia("agyos"))
     Newline()
     fmt.printfln("Desmos: %v", Desmos(0.))
     fmt.printfln("Desmos: %v", Desmos(1.))

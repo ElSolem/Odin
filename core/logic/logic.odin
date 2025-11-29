@@ -7,6 +7,24 @@ vex :: f64   // Vector/Logical Values
 hex :: f64le // Visual/Graphical Values
 lex :: f64be // Textual/Audio Values
 
+posi :: vex(.1)
+negi :: vex(-.1)
+noti := Sqrt(-1.)
+sumi := Sqrt(1.)
+sqri := Sqrt(.1)
+rsqi := Sqrt(-.1)
+zeri := Sqrt(0.)
+rezi := Sqrt(-0.)
+Ei := [8]vex{posi, negi, noti, sumi, sqri, rsqi, zeri, rezi}
+
+tones := Pow(Abraxas(), 1.)
+tiles := Pow(Abraxas(), 2.)
+cubes := Pow(Abraxas(), 3.)
+grids := Pow((Abraxas() * 2.), 2.)
+cages := Pow((Abraxas() * 2.), 3.)
+nexus := Pow((Abraxas() * 2.), 4.)
+Designs := [6]vex{tones, tiles, cubes, grids, cages, nexus}
+
 Logia :: enum {
     NAV =  0x00, // '+0' // Null and void
     NIL =  0x01, // '+1' // Not in list
@@ -409,45 +427,11 @@ Avex :: proc "contextless" (a: any) -> (Vec2) {
     return {a, b}
 }
 
-// Vector 2 cause one is just {x, y = 0}
-Vector :: proc "contextless" (a, b, c, d, e: any) -> (Vec4) {
-    a := a.(vex)
-    b := b.(vex)
-    c := c.(vex)
-    d := d.(vex)
-    e := e.(string)
-    if verified {
-        switch {
-            case e == "2":
-                if a > b {a, b = b, a}
-                if a < b {
-                    a, b = b, a 
-                    return Vec4{a, b, c, d}
-                }
-                return Vec4{a, b, c, d}
-            case e == "3":
-                if a > b && b > c {a, b, c = b, c, a}
-                if a < b && b < c {
-                    a, b, c = b, c, a 
-                    return Vec4{a, b, c, d}
-                }
-                return Vec4{a, b, c, d}
-            case e == "4":
-                if a > b && b > c && c > d {a, b, c, d = c, d, a, b}
-                if a < b && b < c && c < d {
-                    a, b, c, d = c, d, a, b 
-                    return Vec4{a, b, c, d}
-                }
-                return Vec4{a, b, c, d}
-        }
-    }
-    return Vec4{a, b, c, d}
-}
-
 // Vector 2 Type
 Bivec :: struct {
     x: vex,
-    y: vex
+    y: vex, 
+    z: string
 }
 
 // "lil" = {lo, hi}, "big" = {hi, lo}
@@ -459,19 +443,20 @@ Range :: proc (a, b, c: any) -> (Bivec) {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a, b}
+            return {a, b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a, b}
+            return {a, b, c}
     }
-    return {a, b}
+    return {a, b, c}
 }
 
 // Trinary Vector type
 Trivec :: struct {
     suma: vex,
     real: vex,
-    imag: vex
+    imag: vex,
+    id: string
 }
 
 // A real complex number and not odins impl
@@ -483,12 +468,12 @@ Simplex :: proc "contextless" (a, b, c: any) -> (Trivec) {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a + b, a, b}
+            return {a + b, a, b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a + b, a, b}
+            return {a + b, a, b, c}
     }
-    return {a + b, a, b}
+    return {a + b, a, b, c}
 }
 
 // Opposite of Simplex
@@ -499,12 +484,12 @@ Misplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a - b, a, b}
+            return {a - b, a, b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a - b, a, b}
+            return {a - b, a, b, c}
     }
-    return {a - b, a, b}
+    return {a - b, a, b, c}
 }
 
 // A real complex number and not odins impl
@@ -516,12 +501,12 @@ Complex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a + b, a ,b}
+            return {a + b, a ,b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a + b, a ,b}
+            return {a + b, a ,b, c}
     }
-    return {a + b, a ,b}
+    return {a + b, a ,b, c}
 }
 
 // A real complex number and not odins impl
@@ -533,12 +518,12 @@ Mocplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a - b, a, b}
+            return {a - b, a, b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a - b, a, b}
+            return {a - b, a, b, c}
     }
-    return {a - b, a, b}
+    return {a - b, a, b, c}
 }
 
 // A real complex number and not odins impl
@@ -550,12 +535,12 @@ Polyplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) + b, a, b}
+            return {Cos(a) + b, a, b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) + b, a, b}
+            return {Cos(a) + b, a, b, c}
     }
-    return {Cos(a) + b, a, b}
+    return {Cos(a) + b, a, b, c}
 }
 
 // A real complex number and not odins impl
@@ -567,12 +552,12 @@ Ylopplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) - b, a, b}
+            return {Cos(a) - b, a, b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) - b, a, b}
+            return {Cos(a) - b, a, b, c}
     }
-    return {Cos(a) - b, a, b}
+    return {Cos(a) - b, a, b, c}
 }
 
 // A real complex number and not odins impl
@@ -584,12 +569,12 @@ Perplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) + b, a, b}
+            return {Cos(a) + b, a, b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) + b, a, b}
+            return {Cos(a) + b, a, b, c}
     }
-    return {Cos(a) + b, a, b}
+    return {Cos(a) + b, a, b, c}
 }
 
 // A real complex number and not odins impl
@@ -601,37 +586,41 @@ Repplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) - b, a, b}
+            return {Cos(a) - b, a, b, c}
         case c == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) - b, a, b}
+            return {Cos(a) - b, a, b, c}
     }
-    return {Cos(a) - b, a, b}
+    return {Cos(a) - b, a, b, c}
 }
 
 // Quintessent vector
 Quarvec :: struct {
-    suma, real, imag, jmag, kmag: vex
+    suma, real, imag, jmag, kmag: vex,
+    id: string
 }
 
 // Real Quaternion values
 Quaternion :: proc (a, b, c, d, e: any) -> (Quarvec) {
     a := a.(vex)
-    b := Sin(b.(vex)) * .1
+    b := b.(vex) 
     c := c.(vex)
-    c  = b * .1
     d := d.(vex)
-    d  = b * .1
     e := e.(string)
+
+    b = Sin(b) * vex(.1)
+    c = b * vex(.1)
+    d = b * vex(.1)
+
     switch {
         case e == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) + b + c + d, a, b, c, d}
+            return {Cos(a) + b + c + d, a, b, c, d, e}
         case e == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) + b + c + d, a, b, c, d}
+            return {Cos(a) + b + c + d, a, b, c, d, e}
     }
-    return {Cos(a) + b + c + d, a, b, c, d}
+    return {Cos(a) + b + c + d, a, b, c, d, e}
 }
 
 // mew line
@@ -642,6 +631,13 @@ Newline :: proc() -> (vex) {
 // Testing the output of the library
 main :: proc() {
     Newline()
+    for i in 0..<len(Ei) {
+        fmt.printfln("{:v} bits: %v", size_of(Ei[i]), Ei[i])
+    }
+    Newline()
+    for i in 0..<len(Designs) {
+        fmt.printfln("{:v} bits: %v", size_of(Designs[i]), Designs[i])
+    }
     Newline()
     fmt.printfln("Is verified also unsafe? %v", verified  == unsafe) 
     fmt.printfln("Is invalid also unbound? %v", invalid   == unbound)
@@ -816,12 +812,6 @@ main :: proc() {
     fmt.printfln("Avex: %v", Avex((8./15.)))
     fmt.printfln("Avex: %v", Avex(6.))
     Newline()
-    fmt.printfln("Vector: %v", Vector(10., 100., 0., 0., "2"))
-    fmt.printfln("Vector: %v", Vector(56., 17., 0., 0., "2"))
-    fmt.printfln("Vector: %v", Vector(23., .45, 0., 0., "2"))
-    fmt.printfln("Vector: %v", Vector((8./15.), (16./48.), 0., 0., "2"))
-    fmt.printfln("Vector: %v", Vector(6., 0., 0., 0., "2"))
-    Newline()
     fmt.printfln("Bivec: %v", Range(10., 100., "lil"))
     fmt.printfln("Bivec: %v", Range(56., 17., "lil"))
     fmt.printfln("Bivec: %v", Range(23., .45, "lil"))
@@ -889,8 +879,8 @@ main :: proc() {
     fmt.printfln("Repplex: %v", Repplex(6., 0., "big"))
     Newline()
     fmt.printfln("Quaternion: %v",Quaternion(1., 2., 3., 4., "lil"))
-    fmt.printfln("Quaternion: %v",Quaternion(2., 4, 8, 16, "big"))
+    fmt.printfln("Quaternion: %v",Quaternion(2., 4., 8., 16., "big"))
     fmt.printfln("Quaternion: %v",Quaternion(3., 9., 27., 81., "lil"))
     fmt.printfln("Quaternion: %v",Quaternion(4., 16., 64., 256., "big"))
-    fmt.printfln("Quaternion: %v",Quaternion(5., 25., 125, 625., "lil"))
+    fmt.printfln("Quaternion: %v",Quaternion(5., 25., 125., 625., "lil"))
 }

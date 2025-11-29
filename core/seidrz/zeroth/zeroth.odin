@@ -10,9 +10,7 @@ import "core:fmt"
 
 
 Zeroth :: proc() -> (struct {
-    a: bool, b: f64 , c: f64 , d: f64 , 
-    e: f64 , f: f64 , g: f64 , h: f64 , 
-    i: bool, j: bool, k: f64 , l: i64 ,
+    t: bool, u: f64 , v: f64 , 
     w: f64 , x: i64 , y: i64 , z: f64 ,}, bool) 
 {
     alpha := time.now()
@@ -111,7 +109,7 @@ Zeroth :: proc() -> (struct {
 
 
     // These are meant to be Atomic, Tick , Delta and Step time
-    l     := time.to_unix_nanoseconds(omega)
+    l     := logic.vex(time.to_unix_nanoseconds(omega))
     w     := tick
     x     := i64(delta)
     y     := time.to_unix_nanoseconds(time.time_add(alpha, delta))
@@ -148,13 +146,9 @@ Zeroth :: proc() -> (struct {
     //---------------------------------------------------------\\
     //---------------------------------------------------------\\
     return struct {
-        a: bool, b: f64 , c: f64 , d: f64 , 
-        e: f64 , f: f64 , g: f64 , h: f64 , 
-        i: bool, j: bool, k: f64 , l: i64 ,
+        t: bool, u: f64 , v: f64 , 
         w: f64 , x: i64 , y: i64 , z: f64 ,} {
-            a = b, b = a, c = c, d = d, 
-            e = e, f = f, g = g, h = h, 
-            i = i, j = j, k = k, l = l,
+            t = b, u = h, v = l, 
             w = w, x = x, y = y, z = z,
         }, Fourdime()
 }

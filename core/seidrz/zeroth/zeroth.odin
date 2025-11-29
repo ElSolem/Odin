@@ -121,11 +121,12 @@ Zeroth :: proc() -> (struct {
         return (logic.Logx(logic.Tan((time1 * time2))) == logic.Logx(logic.Tan((time1 / time2))))
     }
     //---------------------------------------------------------\\
+		s := Fourdime()
     //---------------------------------------------------------\\
     return struct {
         s: bool, t: bool, u: f64 , v: f64 , 
         w: f64 , x: i64 , y: i64 , z: f64 ,} {
-            t = b, u = h, v = l, 
+            s = s, t = b, u = h, v = l, 
             w = w, x = x, y = y, z = z,
         }
 }

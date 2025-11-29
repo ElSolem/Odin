@@ -1,7 +1,6 @@
 package logic
 
 import "core:fmt"
-import zoth "core:seidrz/zeroth"
 
 vex :: f64   // Vector/Logical Values
 hex :: f64le // Visual/Graphical Values

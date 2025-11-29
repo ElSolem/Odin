@@ -475,8 +475,6 @@ Newline :: proc() -> (vex) {
 
 // Testing the output of the library
 main :: proc() {
-    //zeroth, zok := zoth.Zeroth()
-    //fmt.printfln("%v\n%v", zeroth, zok )
     Newline()
     v := Veria()
     fmt.printfln("%v", v.ant)

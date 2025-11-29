@@ -206,53 +206,53 @@ Mivec: Bivec{x = 23, y = 0.45, z = ""}
 Mivec: Bivec{x = 0.5333333333333333, y = 0.3333333333333333, z = ""}
 Mivec: Bivec{x = 6, y = 0, z = ""}
 
-Simplex: Trivec{suma = 20, real = 10, imag = 10, id = "lil"}
-Simplex: Trivec{suma = 57.7, real = 1.7000000000000002, imag = 56, id = "lil"}
-Simplex: Trivec{suma = 23.045, real = 0.045000000000000005, imag = 23, id = "lil"}
-Simplex: Trivec{suma = 0.5666666666666667, real = 0.03333333333333333, imag = 0.5333333333333333, id = "lil"}
-Simplex: Trivec{suma = 6, real = 0, imag = 6, id = "lil"}
+Simplex: Trivec{suma = 20, real = 10, imag = 10, id = "lil", log = "AINA"}
+Simplex: Trivec{suma = 57.7, real = 1.7000000000000002, imag = 56, id = "lil", log = "AINA"}
+Simplex: Trivec{suma = 23.045, real = 0.045000000000000005, imag = 23, id = "lil", log = "AINA"}
+Simplex: Trivec{suma = 0.5666666666666667, real = 0.03333333333333333, imag = 0.5333333333333333, id = "lil", log = "AINA"}
+Simplex: Trivec{suma = 6, real = 0, imag = 6, id = "lil", log = "AINA"}
 
-Misplex: Trivec{suma = 0, real = 10, imag = 10, id = "big"}
-Misplex: Trivec{suma = 54.299999999999997, real = 56, imag = 1.7000000000000002, id = "big"}
-Misplex: Trivec{suma = 22.954999999999998, real = 23, imag = 0.045000000000000005, id = "big"}
-Misplex: Trivec{suma = 0.5, real = 0.5333333333333333, imag = 0.03333333333333333, id = "big"}
-Misplex: Trivec{suma = 6, real = 6, imag = 0, id = "big"}
+Misplex: Trivec{suma = 0, real = 10, imag = 10, id = "big", log = "AINA"}
+Misplex: Trivec{suma = 54.299999999999997, real = 56, imag = 1.7000000000000002, id = "big", log = "AINA"}
+Misplex: Trivec{suma = 22.954999999999998, real = 23, imag = 0.045000000000000005, id = "big", log = "AINA"}
+Misplex: Trivec{suma = 0.5, real = 0.5333333333333333, imag = 0.03333333333333333, id = "big", log = "AINA"}
+Misplex: Trivec{suma = 6, real = 6, imag = 0, id = "big", log = "AINA"}
 
-Complex: Trivec{suma = -Inf, real = -Inf, imag = 10, id = "lil"}
-Complex: Trivec{suma = -Inf, real = -Inf, imag = 56, id = "lil"}
-Complex: Trivec{suma = -Inf, real = -Inf, imag = 23, id = "lil"}
-Complex: Trivec{suma = -Inf, real = -Inf, imag = 0.5333333333333333, id = "lil"}
-Complex: Trivec{suma = NaN, real = 6, imag = NaN, id = "lil"}
+Complex: Trivec{suma = -Inf, real = -Inf, imag = 10, id = "lil", log = "AISA"}
+Complex: Trivec{suma = -Inf, real = -Inf, imag = 56, id = "lil", log = "AISA"}
+Complex: Trivec{suma = -Inf, real = -Inf, imag = 23, id = "lil", log = "AISA"}
+Complex: Trivec{suma = -Inf, real = -Inf, imag = 0.5333333333333333, id = "lil", log = "AISA"}
+Complex: Trivec{suma = NaN, real = 6, imag = NaN, id = "lil", log = "AISA"}
 
-Mocplex: Trivec{suma = +Inf, real = 10, imag = -Inf, id = "big"}
-Mocplex: Trivec{suma = +Inf, real = 56, imag = -Inf, id = "big"}
-Mocplex: Trivec{suma = +Inf, real = 23, imag = -Inf, id = "big"}
-Mocplex: Trivec{suma = +Inf, real = 0.5333333333333333, imag = -Inf, id = "big"}
-Mocplex: Trivec{suma = NaN, real = 6, imag = NaN, id = "big"}
+Mocplex: Trivec{suma = +Inf, real = 10, imag = -Inf, id = "big", log = "AISA"}
+Mocplex: Trivec{suma = +Inf, real = 56, imag = -Inf, id = "big", log = "AISA"}
+Mocplex: Trivec{suma = +Inf, real = 23, imag = -Inf, id = "big", log = "AISA"}
+Mocplex: Trivec{suma = +Inf, real = 0.5333333333333333, imag = -Inf, id = "big", log = "AISA"}
+Mocplex: Trivec{suma = NaN, real = 6, imag = NaN, id = "big", log = "AISA"}
 
-Polyplex: Trivec{suma = 10.9987182324706829, real = -0.05063677407341513, imag = 10, id = "lil"}
-Polyplex: Trivec{suma = 56.995388627938596, real = -0.0960720620293034, imag = 56, id = "lil"}
-Polyplex: Trivec{suma = 23.99905417406513, real = 0.04349655320298549, imag = 23, id = "lil"}
-Polyplex: Trivec{suma = 1.5327980992384718, real = 0.032719469665628796, imag = 0.5333333333333333, id = "lil"}
-Polyplex: Trivec{suma = 7, real = 0, imag = 6, id = "lil"}
+Polyplex: Trivec{suma = 10.9987182324706829, real = -0.05063677407341513, imag = 10, id = "lil", log = "AIMA"}
+Polyplex: Trivec{suma = 56.995388627938596, real = -0.0960720620293034, imag = 56, id = "lil", log = "AIMA"}
+Polyplex: Trivec{suma = 23.99905417406513, real = 0.04349655320298549, imag = 23, id = "lil", log = "AIMA"}
+Polyplex: Trivec{suma = 1.5327980992384718, real = 0.032719469665628796, imag = 0.5333333333333333, id = "lil", log = "AIMA"}
+Polyplex: Trivec{suma = 7, real = 0, imag = 6, id = "lil", log = "AIMA"}
 
-Ylopplex: Trivec{suma = -0.831853698172856, real = 10, imag = -0.05063677407341513, id = "big"}
-Ylopplex: Trivec{suma = 0.9492912492859562, real = 56, imag = -0.0960720620293034, id = "big"}
-Ylopplex: Trivec{suma = -0.5864281730593881, real = 23, imag = 0.04349655320298549, id = "big"}
-Ylopplex: Trivec{suma = 0.8283975376198459, real = 0.5333333333333333, imag = 0.032719469665628796, id = "big"}
-Ylopplex: Trivec{suma = 0.96017024291767739, real = 6, imag = 0, id = "big"}
+Ylopplex: Trivec{suma = -0.831853698172856, real = 10, imag = -0.05063677407341513, id = "big", log = "AIMA"}
+Ylopplex: Trivec{suma = 0.9492912492859562, real = 56, imag = -0.0960720620293034, id = "big", log = "AIMA"}
+Ylopplex: Trivec{suma = -0.5864281730593881, real = 23, imag = 0.04349655320298549, id = "big", log = "AIMA"}
+Ylopplex: Trivec{suma = 0.8283975376198459, real = 0.5333333333333333, imag = 0.032719469665628796, id = "big", log = "AIMA"}
+Ylopplex: Trivec{suma = 0.96017024291767739, real = 6, imag = 0, id = "big", log = "AIMA"}
 
-Perplex: Trivec{suma = +Inf, real = 10, imag = +Inf, id = "lil"}
-Perplex: Trivec{suma = +Inf, real = 56, imag = +Inf, id = "lil"}
-Perplex: Trivec{suma = NaN, real = -Inf, imag = 23, id = "lil"}
-Perplex: Trivec{suma = NaN, real = -Inf, imag = 0.5333333333333333, id = "lil"}
-Perplex: Trivec{suma = NaN, real = 6, imag = NaN, id = "lil"}
+Perplex: Trivec{suma = +Inf, real = 10, imag = +Inf, id = "lil", log = "AIPA"}
+Perplex: Trivec{suma = +Inf, real = 56, imag = +Inf, id = "lil", log = "AIPA"}
+Perplex: Trivec{suma = NaN, real = -Inf, imag = 23, id = "lil", log = "AIPA"}
+Perplex: Trivec{suma = NaN, real = -Inf, imag = 0.5333333333333333, id = "lil", log = "AIPA"}
+Perplex: Trivec{suma = NaN, real = 6, imag = NaN, id = "lil", log = "AIPA"}
 
-Repplex: Trivec{suma = NaN, real = +Inf, imag = 10, id = "big"}
-Repplex: Trivec{suma = NaN, real = +Inf, imag = 56, id = "big"}
-Repplex: Trivec{suma = +Inf, real = 23, imag = -Inf, id = "big"}
-Repplex: Trivec{suma = +Inf, real = 0.5333333333333333, imag = -Inf, id = "big"}
-Repplex: Trivec{suma = NaN, real = 6, imag = NaN, id = "big"}
+Repplex: Trivec{suma = NaN, real = +Inf, imag = 10, id = "big", log = "AIPA"}
+Repplex: Trivec{suma = NaN, real = +Inf, imag = 56, id = "big", log = "AIPA"}
+Repplex: Trivec{suma = +Inf, real = 23, imag = -Inf, id = "big", log = "AIPA"}
+Repplex: Trivec{suma = +Inf, real = 0.5333333333333333, imag = -Inf, id = "big", log = "AIPA"}
+Repplex: Trivec{suma = NaN, real = 6, imag = NaN, id = "big", log = "AIPA"}
 
 Quaternion: Quarvec{suma = 2.01403981733007, real = 0.0907936507936508, imag = 1, jmag = 0.009079365079365081, kmag = 0.009079365079365081, id = "lil"}
 Quaternion: Quarvec{suma = -0.5125065144584457, real = 2, imag = -0.07523691019685291, jmag = -0.0075236910196852915, kmag = -0.0075236910196852915, id = "big"}

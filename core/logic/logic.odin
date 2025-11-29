@@ -456,7 +456,8 @@ Trivec :: struct {
     suma: vex,
     real: vex,
     imag: vex,
-    id: string
+    id: string,
+    log: Pistis
 }
 
 // A real complex number and not odins impl
@@ -468,12 +469,12 @@ Simplex :: proc "contextless" (a, b, c: any) -> (Trivec) {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a + b, a, b, c}
+            return {a + b, a, b, c, .AINA}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a + b, a, b, c}
+            return {a + b, a, b, c, .AINA}
     }
-    return {a + b, a, b, c}
+    return {a + b, a, b, c, .AINA}
 }
 
 // Opposite of Simplex
@@ -484,12 +485,12 @@ Misplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a - b, a, b, c}
+            return {a - b, a, b, c, .AINA}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a - b, a, b, c}
+            return {a - b, a, b, c, .AINA}
     }
-    return {a - b, a, b, c}
+    return {a - b, a, b, c, .AINA}
 }
 
 // A real complex number and not odins impl
@@ -501,12 +502,12 @@ Complex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a + b, a ,b, c}
+            return {a + b, a ,b, c, .AISA}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a + b, a ,b, c}
+            return {a + b, a ,b, c, .AISA}
     }
-    return {a + b, a ,b, c}
+    return {a + b, a ,b, c, .AISA}
 }
 
 // A real complex number and not odins impl
@@ -518,12 +519,12 @@ Mocplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a - b, a, b, c}
+            return {a - b, a, b, c, .AISA}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a - b, a, b, c}
+            return {a - b, a, b, c, .AISA}
     }
-    return {a - b, a, b, c}
+    return {a - b, a, b, c, .AISA}
 }
 
 // A real complex number and not odins impl
@@ -535,12 +536,12 @@ Polyplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) + b, a, b, c}
+            return {Cos(a) + b, a, b, c, .AIMA}
         case c == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) + b, a, b, c}
+            return {Cos(a) + b, a, b, c, .AIMA}
     }
-    return {Cos(a) + b, a, b, c}
+    return {Cos(a) + b, a, b, c, .AIMA}
 }
 
 // A real complex number and not odins impl
@@ -552,12 +553,12 @@ Ylopplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) - b, a, b, c}
+            return {Cos(a) - b, a, b, c, .AIMA}
         case c == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) - b, a, b, c}
+            return {Cos(a) - b, a, b, c, .AIMA}
     }
-    return {Cos(a) - b, a, b, c}
+    return {Cos(a) - b, a, b, c, .AIMA}
 }
 
 // A real complex number and not odins impl
@@ -569,12 +570,12 @@ Perplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) + b, a, b, c}
+            return {Cos(a) + b, a, b, c, .AIPA}
         case c == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) + b, a, b, c}
+            return {Cos(a) + b, a, b, c, .AIPA}
     }
-    return {Cos(a) + b, a, b, c}
+    return {Cos(a) + b, a, b, c, .AIPA}
 }
 
 // A real complex number and not odins impl
@@ -586,12 +587,12 @@ Repplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {Cos(a) - b, a, b, c}
+            return {Cos(a) - b, a, b, c, .AIPA}
         case c == "big":
             if a < b {a, b = b, a}
-            return {Cos(a) - b, a, b, c}
+            return {Cos(a) - b, a, b, c, .AIPA}
     }
-    return {Cos(a) - b, a, b, c}
+    return {Cos(a) - b, a, b, c, .AIPA}
 }
 
 // Quintessent vector

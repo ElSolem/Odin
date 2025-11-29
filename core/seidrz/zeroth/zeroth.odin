@@ -132,6 +132,6 @@ Zeroth :: proc() -> (struct {
 }
 
 main :: proc() {
-    zeroth, zok := Zeroth()
-    fmt.printfln("%v\n%v", zeroth, zok )
+    zeroth := Zeroth()
+    fmt.printfln("%v", zeroth )
 }

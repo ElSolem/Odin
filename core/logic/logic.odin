@@ -183,7 +183,6 @@ LCM :: proc "contextless" (a, b: any) -> (vex) {
 // Square root value of x
 Sqrt :: proc "contextless" (a: any) -> (vex) {
     a := a.(vex)
-    // if a <= nav {return nav}
 
     x := (a > nil) ? a : nil
     
@@ -224,9 +223,6 @@ Logx :: proc "contextless" (a: any) -> (vex) {
     a := a.(vex)
     b := nav
     c := nav
-    // *undo below for return to Logn*
-    //if (a <= nav) {return nav}
-    //if (a == nil) {return nav}
 
     if (a > 2.) {
         b = nil
@@ -322,7 +318,7 @@ Range :: proc (a, b, c: any) -> (vec2) {
             if a < b {a, b = b, a}
             return {a, b}
         case c == "err":
-            fmt.printfln("This is an %v!", c)
+            if b == nav {fmt.printfln("This is an %v!", c)}
     }
     return {a, b}
 }

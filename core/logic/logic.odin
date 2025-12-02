@@ -816,8 +816,12 @@ main :: proc() {
         fmt.printfln("{:v} bytes: %v", size_of(Ei[i]), Ei[i])
     }
     // 1) Cant be untyped = bad, 2) typed down to an f16 = bad
+    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(.1))), math.sqrt(f16(.1)))
+    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(-.1))), math.sqrt(f16(-.1)))
     fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(-1.0))), math.sqrt(f16(-1.0)))
-
+    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(1.0))), math.sqrt(f16(1.0)))
+    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(0))), math.sqrt(f16(0)))
+    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(-0))), math.sqrt(f16(-0)))
     Newline()
     for i in 0..<len(Designs) {
         fmt.printfln("{:v} bytes: %v", size_of(Designs[i]), Designs[i])

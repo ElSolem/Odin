@@ -7,7 +7,12 @@
 8 bytes: 0.5064118628910332
 8 bytes: 1.52587890625e-05
 8 bytes: 1.52587890625e-05
+2 bytes:Odin/LibTom Imaginary Num i: 0.3162
 2 bytes:Odin/LibTom Imaginary Num i: NaN
+2 bytes:Odin/LibTom Imaginary Num i: NaN
+2 bytes:Odin/LibTom Imaginary Num i: 1
+2 bytes:Odin/LibTom Imaginary Num i: 0
+2 bytes:Odin/LibTom Imaginary Num i: 0
 
 8 bytes: 36.462165583640527
 8 bytes: 1329.4895190488196

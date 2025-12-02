@@ -2,6 +2,7 @@ package logic
 
 import "core:fmt"
 import "core:time"
+import "core:math"
 
 vex :: f64   // Vector/Logical Values
 hex :: f64le // Visual/Graphical Values
@@ -814,6 +815,9 @@ main :: proc() {
     for i in 0..<len(Ei) {
         fmt.printfln("{:v} bits: %v", size_of(Ei[i]), Ei[i])
     }
+    // 1) Cant be untyped = bad, 2) typed down to an f16 = bad
+    fmt.printfln("Odin/LibTom Imaginary Num i: %v", math.sqrt(f16(-1.0)))
+    
     Newline()
     for i in 0..<len(Designs) {
         fmt.printfln("{:v} bits: %v", size_of(Designs[i]), Designs[i])
@@ -996,12 +1000,6 @@ main :: proc() {
     fmt.printfln("Tan: %v", Tan(7.))
     fmt.printfln("Tan: %v", Tan(16.))
     fmt.printfln("Tan: %v", Tan(10.))
-    Newline()
-    fmt.printfln("Avex:")
-    fmt.printfln("Avex:")
-    fmt.printfln("Avex:")
-    fmt.printfln("Avex:")
-    fmt.printfln("Avex:")
     Newline()
     fmt.printfln("Vec2 Lil: %v", Range(10., 100., "lil"))
     fmt.printfln("Vec2 Lil: %v", Range(56., 17., "lil"))

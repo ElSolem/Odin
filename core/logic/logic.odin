@@ -2,11 +2,26 @@ package logic
 
 import "core:fmt"
 import "core:time"
-import "core:math"
 
 vex :: f64   // Vector/Logical Values
 hex :: f64le // Visual/Graphical Values
 lex :: f64be // Textual/Audio Values
+
+Logia :: enum {
+    NAV =  0x00, // '+0' // Null and void
+    NIL =  0x01, // '+1' // Not in list
+    INF = -0x01, // '-1' // Indexed Numeric Factor
+    NAN = -0x00, // '-0' // Not a number
+}
+nav :: vex(Logia.NAV)
+nil :: vex(Logia.NIL)
+inf :: vex(Logia.INF)
+nan :: vex(Logia.NAN)
+
+verified :: nav == nan
+invalid  :: nil == inf
+unbound  :: inf != nil
+unsafe   :: nan != nav
 
 posi :: vex(.1)
 negi :: vex(-.1)
@@ -25,22 +40,6 @@ grids := Pow((Abraxas() * 2.), 2.)
 cages := Pow((Abraxas() * 2.), 3.)
 nexus := Pow((Abraxas() * 2.), 4.)
 Designs := [6]vex{tones, tiles, cubes, grids, cages, nexus}
-
-Logia :: enum {
-    NAV =  0x00, // '+0' // Null and void
-    NIL =  0x01, // '+1' // Not in list
-    INF = -0x01, // '-1' // Indexed Numeric Factor
-    NAN = -0x00, // '-0' // Not a number
-}
-nav :: vex(Logia.NAV)
-nil :: vex(Logia.NIL)
-inf :: vex(Logia.INF)
-nan :: vex(Logia.NAN)
-
-verified :: nav == nan
-invalid  :: nil == inf
-unbound  :: inf != nil
-unsafe   :: nan != nav
 
 Pistia :: enum {
     // Group 1: Functions
@@ -89,6 +88,249 @@ Pistia :: enum {
     EIMA = 0xee, // Error Intz Multi Action(Data)
     EIPA = 0xef, // Error Intz Proc Action(Data)
 }
+
+// -------------------------------- \\
+// **Geomtric Algebraic Functions** \\
+// -------------------------------- \\
+
+// Vector Addition
+Add :: proc "contextless" (a, b: any) -> (vex){
+    a := a.(vex)
+    b := b.(vex)
+    return a + b
+}
+
+// Vector Subtraction
+Sub :: proc "contextless" (a, b: any) -> (vex){
+    a := a.(vex)
+    b := b.(vex)
+    return a - b
+}
+
+// Vector Multiplication
+Mul :: proc "contextless" (a, b: any) -> (vex){
+    a := a.(vex)
+    b := b.(vex)
+    return a * b
+}
+
+// Vector Division
+Div :: proc "contextless" (a, b: any) -> (vex){
+    a := a.(vex)
+    b := b.(vex)
+    return a / b
+}
+
+// Vector Modulos 
+Mod :: proc "contextless" (a, b: any) -> (vex){
+    a := a.(vex)
+    b := b.(vex)
+    c := int(a / b)
+    return a - (vex(c) * b)
+}
+
+// The absolute value of x
+Abs :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    return (a < nav) ? -a : a
+}
+
+// The unsigned value of x
+Unsign :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    if a > nav {
+        a = a
+    } else {
+        a = -a
+    }
+    return a
+}
+
+// The true signed value of x
+Ensign :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    return a > nav ? nil : (a < nav ? inf : nav)
+}
+
+// The Clamped value of x in a, b range
+Clamp :: proc "contextless" (a, lo, hi: any) -> (vex) {
+    a := a.(vex)
+    b := lo.(vex)
+    c := hi.(vex)
+    return (a < b) ? b : (a > c) ? c : a
+} 
+
+// Greatest Common Denominator
+GCD :: proc "contextless" (a, b: any) -> (vex) {
+    a := Abs(a.(vex))
+    b := Abs(b.(vex))
+    for b != nav {
+        t := Mod(a, b)
+        a = b
+        b = t
+    }
+    return a
+}
+
+// Lowest Common Multiple
+LCM :: proc "contextless" (a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    if a == nav || b == nav {return nav}
+    return Abs(a / GCD(a, b) * b)
+}
+
+// Square root value of x
+Sqrt :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    // if a <= nav {return nav}
+
+    x := (a > nil) ? a : nil
+    
+    for i in nav..<16 {
+        x = 0.5 * (x + a / x)
+    }
+    return x
+}
+
+// Exponential Value of x
+Expo :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    if (a == nav) {return nil}
+    if (a <  nav) {return nil / Expo(-a) }
+    n := nav
+    for (a > nil) {
+        a *= .5
+        n += 1
+    }
+    
+    term, sum := nil, nil
+    for i in nil..<20 {
+        term *= a / vex(i)
+        sum += term
+        if (Abs(term) < 1e-16) {break}
+    }
+
+    for n > 0 {
+        sum *= sum
+        n -= 1
+    }
+
+    return sum
+}
+
+// Logarithmic value of x
+Logx :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    b := nav
+    c := nav
+    // *undo below for return to Logn*
+    //if (a <= nav) {return nav}
+    //if (a == nil) {return nav}
+
+    if (a > 2.) {
+        b = nil
+        a /= Expo(nil)
+    } else if (a < .5) {
+        b = inf
+        a *= Expo(nil)
+    }
+
+    for i in nav..<20 {
+        e := Expo(c)
+        c += 2. * (a - e) / (a + e)
+        if (Abs(Expo(c) - a) < 1e-16) {break}
+    }
+    return c + b
+}
+
+// The Power of x to y
+Pow :: proc "contextless" (a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    return Expo(b * Logx(a))
+}
+
+// Sin Function
+Sin :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    pi  := Pi()
+    tau := 2 * pi
+
+    r := Mod(a, tau)
+    if r >  pi  do r -= tau
+    if r < -pi  do r += tau
+
+    t := r
+    t2 := t * t
+
+    return t - (t * t2 / 6.) + (t * t2 * t2 / 120.) - (t * t2 * t2 * t2 / 5040.)
+}
+
+
+// Cos Function
+Cos :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    pi  := Pi()
+    tau := Tau()
+
+    r := Mod(a, tau)
+    if r >  pi  do r -= tau
+    if r < -pi  do r += tau
+
+    t := r
+    t2 := t * t
+
+    return nil - (t2 / 2.) + (t2 * t2 / 24.) - (t2 * t2 * t2 / 720.)
+}
+
+// Tan Function
+Tan :: proc "contextless" (a: any) -> (vex) {
+    a := a.(vex)
+    b := Sin(a)
+    c := Cos(a)
+    if c == 0 { return nav }
+    return b / c
+}
+
+// Vector 2 
+vec2 :: struct {
+    x, y: vex
+}
+
+// Vector 3
+vec3 :: struct {
+    x, y, z: vex
+}
+
+// Vector 4
+vec4 :: struct {
+    w, x, y, z: vex
+}
+
+// "lil" = {lo, hi}, "big" = {hi, lo}
+// "lil" = Lil Endian, "big" = Big Endian
+Range :: proc (a, b, c: any) -> (vec2) {
+    a := a.(vex)
+    b := b.(vex)
+    c := c.(string)
+    switch {
+        case c == "lil":
+            if a > b {a, b = b, a}
+            return {a, b}
+        case c == "big":
+            if a < b {a, b = b, a}
+            return {a, b}
+        case c == "err":
+            fmt.printfln("This is an %v!", c)
+    }
+    return {a, b}
+}
+
+// ------------------------- \\
+// **Greek Constants + Val** \\
+// ------------------------- \\
+
 
 Phi :: proc "contextless" () -> (vex) {
     return (1. + Sqrt(5.)) / 2.
@@ -369,243 +611,9 @@ Aldaraia :: proc "contextless" (a: any) -> (vex) {
     return Pow(Abraxas(), .3)
 }
 
-// -------------------------------- \\
-// **Geomtric Algebraic Functions** \\
-// -------------------------------- \\
-
-// Vector Addition
-Add :: proc "contextless" (a, b: any) -> (vex){
-    a := a.(vex)
-    b := b.(vex)
-    return a + b
-}
-
-// Vector Subtraction
-Sub :: proc "contextless" (a, b: any) -> (vex){
-    a := a.(vex)
-    b := b.(vex)
-    return a - b
-}
-
-// Vector Multiplication
-Mul :: proc "contextless" (a, b: any) -> (vex){
-    a := a.(vex)
-    b := b.(vex)
-    return a * b
-}
-
-// Vector Division
-Div :: proc "contextless" (a, b: any) -> (vex){
-    a := a.(vex)
-    b := b.(vex)
-    return a / b
-}
-
-// Vector Modulos 
-Mod :: proc "contextless" (a, b: any) -> (vex){
-    a := a.(vex)
-    b := b.(vex)
-    c := int(a / b)
-    return a - (vex(c) * b)
-}
-
-// The absolute value of x
-Abs :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    return (a < nav) ? -a : a
-}
-
-// The unsigned value of x
-Unsign :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    if a > nav {
-        a = a
-    } else {
-        a = -a
-    }
-    return a
-}
-
-// The true signed value of x
-Ensign :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    return a > nav ? nil : (a < nav ? inf : nav)
-}
-
-// The Clamped value of x in a, b range
-Clamp :: proc "contextless" (a, lo, hi: any) -> (vex) {
-    a := a.(vex)
-    b := lo.(vex)
-    c := hi.(vex)
-    return (a < b) ? b : (a > c) ? c : a
-} 
-
-// Greatest Common Denominator
-GCD :: proc "contextless" (a, b: any) -> (vex) {
-    a := Abs(a.(vex))
-    b := Abs(b.(vex))
-    for b != nav {
-        t := Mod(a, b)
-        a = b
-        b = t
-    }
-    return a
-}
-
-// Lowest Common Multiple
-LCM :: proc "contextless" (a, b: any) -> (vex) {
-    a := a.(vex)
-    b := b.(vex)
-    if a == nav || b == nav {return nav}
-    return Abs(a / GCD(a, b) * b)
-}
-
-// Square root value of x
-Sqrt :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    // if a <= nav {return nav}
-
-    x := (a > nil) ? a : nil
-    
-    for i in nav..<16 {
-        x = 0.5 * (x + a / x)
-    }
-    return x
-}
-
-// Exponential Value of x
-Expo :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    if (a == nav) {return nil}
-    if (a <  nav) {return nil / Expo(-a) }
-    n := nav
-    for (a > nil) {
-        a *= .5
-        n += 1
-    }
-    
-    term, sum := nil, nil
-    for i in nil..<20 {
-        term *= a / vex(i)
-        sum += term
-        if (Abs(term) < 1e-16) {break}
-    }
-
-    for n > 0 {
-        sum *= sum
-        n -= 1
-    }
-
-    return sum
-}
-
-// Logarithmic value of x
-Logx :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    b := nav
-    c := nav
-    // *undo below for return to Logn*
-    //if (a <= nav) {return nav}
-    //if (a == nil) {return nav}
-
-    if (a > 2.) {
-        b = nil
-        a /= Expo(nil)
-    } else if (a < .5) {
-        b = inf
-        a *= Expo(nil)
-    }
-
-    for i in nav..<20 {
-        e := Expo(c)
-        c += 2. * (a - e) / (a + e)
-        if (Abs(Expo(c) - a) < 1e-16) {break}
-    }
-    return c + b
-}
-
-// The Power of x to y
-Pow :: proc "contextless" (a, b: any) -> (vex) {
-    a := a.(vex)
-    b := b.(vex)
-    return Expo(b * Logx(a))
-}
-
-// Sin Function
-Sin :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    pi  := Pi()
-    tau := 2 * pi
-
-    r := Mod(a, tau)
-    if r >  pi  do r -= tau
-    if r < -pi  do r += tau
-
-    t := r
-    t2 := t * t
-
-    return t - (t * t2 / 6.) + (t * t2 * t2 / 120.) - (t * t2 * t2 * t2 / 5040.)
-}
-
-
-// Cos Function
-Cos :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    pi  := Pi()
-    tau := Tau()
-
-    r := Mod(a, tau)
-    if r >  pi  do r -= tau
-    if r < -pi  do r += tau
-
-    t := r
-    t2 := t * t
-
-    return nil - (t2 / 2.) + (t2 * t2 / 24.) - (t2 * t2 * t2 / 720.)
-}
-
-// Tan Function
-Tan :: proc "contextless" (a: any) -> (vex) {
-    a := a.(vex)
-    b := Sin(a)
-    c := Cos(a)
-    if c == 0 { return nav }
-    return b / c
-}
-
-// Vector 2 
-vec2 :: struct {
-    x, y: vex
-}
-
-// Vector 3
-vec3 :: struct {
-    x, y, z: vex
-}
-
-// Vector 4
-vec4 :: struct {
-    w, x, y, z: vex
-}
-
-// "lil" = {lo, hi}, "big" = {hi, lo}
-// "lil" = Lil Endian, "big" = Big Endian
-Range :: proc (a, b, c: any) -> (vec2) {
-    a := a.(vex)
-    b := b.(vex)
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {a, b}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {a, b}
-        case c == "err":
-            fmt.printfln("This is an %v!", c)
-    }
-    return {a, b}
-}
+// ------------------------- \\
+// **Complex numbers + vec** \\
+// ------------------------- \\
 
 Bivec :: struct {
     sum: vex,
@@ -813,18 +821,11 @@ Newline :: proc() -> (vex) {
 main :: proc() {
     Newline()
     for i in 0..<len(Ei) {
-        fmt.printfln("{:v} bytes: %v", size_of(Ei[i]), Ei[i])
+        fmt.printfln("{:v} bits: %v", size_of(Ei[i]), Ei[i])
     }
-    // 1) Cant be untyped = bad, 2) typed down to an f16 = bad
-    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(.1))), math.sqrt(f16(.1)))
-    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(-.1))), math.sqrt(f16(-.1)))
-    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(-1.0))), math.sqrt(f16(-1.0)))
-    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(1.0))), math.sqrt(f16(1.0)))
-    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(0))), math.sqrt(f16(0)))
-    fmt.printfln("%v bytes:Odin/LibTom Imaginary Num i: %v", size_of(math.sqrt(f16(-0))), math.sqrt(f16(-0)))
     Newline()
     for i in 0..<len(Designs) {
-        fmt.printfln("{:v} bytes: %v", size_of(Designs[i]), Designs[i])
+        fmt.printfln("{:v} bits: %v", size_of(Designs[i]), Designs[i])
     }
     Newline()
     fmt.printfln("Is verified also unsafe? %v", verified  == unsafe) 

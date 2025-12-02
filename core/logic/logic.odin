@@ -1,7 +1,7 @@
 package logic
 
 import "core:fmt"
-import "base:runtime"
+import "core:time"
 
 vex :: f64   // Vector/Logical Values
 hex :: f64le // Visual/Graphical Values
@@ -9,15 +9,15 @@ lex :: f64be // Textual/Audio Values
 
 posi :: vex(.1)
 negi :: vex(-.1)
-noti := Sqrt(-1.)
-sumi := Sqrt(1.)
+noti := Sqrt(inf)
+sumi := Sqrt(nil)
 sqri := Sqrt(.1)
 rsqi := Sqrt(-.1)
-zeri := Sqrt(0.)
-rezi := Sqrt(-0.)
+zeri := Sqrt(nav)
+rezi := Sqrt(nan)
 Ei := [8]vex{posi, negi, noti, sumi, sqri, rsqi, zeri, rezi}
 
-tones := Pow(Abraxas(), 1.)
+tones := Pow(Abraxas(), nil)
 tiles := Pow(Abraxas(), 2.)
 cubes := Pow(Abraxas(), 3.)
 grids := Pow((Abraxas() * 2.), 2.)
@@ -41,7 +41,7 @@ invalid  :: nil == inf
 unbound  :: inf != nil
 unsafe   :: nan != nav
 
-Pistis :: enum {
+Pistia :: enum {
     // Group 1: Functions
     NINA = 0x00, // No Intz No Action(Data) // Input
     NISA = 0x01, // No Intz Single Action(Data) // Output
@@ -89,17 +89,25 @@ Pistis :: enum {
     EIPA = 0xef, // Error Intz Proc Action(Data)
 }
 
+Phi :: proc "contextless" () -> (vex) {
+    return (1. + Sqrt(5.)) / 2.
+}
+
+Chi :: proc "contextless" () -> (vex) {
+    return 1. / Phi()
+}
+
 // Pi constant
 Pi :: proc "contextless" () -> (vex) {
     j := 9801.
     k := 1103.
-    return 1. / ((2. * Sqrt(2.) / j) * k)
+    return nil / ((2. * Sqrt(2.) / j) * k)
 }
 
 // Pi * 2 constant
 Tau :: proc "contextless" () -> (vex) {
     pi := Pi()
-    return 2 * pi 
+    return 2. * pi 
 }
 
 // Half-Pi constant
@@ -117,7 +125,7 @@ Lambda :: proc "contextless" () -> (vex) {
 // One over Pi constant
 Beta :: proc "contextless" () -> (vex) {
     pi := Pi()
-    return 1. / pi
+    return nil / pi
 }
 
 // Two over Pi constant
@@ -141,7 +149,7 @@ Alpha :: proc "contextless" () -> (vex) {
 // One over Square root of Pi
 Omega :: proc "contextless" () -> (vex) {
     a := Alpha()
-    return 1. / a
+    return nil / a
 }
 
 // Pi ^ 2 constant
@@ -179,8 +187,160 @@ Rho :: proc "contextless" (a: any) -> (vex) {
 // X^X Constant
 // Qubit Normals
 Desmos :: proc "contextless" (a: any) -> (vex) {
-    return Pow(a, a)
+    return Pow(Abs(a), a)
 }
+
+// Gamma/Elliptical Value of a * b
+Gamma :: proc(a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    a = Desmos(a)
+    b = Desmos(b)
+    if verified {
+        switch {
+            case b > nav:
+                return Cos(a * b) + Sin(a * b)
+            case b < nav:
+                return Cos(a * b) - Sin(a * b)
+            case b == nav:
+                return nil
+        }
+    }
+    return vex(Pistia.EINA)
+}
+
+// Perfect Ellipse & the Unit Circle
+Epsilon :: proc(a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    a = Desmos(a)
+    b = Desmos(b)
+    if verified {
+        switch {
+            case b > nav:
+                return Cos(a * b) + (Sin(a * b) * posi)
+            case b < nav:
+                return Cos(a * b) - (Sin(a * b) * posi)
+            case b == nav:
+                return nil
+        }
+    }
+    return vex(Pistia.EINA)
+}
+
+Zeta :: proc(a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    a = Desmos(a)
+    b = Desmos(b)
+    if verified {
+        switch {
+            case b > nav:
+                return (Cos(a * b) + (posi * Sin(a * b))) * b
+            case b < nav:
+                return (Cos(a * b) - (posi * Sin(a * b))) * b
+            case b == nav:
+                return nil
+        }
+    }
+    return vex(Pistia.EINA)
+}
+
+// W-axis
+Eta :: proc(a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    a = Desmos(a)
+    b = Desmos(b)
+    if verified {
+        switch {
+            case b > nav:
+                return (Abs(a * b) - (Abs(a * b) * posi)) * b
+            case b < nav:
+                return (Abs(a * b) + (Abs(a * b) * posi)) * b
+            case b == nav:
+                return nil
+        }
+    }
+    return vex(Pistia.EINA)
+}
+
+// X-axis
+Kappa :: proc(a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    a = Desmos(a)
+    b = Desmos(b)
+    if verified {
+        switch {
+            case b > nav:
+                return posi * (Abs(a * b) - (Abs(a * b) * posi)) * b
+            case b < nav:
+                return posi * (Abs(a * b) + (Abs(a * b) * posi)) * b
+            case b == nav:
+                return nil
+        }
+    }
+    return vex(Pistia.EINA)
+}
+
+// Y-axis
+Omicron :: proc(a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    a = Desmos(a)
+    b = Desmos(b)
+    if verified {
+        switch {
+            case b > nav:
+                return (Abs(a * b) * (Abs(a * b) * posi)) * b
+            case b < nav:
+                return (Abs(a * b) / (Abs(a * b) * posi)) * b
+            case b == nav:
+                return nil
+        }
+    }
+    return vex(Pistia.EINA)
+}
+
+// Z-axis
+Sigma :: proc(a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    a = Desmos(a)
+    b = Desmos(b)
+    if verified {
+        switch {
+            case b > nav:
+                return (Abs(a * b) + (Abs(a * b) * posi)) * b
+            case b < nav:
+                return (Abs(a * b) - (Abs(a * b) * posi)) * b
+            case b == nav:
+                return nil
+        }
+    }
+    return vex(Pistia.EINA)
+}
+
+// Z-axis
+Upsilon :: proc(a, b: any) -> (vex) {
+    a := a.(vex)
+    b := b.(vex)
+    a = Desmos(a)
+    b = Desmos(b)
+    if verified {
+        switch {
+            case b > nav:
+                return Pow(Tan(a * b), (Abs(a * b) * posi)) * b
+            case b < nav:
+                return Pow(Tan(a * b), (Abs(a * b) / posi)) * b
+            case b == nav:
+                return nil
+        }
+    }
+    return vex(Pistia.EINA)
+}
+
 
 // Pi ^ Pi constant
 // Tile size constant
@@ -197,14 +357,21 @@ Aldaraia :: proc "contextless" (a: any) -> (vex) {
         switch {
             case a == "soyga":
                 return Pow(Abraxas(), 3.)
-            case a == "agyos":
+            case a == "Dee":
                 return Pow(Abraxas(), Pi())
+            case a == "agyos":
+                return Pow(Abraxas(), -3.)
             case a == "":
                 return Pow(Abraxas(), -.3)
         }
     }
     return Pow(Abraxas(), .3)
 }
+
+// -------------------------------- \\
+// **Geomtric Algebraic Functions** \\
+// -------------------------------- \\
+
 // Vector Addition
 Add :: proc "contextless" (a, b: any) -> (vex){
     a := a.(vex)
@@ -317,7 +484,7 @@ Expo :: proc "contextless" (a: any) -> (vex) {
     }
     
     term, sum := nil, nil
-    for i in 1..<20 {
+    for i in nil..<20 {
         term *= a / vex(i)
         sum += term
         if (Abs(term) < 1e-16) {break}
@@ -334,8 +501,8 @@ Expo :: proc "contextless" (a: any) -> (vex) {
 // Logarithmic value of x
 Logx :: proc "contextless" (a: any) -> (vex) {
     a := a.(vex)
-    b := 0.
-    c := 0.
+    b := nav
+    c := nav
     // *undo below for return to Logn*
     //if (a <= nav) {return nav}
     //if (a == nil) {return nav}
@@ -348,7 +515,7 @@ Logx :: proc "contextless" (a: any) -> (vex) {
         a *= Expo(nil)
     }
 
-    for i in 0..<20 {
+    for i in nav..<20 {
         e := Expo(c)
         c += 2. * (a - e) / (a + e)
         if (Abs(Expo(c) - a) < 1e-16) {break}
@@ -393,7 +560,7 @@ Cos :: proc "contextless" (a: any) -> (vex) {
     t := r
     t2 := t * t
 
-    return 1. - (t2 / 2.) + (t2 * t2 / 24.) - (t2 * t2 * t2 / 720.)
+    return nil - (t2 / 2.) + (t2 * t2 / 24.) - (t2 * t2 * t2 / 720.)
 }
 
 // Tan Function
@@ -406,222 +573,234 @@ Tan :: proc "contextless" (a: any) -> (vex) {
 }
 
 // Vector 2 
-Vec2 :: struct {
+vec2 :: struct {
     x, y: vex
 }
 
 // Vector 3
-Vec3 :: struct {
+vec3 :: struct {
     x, y, z: vex
 }
 
 // Vector 4
-Vec4 :: struct {
+vec4 :: struct {
     w, x, y, z: vex
-}
-
-// Atomic Vector :: Vector 1
-Avex :: proc "contextless" (a: any) -> (Vec2) {
-    a := a.(vex)
-    b := 0.
-    return {a, b}
-}
-
-// Vector 2 Type
-Bivec :: struct {
-    x: vex,
-    y: vex, 
-    z: string
 }
 
 // "lil" = {lo, hi}, "big" = {hi, lo}
 // "lil" = Lil Endian, "big" = Big Endian
-Range :: proc (a, b, c: any) -> (Bivec) {
+Range :: proc (a, b, c: any) -> (vec2) {
     a := a.(vex)
     b := b.(vex)
     c := c.(string)
     switch {
         case c == "lil":
             if a > b {a, b = b, a}
-            return {a, b, c}
+            return {a, b}
         case c == "big":
             if a < b {a, b = b, a}
-            return {a, b, c}
+            return {a, b}
+        case c == "err":
+            fmt.printfln("This is an %v!", c)
     }
-    return {a, b, c}
+    return {a, b}
+}
+
+Bivec :: struct {
+    sum: vex,
+    ei : vex,
+    vec: vec2
 }
 
 // Trinary Vector type
 Trivec :: struct {
-    suma: vex,
-    real: vex,
-    imag: vex,
-    id: string,
-    log: Pistis
+    sum: vex,
+    ei : vex,
+    vec: vec3 
+}
+
+Abraxyz :: proc(a, b: any) -> (Bivec, bool)  {
+    a := a.(vex)
+    b := b.(vex)
+    if verified {
+        switch {
+            case b > nav:
+                return {(a * b) + (a / b), nav, {a, b}}, ((a * b) + (a / b)) > 0
+            case b < nav:
+                return {(a * b) - (a / b), nav, {a, b}}, ((a * b) - (a / b)) > 0
+            case b == nav:
+                return {(a * b) + (a / b), nav, {a, b}}, ((a * b) + (a / b)) > 0
+        }
+    }
+    return {vex(Pistia.EINA), nav, {a, b}}, ((a * b) + (a / b)) > 0
 }
 
 // A real complex number and not odins impl
-// *Conflicted about the value of i thing
-Simplex :: proc "contextless" (a, b, c: any) -> (Trivec) {
+Simplex :: proc(a, b: any) -> (Bivec) {
     a := a.(vex)
-    b := b.(vex) * .1
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {a + b, a, b, c, .AINA}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {a + b, a, b, c, .AINA}
+    b := b.(vex) * Ei[0]
+    if verified {
+        switch {
+            case b > nav:
+                return {(a + b), Ei[0], {a, b}}
+            case b < nav:
+                return {(a - b), Ei[0], {a, b}}
+            case b == nav:
+                return {(a + b), Ei[0], {a, b + Ei[0]}}
+        }
     }
-    return {a + b, a, b, c, .AINA}
+    return {vex(Pistia.EINA), Ei[0], {a, b}}
 }
 
 // Opposite of Simplex
-Misplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
+Misplex :: proc(a, b: any) -> (Bivec)  {
     a := a.(vex)
-    b := b.(vex) * .1
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {a - b, a, b, c, .AINA}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {a - b, a, b, c, .AINA}
+    b := b.(vex) * Ei[1]
+    if verified {
+        switch {
+            case b > nav:
+                return {(a + b), Ei[1], {a, b}}
+            case b < nav:
+                return {(a - b), Ei[1], {a, b}}
+            case b == nav:
+                return {(a + b), Ei[1], {a, b + Ei[1]}}
+        }
     }
-    return {a - b, a, b, c, .AINA}
+    return {vex(Pistia.EINA), Ei[1], {a, b}}
+}
+
+// A real complex number and not odins impl
+Complex :: proc(a, b: any) -> (Bivec)  {
+    a := a.(vex)
+    b := b.(vex) * Ei[2]
+    if verified {
+        switch {
+            case b > nav:
+                return {(a + b), Ei[2], {a, b}}
+            case b < nav:
+                return {(a - b), Ei[2], {a, b}}
+            case b == nav:
+                return {(a + b), Ei[2], {a, b + Ei[2]}}
+        }
+    }
+    return {vex(Pistia.EINA), Ei[2], {a, b}}
+}
+
+// A real complex number and not odins impl
+Mocplex :: proc(a, b: any) -> (Bivec)  {
+    a := a.(vex)
+    b := b.(vex) * Ei[3]
+    if verified {
+        switch {
+            case b > nav:
+                return {(a + b), Ei[3], {a, b}}
+            case b < nav:
+                return {(a - b), Ei[3], {a, b}}
+            case b == nav:
+                return {(a + b), Ei[3], {a, b + Ei[3]}}
+        }
+    }
+    return {vex(Pistia.EINA), Ei[3], {a, b}}
+}
+
+// A real complex number and not odins impl
+Polyplex :: proc(a, b: any) -> (Bivec)  {
+    a := a.(vex)
+    b := Sin(b.(vex)) * Ei[1]
+    if verified {
+        switch {
+            case b > nav:
+                return {(Cos(a) + b), Ei[0], {a, b}}
+            case b < nav:
+                return {(Cos(a) - b), Ei[0], {a, b}}
+            case b == nav:
+                return {(Cos(a) + b), Ei[0], {a, b + Ei[0]}}
+        }
+    }
+    return {vex(Pistia.EINA), Ei[0], {a, b}}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Complex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
+Ylopplex :: proc(a, b: any) -> (Bivec)  {
     a := a.(vex)
-    b := b.(vex) * Sqrt(-1.)
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {a + b, a ,b, c, .AISA}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {a + b, a ,b, c, .AISA}
+    b := Sin(b.(vex)) * Ei[1]
+    if verified {
+        switch {
+            case b > nav:
+                return {(Cos(a) + b), Ei[1], {a, b}}
+            case b < nav:
+                return {(Cos(a) - b), Ei[1], {a, b}}
+            case b == nav:
+                return {(Cos(a) + b), Ei[1], {a, b + Ei[1]}}
+        }
     }
-    return {a + b, a ,b, c, .AISA}
+    return {vex(Pistia.EINA), Ei[1], {a, b}}
+}
+
+// A real complex number and not odins impl
+Perplex :: proc(a, b: any) -> (Bivec)  {
+    a := a.(vex)
+    b := Sin(b.(vex)) * Ei[4]
+    if verified {
+        switch {
+            case b > nav:
+                return {(Cos(a) + b), Ei[4], {a, b}}
+            case b < nav:
+                return {(Cos(a) - b), Ei[4], {a, b}}
+            case b == nav:
+                return {(Cos(a) + b), Ei[4], {a, b + Ei[4]}}
+        }
+    }
+    return {vex(Pistia.EINA), Ei[4], {a, b}}
 }
 
 // A real complex number and not odins impl
 // *Conflicted about the value of i thing
-Mocplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
+Repplex :: proc(a, b: any) -> (Bivec)  {
     a := a.(vex)
-    b := b.(vex) * Sqrt(-1.)
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {a - b, a, b, c, .AISA}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {a - b, a, b, c, .AISA}
+    b := Sin(b.(vex)) * Ei[5]
+    if verified {
+        switch {
+            case b > nav:
+                return {(Cos(a) + b), Ei[5], {a, b}}
+            case b < nav:
+                return {(Cos(a) - b), Ei[5], {a, b}}
+            case b == nav:
+                return {(Cos(a) + b), Ei[5], {a, b + Ei[5]}}
+        }
     }
-    return {a - b, a, b, c, .AISA}
+    return {vex(Pistia.EINA), Ei[5], {a, b}}
 }
 
-// A real complex number and not odins impl
-// *Conflicted about the value of i thing
-Polyplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
-    a := a.(vex)
-    b := Sin(b.(vex)) * .1
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {Cos(a) + b, a, b, c, .AIMA}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {Cos(a) + b, a, b, c, .AIMA}
-    }
-    return {Cos(a) + b, a, b, c, .AIMA}
-}
-
-// A real complex number and not odins impl
-// *Conflicted about the value of i thing
-Ylopplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
-    a := a.(vex)
-    b := Sin(b.(vex)) * .1
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {Cos(a) - b, a, b, c, .AIMA}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {Cos(a) - b, a, b, c, .AIMA}
-    }
-    return {Cos(a) - b, a, b, c, .AIMA}
-}
-
-// A real complex number and not odins impl
-// *Conflicted about the value of i thing
-Perplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
-    a := a.(vex)
-    b := Sin(b.(vex)) * Sqrt(-1.)
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {Cos(a) + b, a, b, c, .AIPA}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {Cos(a) + b, a, b, c, .AIPA}
-    }
-    return {Cos(a) + b, a, b, c, .AIPA}
-}
-
-// A real complex number and not odins impl
-// *Conflicted about the value of i thing
-Repplex :: proc "contextless" (a, b, c: any) -> (Trivec)  {
-    a := a.(vex)
-    b := Sin(b.(vex)) * Sqrt(-1.)
-    c := c.(string)
-    switch {
-        case c == "lil":
-            if a > b {a, b = b, a}
-            return {Cos(a) - b, a, b, c, .AIPA}
-        case c == "big":
-            if a < b {a, b = b, a}
-            return {Cos(a) - b, a, b, c, .AIPA}
-    }
-    return {Cos(a) - b, a, b, c, .AIPA}
-}
 
 // Quintessent vector
 Quarvec :: struct {
-    suma, real, imag, jmag, kmag: vex,
-    id: string
+    sum: vex,
+    ei : vex,
+    vec: vec4
 }
 
 // Real Quaternion values
-Quaternion :: proc (a, b, c, d, e: any) -> (Quarvec) {
+Quaternion :: proc (a, b, c, d: any) -> (Quarvec) {
     a := a.(vex)
     b := b.(vex) 
     c := c.(vex)
     d := d.(vex)
-    e := e.(string)
 
-    b = Sin(b) * vex(.1)
-    c = b * vex(.1)
-    d = b * vex(.1)
+    b = Sin(b) * Ei[0]
+    c = b * Ei[0]
+    d = c * Ei[0]
 
     switch {
-        case e == "lil":
-            if a > b {a, b = b, a}
-            return {Cos(a) + b + c + d, a, b, c, d, e}
-        case e == "big":
-            if a < b {a, b = b, a}
-            return {Cos(a) + b + c + d, a, b, c, d, e}
+        case a > b:
+            return {Cos(a) + b + c + d, Ei[0], {a, b, c, d}}
+        case a < b:
+            return {Cos(a) + b + c + d, Ei[0], {a, b, c, d}}
+        case b == nav:
+            fmt.printfln("This is an %v!", c)
     }
-    return {Cos(a) + b + c + d, a, b, c, d, e}
+    return {Cos(a) + b + c + d, Ei[0], {a, b, c, d}}
 }
 
 // mew line
@@ -647,30 +826,41 @@ main :: proc() {
     fmt.printfln("Is verified also unbound? %v", verified == unbound)
     fmt.printfln("Is unsafe also unbound? %v", unsafe     == unbound)
     Newline()
-    fmt.printfln("Pi : %v", Pi())
-    fmt.printfln("Tau: %v", Tau())
-    fmt.printfln("Xi : %v", Xi())
-    fmt.printfln("Lambda: %v", Lambda())
-    fmt.printfln("Beta: %v", Beta())
-    fmt.printfln("Delta: %v", Delta())
-    fmt.printfln("Theta: %v", Theta())
     fmt.printfln("Alpha: %v", Alpha())
-    fmt.printfln("Omega: %v", Omega())
-    fmt.printfln("Psi: %v", Psi())
+    fmt.printfln("Beta: %v", Beta())
+    fmt.printfln("Gamma: %v", Gamma(2., Pi()))
+    fmt.printfln("Delta: %v", Delta())
+    fmt.printfln("Epsilon: %v", Epsilon(10., 16.))
+    fmt.printfln("Zeta: %v", Zeta(2., Pi()))
+    fmt.printfln("Eta: %v", Eta(2., Pi()))
+    fmt.printfln("Theta: %v", Theta())
+    fmt.printfln("Iota : %v", Iota(2.))
+    fmt.printfln("Kappa: %v", Kappa(2., Pi()))
+    fmt.printfln("Lambda: %v", Lambda())
     fmt.printfln("Mu : %v", Mu())
     fmt.printfln("Nu : %v", Nu())
-    fmt.printfln("Iota : %v", Iota(2.))
+    fmt.printfln("Xi : %v", Xi())
+    fmt.printfln("Omicron: %v", Omicron(2., Pi()))
+    fmt.printfln("Pi : %v", Pi())
     fmt.printfln("Rho : %v", Rho(2.))
+    fmt.printfln("Sigma: %v", Sigma(2., Pi()))
+    fmt.printfln("Tau: %v", Tau())
+    fmt.printfln("Upsilon: %v", Upsilon(2., Pi()))
+    fmt.printfln("Phi: %v", Phi())
+    fmt.printfln("Chi: %v", Chi())
+    fmt.printfln("Psi: %v", Psi())
+    fmt.printfln("Omega: %v", Omega())
     fmt.printfln("Abraxas: %v", Abraxas())
     fmt.printfln("Aldaraia: %v", Aldaraia(""))
+    fmt.printfln("Aldaraia: %v", Aldaraia("agyos"))
     fmt.printfln("Aldaraia: %v", Aldaraia("JohnD"))
     fmt.printfln("Aldaraia: %v", Aldaraia("soyga"))
-    fmt.printfln("Aldaraia: %v", Aldaraia("agyos"))
+    fmt.printfln("Aldaraia: %v", Aldaraia("Dee"))
     Newline()
-    fmt.printfln("Desmos: %v", Desmos(0.))
-    fmt.printfln("Desmos: %v", Desmos(1.))
-    fmt.printfln("Desmos: %v", Desmos(-1.))
-    fmt.printfln("Desmos: %v", Desmos(-0.))
+    fmt.printfln("Desmos: %v", Desmos(nav))
+    fmt.printfln("Desmos: %v", Desmos(nil))
+    fmt.printfln("Desmos: %v", Desmos(inf))
+    fmt.printfln("Desmos: %v", Desmos(nan))
     fmt.printfln("Desmos: %v", Desmos(-2.))
     fmt.printfln("Desmos: %v", Desmos(2.))
     fmt.printfln("Desmos: %v", Desmos(-16.))
@@ -695,36 +885,36 @@ main :: proc() {
     fmt.printfln("Div: %v", Div(10., 100.) + 25.)
     fmt.printfln("Div: %v", Div(10., 100.) + .25)
     fmt.printfln("Div: %v", Div((8./15.), (16./48.)))
-    fmt.printfln("Div: %v", Div(6., 0.) + 2.)
+    fmt.printfln("Div: %v", Div(6., nav) + 2.)
     Newline()
     fmt.printfln("Mod: %v", Mod(10., 100.))
     fmt.printfln("Mod: %v", Mod(10., 100.) + 25.)
     fmt.printfln("Mod: %v", Mod(10., 100.) + .25)
     fmt.printfln("Mod: %v", Mod((8./15.), (16./48.)))
-    fmt.printfln("Mod: %v", Mod(6., 0.) + 2.)
+    fmt.printfln("Mod: %v", Mod(6., nav) + 2.)
     Newline()
-    fmt.printfln("Abs: %v", Abs(0.))
-    fmt.printfln("Abs: %v", Abs(1.))
-    fmt.printfln("Abs: %v", Abs(-1.))
-    fmt.printfln("Abs: %v", Abs(-0.))
+    fmt.printfln("Abs: %v", Abs(nav))
+    fmt.printfln("Abs: %v", Abs(nil))
+    fmt.printfln("Abs: %v", Abs(inf))
+    fmt.printfln("Abs: %v", Abs(nan))
     fmt.printfln("Abs: %v", Abs(0.8))
     fmt.printfln("Abs: %v", Abs(7.))
     fmt.printfln("Abs: %v", Abs(-16.))
     fmt.printfln("Abs: %v", Abs(-10.))
     Newline()
-    fmt.printfln("Unsign: %v", Unsign(0.))
-    fmt.printfln("Unsign: %v", Unsign(1.))
-    fmt.printfln("Unsign: %v", Unsign(-1.))
-    fmt.printfln("Unsign: %v", Unsign(-0.))
+    fmt.printfln("Unsign: %v", Unsign(nav))
+    fmt.printfln("Unsign: %v", Unsign(nil))
+    fmt.printfln("Unsign: %v", Unsign(inf))
+    fmt.printfln("Unsign: %v", Unsign(nan))
     fmt.printfln("Unsign: %v", Unsign(0.8))
     fmt.printfln("Unsign: %v", Unsign(7.))
     fmt.printfln("Unsign: %v", Unsign(-16.))
     fmt.printfln("Unsign: %v", Unsign(-10.))
     Newline()
-    fmt.printfln("Ensign: %v", Ensign(0.))
-    fmt.printfln("Ensign: %v", Ensign(1.))
-    fmt.printfln("Ensign: %v", Ensign(-1.))
-    fmt.printfln("Ensign: %v", Ensign(-0.))
+    fmt.printfln("Ensign: %v", Ensign(nav))
+    fmt.printfln("Ensign: %v", Ensign(nil))
+    fmt.printfln("Ensign: %v", Ensign(inf))
+    fmt.printfln("Ensign: %v", Ensign(nan))
     fmt.printfln("Ensign: %v", Ensign(0.8))
     fmt.printfln("Ensign: %v", Ensign(7.))
     fmt.printfln("Ensign: %v", Ensign(-16.))
@@ -732,10 +922,10 @@ main :: proc() {
     Newline()
     fmt.printfln("Clamp: %v", Clamp(10., 16., 24.))
     fmt.printfln("Clamp: %v", Clamp(.8, 17., 25.67))
-    fmt.printfln("Clamp: %v", Abs(Clamp(0., 1., -1.)))
-    fmt.printfln("Clamp: %v", Abs(Clamp(1., -1., -0.)))
-    fmt.printfln("Clamp: %v", Abs(Clamp(-1., -0., 0.)))
-    fmt.printfln("Clamp: %v", Abs(Clamp(-0., 0., 1.)))
+    fmt.printfln("Clamp: %v", Abs(Clamp(nav, nil, inf)))
+    fmt.printfln("Clamp: %v", Abs(Clamp(nil, inf, nan)))
+    fmt.printfln("Clamp: %v", Abs(Clamp(inf, nan, nav)))
+    fmt.printfln("Clamp: %v", Abs(Clamp(nan, nav, nil)))
     Newline()
     fmt.printfln("GCD: %v", GCD(10., 100.))
     fmt.printfln("GCD: %v", GCD(10., 100.) + 25.)
@@ -747,28 +937,28 @@ main :: proc() {
     fmt.printfln("LCM: %v", LCM(10., 100.) + .25)
     fmt.printfln("LCM: %v", LCM((8./15.), (16./48.)))
     Newline()
-    fmt.printfln("Sqrt: %v", Sqrt(0.))
-    fmt.printfln("Sqrt: %v", Sqrt(1.))
-    fmt.printfln("Sqrt: %v", Sqrt(-1.))
-    fmt.printfln("Sqrt: %v", Sqrt(-0.))
+    fmt.printfln("Sqrt: %v", Sqrt(nav))
+    fmt.printfln("Sqrt: %v", Sqrt(nil))
+    fmt.printfln("Sqrt: %v", Sqrt(inf))
+    fmt.printfln("Sqrt: %v", Sqrt(nan))
     fmt.printfln("Sqrt: %v", Sqrt(0.8))
     fmt.printfln("Sqrt: %v", Sqrt(7.))
     fmt.printfln("Sqrt: %v", Sqrt(16.))
     fmt.printfln("Sqrt: %v", Sqrt(10.))
     Newline()
-    fmt.printfln("Expo: %v", Expo(0.))
-    fmt.printfln("Expo: %v", Expo(1.))
-    fmt.printfln("Expo: %v", Expo(-1.))
-    fmt.printfln("Expo: %v", Expo(-0.))
+    fmt.printfln("Expo: %v", Expo(nav))
+    fmt.printfln("Expo: %v", Expo(nil))
+    fmt.printfln("Expo: %v", Expo(inf))
+    fmt.printfln("Expo: %v", Expo(nan))
     fmt.printfln("Expo: %v", Expo(0.8))
     fmt.printfln("Expo: %v", Expo(7.))
     fmt.printfln("Expo: %v", Expo(16.))
     fmt.printfln("Expo: %v", Expo(10.))
     Newline()
-    fmt.printfln("Logx: %v", Logx(0.))
-    fmt.printfln("Logx: %v", Logx(1.))
-    fmt.printfln("Logx: %v", Logx(-1.))
-    fmt.printfln("Logx: %v", Logx(-0.))
+    fmt.printfln("Logx: %v", Logx(nav))
+    fmt.printfln("Logx: %v", Logx(nil))
+    fmt.printfln("Logx: %v", Logx(inf))
+    fmt.printfln("Logx: %v", Logx(nan))
     fmt.printfln("Logx: %v", Logx(0.8))
     fmt.printfln("Logx: %v", Logx(7.))
     fmt.printfln("Logx: %v", Logx(16.))
@@ -778,110 +968,123 @@ main :: proc() {
     fmt.printfln("Pow: %v", Pow(8., 4.))
     fmt.printfln("Pow: %v", Pow(2., 100.))
     fmt.printfln("Pow: %v", Pow((8./15.), (16./48.)))
-    fmt.printfln("Pow: %v", Pow(6., 0.))
+    fmt.printfln("Pow: %v", Pow(6., nav))
     Newline()
-    fmt.printfln("Sin: %v", Sin(00.))
-    fmt.printfln("Sin: %v", Sin(01.))
-    fmt.printfln("Sin: %v", Sin(-1.))
-    fmt.printfln("Sin: %v", Sin(-0.))
+    fmt.printfln("Sin: %v", Sin(nav))
+    fmt.printfln("Sin: %v", Sin(nil))
+    fmt.printfln("Sin: %v", Sin(inf))
+    fmt.printfln("Sin: %v", Sin(nan))
     fmt.printfln("Sin: %v", Sin(0.8))
     fmt.printfln("Sin: %v", Sin(07.))
     fmt.printfln("Sin: %v", Sin(16.))
     fmt.printfln("Sin: %v", Sin(10.))
     Newline()
-    fmt.printfln("Cos: %v", Cos(0.))
-    fmt.printfln("Cos: %v", Cos(1.))
-    fmt.printfln("Cos: %v", Cos(-1.))
-    fmt.printfln("Cos: %v", Cos(-0.))
+    fmt.printfln("Cos: %v", Cos(nav))
+    fmt.printfln("Cos: %v", Cos(nil))
+    fmt.printfln("Cos: %v", Cos(inf))
+    fmt.printfln("Cos: %v", Cos(nan))
     fmt.printfln("Cos: %v", Cos(0.8))
     fmt.printfln("Cos: %v", Cos(7.))
     fmt.printfln("Cos: %v", Cos(16.))
     fmt.printfln("Cos: %v", Cos(10.))
     Newline()
-    fmt.printfln("Tan: %v", Tan(0.))
-    fmt.printfln("Tan: %v", Tan(1.))
-    fmt.printfln("Tan: %v", Tan(-1.))
-    fmt.printfln("Tan: %v", Tan(-0.))
+    fmt.printfln("Tan: %v", Tan(nav))
+    fmt.printfln("Tan: %v", Tan(nil))
+    fmt.printfln("Tan: %v", Tan(inf))
+    fmt.printfln("Tan: %v", Tan(nan))
     fmt.printfln("Tan: %v", Tan(0.8))
     fmt.printfln("Tan: %v", Tan(7.))
     fmt.printfln("Tan: %v", Tan(16.))
     fmt.printfln("Tan: %v", Tan(10.))
     Newline()
-    fmt.printfln("Avex: %v", Avex(10.))
-    fmt.printfln("Avex: %v", Avex(56.))
-    fmt.printfln("Avex: %v", Avex(23.))
-    fmt.printfln("Avex: %v", Avex((8./15.)))
-    fmt.printfln("Avex: %v", Avex(6.))
+    fmt.printfln("Avex:")
+    fmt.printfln("Avex:")
+    fmt.printfln("Avex:")
+    fmt.printfln("Avex:")
+    fmt.printfln("Avex:")
     Newline()
-    fmt.printfln("Bivec: %v", Range(10., 100., "lil"))
-    fmt.printfln("Bivec: %v", Range(56., 17., "lil"))
-    fmt.printfln("Bivec: %v", Range(23., .45, "lil"))
-    fmt.printfln("Bivec: %v", Range((8./15.), (16./48.), "lil"))
-    fmt.printfln("Bivec: %v", Range(6., 0., "lil"))
+    fmt.printfln("Vec2 Lil: %v", Range(10., 100., "lil"))
+    fmt.printfln("Vec2 Lil: %v", Range(56., 17., "lil"))
+    fmt.printfln("Vec2 Lil: %v", Range(23., .45, "lil"))
+    fmt.printfln("Vec2 Lil: %v", Range((8./15.), (16./48.), "lil"))
+    fmt.printfln("Vec2 Lil: %v", Range(6., nav, "lil"))
     Newline()
-    fmt.printfln("Vivec: %v", Range(10., 100., "big"))
-    fmt.printfln("Vivec: %v", Range(56., 17., "big"))
-    fmt.printfln("Vivec: %v", Range(23., .45, "big"))
-    fmt.printfln("Vivec: %v", Range((8./15.), (16./48.), "big"))
-    fmt.printfln("Vivec: %v", Range(6., 0., "big"))
+    fmt.printfln("Vec2 Big: %v", Range(10., 100., "big"))
+    fmt.printfln("Vec2 Big: %v", Range(56., 17., "big"))
+    fmt.printfln("Vec2 Big: %v", Range(23., .45, "big"))
+    fmt.printfln("Vec2 Big: %v", Range((8./15.), (16./48.), "big"))
+    fmt.printfln("Vec2 Big: %v", Range(6., nav, "big"))
     Newline()
-    fmt.printfln("Mivec: %v", Range(10., 100., ""))
-    fmt.printfln("Mivec: %v", Range(56., 17., ""))
-    fmt.printfln("Mivec: %v", Range(23., .45, ""))
-    fmt.printfln("Mivec: %v", Range((8./15.), (16./48.), ""))
-    fmt.printfln("Mivec: %v", Range(6., 0., ""))
+    fmt.printfln("Vec2 Non: %v", Range(10., 100., "non"))
+    fmt.printfln("Vec2 Non: %v", Range(56., 17., "non"))
+    fmt.printfln("Vec2 Non: %v", Range(23., .45, "non"))
+    fmt.printfln("Vec2 Non: %v", Range((8./15.), (16./48.), "non"))
+    fmt.printfln("Vec2 Non: %v", Range(6., nav, "non"))
     Newline()
-    fmt.printfln("Simplex: %v", Simplex(10., 100., "lil"))
-    fmt.printfln("Simplex: %v", Simplex(56., 17., "lil"))
-    fmt.printfln("Simplex: %v", Simplex(23., .45, "lil"))
-    fmt.printfln("Simplex: %v", Simplex((8./15.), (16./48.), "lil"))
-    fmt.printfln("Simplex: %v", Simplex(6., 0., "lil"))
+    fmt.printfln("Vec2 Err: %v", Range(10., 100., "err"))
+    fmt.printfln("Vec2 Err: %v", Range(56., 17., "err"))
+    fmt.printfln("Vec2 Err: %v", Range(23., .45, "err"))
+    fmt.printfln("Vec2 Err: %v", Range((8./15.), (16./48.), "err"))
+    fmt.printfln("Vec2 Err: %v", Range(6., nav, "err"))
     Newline()
-    fmt.printfln("Misplex: %v", Misplex(10., 100., "big"))
-    fmt.printfln("Misplex: %v", Misplex(56., 17., "big"))
-    fmt.printfln("Misplex: %v", Misplex(23., .45, "big"))
-    fmt.printfln("Misplex: %v", Misplex((8./15.), (16./48.), "big"))
-    fmt.printfln("Misplex: %v", Misplex(6., 0., "big"))
+    fmt.printfln("Abraxyz: %v : %v", Abraxyz(2., 3.))
+    fmt.printfln("Abraxyz: %v : %v", Abraxyz(56., 17.))
+    fmt.printfln("Abraxyz: %v : %v", Abraxyz(23., .45))
+    fmt.printfln("Abraxyz: %v : %v", Abraxyz((8./15.), (16./48.)))
+    fmt.printfln("Abraxyz: %v : %v", Abraxyz(6., nav))
     Newline()
-    fmt.printfln("Complex: %v", Complex(10., 100., "lil"))
-    fmt.printfln("Complex: %v", Complex(56., 17., "lil"))
-    fmt.printfln("Complex: %v", Complex(23., .45, "lil"))
-    fmt.printfln("Complex: %v", Complex((8./15.), (16./48.), "lil"))
-    fmt.printfln("Complex: %v", Complex(6., 0., "lil"))
+    fmt.printfln("Simplex: %v", Simplex(10., 100., ))
+    fmt.printfln("Simplex: %v", Simplex(56., 17., ))
+    fmt.printfln("Simplex: %v", Simplex(23., .45, ))
+    fmt.printfln("Simplex: %v", Simplex((8./15.), (16./48.), ))
+    fmt.printfln("Simplex: %v", Simplex(6., nav, ))
+    fmt.printfln("Simplex: %v", Simplex(nan, nan))
     Newline()
-    fmt.printfln("Mocplex: %v", Mocplex(10., 100., "big"))
-    fmt.printfln("Mocplex: %v", Mocplex(56., 17., "big"))
-    fmt.printfln("Mocplex: %v", Mocplex(23., .45, "big"))
-    fmt.printfln("Mocplex: %v", Mocplex((8./15.), (16./48.), "big"))
-    fmt.printfln("Mocplex: %v", Mocplex(6., 0., "big"))
+    fmt.printfln("Misplex: %v", Misplex(10., 100., ))
+    fmt.printfln("Misplex: %v", Misplex(56., 17., ))
+    fmt.printfln("Misplex: %v", Misplex(23., .45, ))
+    fmt.printfln("Misplex: %v", Misplex((8./15.), (16./48.), ))
+    fmt.printfln("Misplex: %v", Misplex(6., nav, ))
     Newline()
-    fmt.printfln("Polyplex: %v", Polyplex(10., 100., "lil"))
-    fmt.printfln("Polyplex: %v", Polyplex(56., 17., "lil"))
-    fmt.printfln("Polyplex: %v", Polyplex(23., .45, "lil"))
-    fmt.printfln("Polyplex: %v", Polyplex((8./15.), (16./48.), "lil"))
-    fmt.printfln("Polyplex: %v", Polyplex(6., 0., "lil"))
+    fmt.printfln("Complex: %v", Complex(10., 100., ))
+    fmt.printfln("Complex: %v", Complex(56., 17., ))
+    fmt.printfln("Complex: %v", Complex(23., .45, ))
+    fmt.printfln("Complex: %v", Complex((8./15.), (16./48.), ))
+    fmt.printfln("Complex: %v", Complex(6., nav, ))
     Newline()
-    fmt.printfln("Ylopplex: %v", Ylopplex(10., 100., "big"))
-    fmt.printfln("Ylopplex: %v", Ylopplex(56., 17., "big"))
-    fmt.printfln("Ylopplex: %v", Ylopplex(23., .45, "big"))
-    fmt.printfln("Ylopplex: %v", Ylopplex((8./15.), (16./48.), "big"))
-    fmt.printfln("Ylopplex: %v", Ylopplex(6., 0., "big"))
+    fmt.printfln("Mocplex: %v", Mocplex(10., 100., ))
+    fmt.printfln("Mocplex: %v", Mocplex(56., 17., ))
+    fmt.printfln("Mocplex: %v", Mocplex(23., .45, ))
+    fmt.printfln("Mocplex: %v", Mocplex((8./15.), (16./48.), ))
+    fmt.printfln("Mocplex: %v", Mocplex(6., nav, ))
     Newline()
-    fmt.printfln("Perplex: %v", Perplex(10., 100., "lil"))
-    fmt.printfln("Perplex: %v", Perplex(56., 17., "lil"))
-    fmt.printfln("Perplex: %v", Perplex(23., .45, "lil"))
-    fmt.printfln("Perplex: %v", Perplex((8./15.), (16./48.), "lil"))
-    fmt.printfln("Perplex: %v", Perplex(6., 0., "lil"))
+    fmt.printfln("Polyplex: %v", Polyplex(10., 100., ))
+    fmt.printfln("Polyplex: %v", Polyplex(56., 17., ))
+    fmt.printfln("Polyplex: %v", Polyplex(23., .45, ))
+    fmt.printfln("Polyplex: %v", Polyplex((8./15.), (16./48.), ))
+    fmt.printfln("Polyplex: %v", Polyplex(6., nav, ))
     Newline()
-    fmt.printfln("Repplex: %v", Repplex(10., 100., "big"))
-    fmt.printfln("Repplex: %v", Repplex(56., 17., "big"))
-    fmt.printfln("Repplex: %v", Repplex(23., .45, "big"))
-    fmt.printfln("Repplex: %v", Repplex((8./15.), (16./48.), "big"))
-    fmt.printfln("Repplex: %v", Repplex(6., 0., "big"))
+    fmt.printfln("Ylopplex: %v", Ylopplex(10., 100., ))
+    fmt.printfln("Ylopplex: %v", Ylopplex(56., 17., ))
+    fmt.printfln("Ylopplex: %v", Ylopplex(23., .45, ))
+    fmt.printfln("Ylopplex: %v", Ylopplex((8./15.), (16./48.), ))
+    fmt.printfln("Ylopplex: %v", Ylopplex(6., nav, ))
     Newline()
-    fmt.printfln("Quaternion: %v",Quaternion(1., 2., 3., 4., "lil"))
-    fmt.printfln("Quaternion: %v",Quaternion(2., 4., 8., 16., "big"))
-    fmt.printfln("Quaternion: %v",Quaternion(3., 9., 27., 81., "lil"))
-    fmt.printfln("Quaternion: %v",Quaternion(4., 16., 64., 256., "big"))
-    fmt.printfln("Quaternion: %v",Quaternion(5., 25., 125., 625., "lil"))
+    fmt.printfln("Perplex: %v", Perplex(10., 100., ))
+    fmt.printfln("Perplex: %v", Perplex(56., 17., ))
+    fmt.printfln("Perplex: %v", Perplex(23., .45, ))
+    fmt.printfln("Perplex: %v", Perplex((8./15.), (16./48.), ))
+    fmt.printfln("Perplex: %v", Perplex(6., nav, ))
+    Newline()
+    fmt.printfln("Repplex: %v", Repplex(10., 100., ))
+    fmt.printfln("Repplex: %v", Repplex(56., 17., ))
+    fmt.printfln("Repplex: %v", Repplex(23., .45, ))
+    fmt.printfln("Repplex: %v", Repplex((8./15.), (16./48.), ))
+    fmt.printfln("Repplex: %v", Repplex(6., nav, ))
+    Newline()
+    fmt.printfln("Quaternion: %v",Quaternion(nil, 2., 3., 4., ))
+    fmt.printfln("Quaternion: %v",Quaternion(2., 5., 11., 23., ))
+    fmt.printfln("Quaternion: %v",Quaternion(3., 10., 31., 94., ))
+    fmt.printfln("Quaternion: %v",Quaternion(4., 17., 69., 277., ))
+    fmt.printfln("Quaternion: %v",Quaternion(5., 26., 131., 656., ))
 }

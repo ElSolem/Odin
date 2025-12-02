@@ -10,12 +10,12 @@ import "core:fmt"
 
 // Replacement for rand, will change the other values later
 Zeroth :: proc() -> (struct {
-    s: bool, t: bool, u: f64 , v: f64 , 
-    w: f64 , x: i64 , y: i64 , z: f64 ,}) 
+    s: bool, t: bool, u: logic.vex , v: logic.vex , 
+    w: logic.vex , x: i64 , y: i64 , z: logic.vex ,}) 
 {
     alpha := time.now()
     tick  := logic.vex(alpha._nsec) // Delta = tick
-    I     := 0.1 // Value = i
+    I     := logic.posi // Value = i
     pie   := logic.Pi()
     //-------------------------------------------\\
 		// Qubit Normal // Abs(x)^x
@@ -28,54 +28,54 @@ Zeroth :: proc() -> (struct {
    
     // Unit Circle // Cos(xy) + isin(xy) :: gives you a unit circle/oval based on coordinates
     // This formula can be used for theta value
-    c     := (logic.Cos(f64(a * tick)) + (I * logic.Sin(f64(a * tick))))
-    theta := c * pie * f64(tick)
+    c     := (logic.Cos(logic.vex(a * tick)) + (I * logic.Sin(logic.vex(a * tick))))
+    theta := c * pie * logic.vex(tick)
     tau   := 2 * pie
     //------------------------------------------------\\
 
     
     // X-Axis // i(logic.Abs(2*pi*radius) * iabs(2*pi*radius))*time
     // Formula for the perfect angle of the x-axis, anything not on this line isnt an x-value
-    d     := I * (logic.Abs(theta) * I * (logic.Abs(theta))) * f64(tick)
+    d     := I * (logic.Abs(theta) * I * (logic.Abs(theta))) * logic.vex(tick)
     //--------------------------------------------------\\
 
     
     // Y-Axis // (logic.Abs(2*pi*radius) * iabs(2*pi*radius))*time
     // Formula for the perfect angle of the Y-axis, anything not on this line isnt an y-value 
-    e     := (logic.Abs(theta) * (I * (logic.Abs(theta)))) * f64(tick)
+    e     := (logic.Abs(theta) * (I * (logic.Abs(theta)))) * logic.vex(tick)
     //---------------------------------------------------\\
 
     
     // Z-Axis // (logic.Abs(2*pi*radius) + iabs(2*pi*radius))*time
     // Formula for the perfect angle of the Z-axis, anything not on this line isnt an z-value 
-    f     := (logic.Abs(theta) + I * (logic.Abs(theta))) * f64(tick)
+    f     := (logic.Abs(theta) + I * (logic.Abs(theta))) * logic.vex(tick)
     //----------------------------------------------------\\
 
     
     // W-Axis // (logic.Abs(2*pi*radius) - iabs(2*pi*radius))*time
     // Formula for the perfect angle of the x-axis, anything not on this line isnt an y-value 
-    g     := (logic.Abs(theta) - I * (logic.Abs(theta))) * f64(tick)
+    g     := (logic.Abs(theta) - I * (logic.Abs(theta))) * logic.vex(tick)
     //-----------------------------------------------------\\
 
     
     // Entropy // formula for a black hole
-    h     := logic.Pow((logic.Tan(tau)),(I * logic.Abs(tau))) * f64(tick)
+    h     := logic.Pow((logic.Tan(tau)),(I * logic.Abs(tau))) * logic.vex(tick)
     //------------------------------------------------------\\
 
     
     // Parrallax formula
-    i     := (logic.Abs(f64(tick)) - logic.Abs(tau)) >= 1
+    i     := (logic.Abs(logic.vex(tick)) - logic.Abs(tau)) >= 1
     //-------------------------------------------------------\\
     
     
     // Tesseract formula
-    j     := (logic.Abs(f64(tick) * pie) + logic.Abs(f64(tick) * pie)) >= 1
+    j     := (logic.Abs(logic.vex(tick) * pie) + logic.Abs(logic.vex(tick) * pie)) >= 1
     //--------------------------------------------------------\\
 
 
     // Nbody Solution // Cos(xy) + isin(xy) * t :: gives you a unit circle/oval based on coordinates
     // If applied to other things this is the heart of n-body solutions
-    k     := (logic.Cos(f64(a) * c) + (I * logic.Sin(f64(a) * c))) * f64(tick)
+    k     := (logic.Cos(logic.vex(a) * c) + (I * logic.Sin(logic.vex(a) * c))) * logic.vex(tick)
     //--------------------------------------------------------\\
 
     //---------------------------------------------------------\\
@@ -101,7 +101,7 @@ Zeroth :: proc() -> (struct {
 
     // 4D Initialiazation
     Fourdime :: proc() -> bool {
-        now := f64(time.now()._nsec)
+        now := logic.vex(time.now()._nsec)
         fibprime := 2.971215073e9
         max := fibprime * now //Randomized "4D" number
         for x in 0..<max {
@@ -124,8 +124,8 @@ Zeroth :: proc() -> (struct {
 		s := Fourdime()
     //---------------------------------------------------------\\
     return struct {
-        s: bool, t: bool, u: f64 , v: f64 , 
-        w: f64 , x: i64 , y: i64 , z: f64 ,} {
+        s: bool, t: bool, u: logic.vex , v: logic.vex , 
+        w: logic.vex , x: i64 , y: i64 , z: logic.vex ,} {
             s = s, t = b, u = h, v = l, 
             w = w, x = x, y = y, z = z,
         }

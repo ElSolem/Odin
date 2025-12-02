@@ -1,20 +1,20 @@
 
-8 bits: 0.1
-8 bits: -0.1
-8 bits: -Inf
-8 bits: 1
-8 bits: 0.31622776601683794
-8 bits: 0.5064118628910332
-8 bits: 1.52587890625e-05
-8 bits: 1.52587890625e-05
-Odin/LibTom Imaginary Num i: NaN
+8 bytes: 0.1
+8 bytes: -0.1
+8 bytes: -Inf
+8 bytes: 1
+8 bytes: 0.31622776601683794
+8 bytes: 0.5064118628910332
+8 bytes: 1.52587890625e-05
+8 bytes: 1.52587890625e-05
+2 bytes:Odin/LibTom Imaginary Num i: NaN
 
-8 bits: 36.462165583640527
-8 bits: 1329.4895190488196
-8 bits: 48476.06698527264
-8 bits: 5317.958076195283
-8 bits: 387808.5358821819
-8 bits: 2.8280678100170635e+07
+8 bytes: 36.462165583640527
+8 bytes: 1329.4895190488196
+8 bytes: 48476.06698527264
+8 bytes: 5317.958076195283
+8 bytes: 387808.5358821819
+8 bytes: 2.8280678100170635e+07
 
 Is verified also unsafe? false
 Is invalid also unbound? false

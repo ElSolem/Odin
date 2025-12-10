@@ -1,22 +1,21 @@
 package logic
 
 import "core:fmt"
-import "core:time"
 
 vex :: f64   // Vector/Logical Values
 hex :: f64le // Visual/Graphical Values
 lex :: f64be // Textual/Audio Values
 
-Logia :: enum {
+Qubit :: enum {
     NAV =  0x00, // '+0' // Null and void
     NIL =  0x01, // '+1' // Not in list
     INF = -0x01, // '-1' // Indexed Numeric Factor
     NAN = -0x00, // '-0' // Not a number
 }
-nav :: vex(Logia.NAV)
-nil :: vex(Logia.NIL)
-inf :: vex(Logia.INF)
-nan :: vex(Logia.NAN)
+nav :: vex(Qubit.NAV)
+nil :: vex(Qubit.NIL)
+inf :: vex(Qubit.INF)
+nan :: vex(Qubit.NAN)
 
 verified :: nav == nan
 invalid  :: nil == inf
@@ -41,7 +40,7 @@ cages := Pow((Abraxas() * 2.), 3.)
 nexus := Pow((Abraxas() * 2.), 4.)
 Designs := [6]vex{tones, tiles, cubes, grids, cages, nexus}
 
-Pistia :: enum {
+Mewtex :: enum {
     // Group 1: Functions
     NINA = 0x00, // No Intz No Action(Data) // Input
     NISA = 0x01, // No Intz Single Action(Data) // Output
@@ -183,6 +182,7 @@ LCM :: proc "contextless" (a, b: any) -> (vex) {
 // Square root value of x
 Sqrt :: proc "contextless" (a: any) -> (vex) {
     a := a.(vex)
+    // if a <= nav {return nav}
 
     x := (a > nil) ? a : nil
     
@@ -210,7 +210,7 @@ Expo :: proc "contextless" (a: any) -> (vex) {
         if (Abs(term) < 1e-16) {break}
     }
 
-    for n > 0 {
+    for n > nav {
         sum *= sum
         n -= 1
     }
@@ -223,6 +223,9 @@ Logx :: proc "contextless" (a: any) -> (vex) {
     a := a.(vex)
     b := nav
     c := nav
+    // *undo below for return to Logn*
+    //if (a <= nav) {return nav}
+    //if (a == nil) {return nav}
 
     if (a > 2.) {
         b = nil
@@ -262,7 +265,6 @@ Sin :: proc "contextless" (a: any) -> (vex) {
 
     return t - (t * t2 / 6.) + (t * t2 * t2 / 120.) - (t * t2 * t2 * t2 / 5040.)
 }
-
 
 // Cos Function
 Cos :: proc "contextless" (a: any) -> (vex) {
@@ -318,7 +320,7 @@ Range :: proc (a, b, c: any) -> (vec2) {
             if a < b {a, b = b, a}
             return {a, b}
         case c == "err":
-            if b == nav {fmt.printfln("This is an %v!", c)}
+            fmt.printfln("This is an %v!", c)
     }
     return {a, b}
 }
@@ -445,7 +447,7 @@ Gamma :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Pistia.EINA)
+    return vex(Mewtex.EINA)
 }
 
 // Perfect Ellipse & the Unit Circle
@@ -464,7 +466,7 @@ Epsilon :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Pistia.EINA)
+    return vex(Mewtex.EINA)
 }
 
 Zeta :: proc(a, b: any) -> (vex) {
@@ -482,7 +484,7 @@ Zeta :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Pistia.EINA)
+    return vex(Mewtex.EINA)
 }
 
 // W-axis
@@ -501,7 +503,7 @@ Eta :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Pistia.EINA)
+    return vex(Mewtex.EINA)
 }
 
 // X-axis
@@ -520,7 +522,7 @@ Kappa :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Pistia.EINA)
+    return vex(Mewtex.EINA)
 }
 
 // Y-axis
@@ -539,7 +541,7 @@ Omicron :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Pistia.EINA)
+    return vex(Mewtex.EINA)
 }
 
 // Z-axis
@@ -558,7 +560,7 @@ Sigma :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Pistia.EINA)
+    return vex(Mewtex.EINA)
 }
 
 // Z-axis
@@ -577,9 +579,8 @@ Upsilon :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Pistia.EINA)
+    return vex(Mewtex.EINA)
 }
-
 
 // Pi ^ Pi constant
 // Tile size constant
@@ -607,9 +608,11 @@ Aldaraia :: proc "contextless" (a: any) -> (vex) {
     return Pow(Abraxas(), .3)
 }
 
+
 // ------------------------- \\
 // **Complex numbers + vec** \\
 // ------------------------- \\
+
 
 Bivec :: struct {
     sum: vex,
@@ -630,14 +633,14 @@ Abraxyz :: proc(a, b: any) -> (Bivec, bool)  {
     if verified {
         switch {
             case b > nav:
-                return {(a * b) + (a / b), nav, {a, b}}, ((a * b) + (a / b)) > 0
+                return {(a * b) + (a / b), nav, {a, b}}, ((a * b) + (a / b)) > nav
             case b < nav:
-                return {(a * b) - (a / b), nav, {a, b}}, ((a * b) - (a / b)) > 0
+                return {(a * b) - (a / b), nav, {a, b}}, ((a * b) - (a / b)) > nav
             case b == nav:
-                return {(a * b) + (a / b), nav, {a, b}}, ((a * b) + (a / b)) > 0
+                return {(a * b) + (a / b), nav, {a, b}}, ((a * b) + (a / b)) > nav
         }
     }
-    return {vex(Pistia.EINA), nav, {a, b}}, ((a * b) + (a / b)) > 0
+    return {vex(Mewtex.EINA), nav, {a, b}}, ((a * b) + (a / b)) > nav
 }
 
 // A real complex number and not odins impl
@@ -654,7 +657,7 @@ Simplex :: proc(a, b: any) -> (Bivec) {
                 return {(a + b), Ei[0], {a, b + Ei[0]}}
         }
     }
-    return {vex(Pistia.EINA), Ei[0], {a, b}}
+    return {vex(Mewtex.EINA), Ei[0], {a, b}}
 }
 
 // Opposite of Simplex
@@ -671,7 +674,7 @@ Misplex :: proc(a, b: any) -> (Bivec)  {
                 return {(a + b), Ei[1], {a, b + Ei[1]}}
         }
     }
-    return {vex(Pistia.EINA), Ei[1], {a, b}}
+    return {vex(Mewtex.EINA), Ei[1], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -688,7 +691,7 @@ Complex :: proc(a, b: any) -> (Bivec)  {
                 return {(a + b), Ei[2], {a, b + Ei[2]}}
         }
     }
-    return {vex(Pistia.EINA), Ei[2], {a, b}}
+    return {vex(Mewtex.EINA), Ei[2], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -705,7 +708,7 @@ Mocplex :: proc(a, b: any) -> (Bivec)  {
                 return {(a + b), Ei[3], {a, b + Ei[3]}}
         }
     }
-    return {vex(Pistia.EINA), Ei[3], {a, b}}
+    return {vex(Mewtex.EINA), Ei[3], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -722,7 +725,7 @@ Polyplex :: proc(a, b: any) -> (Bivec)  {
                 return {(Cos(a) + b), Ei[0], {a, b + Ei[0]}}
         }
     }
-    return {vex(Pistia.EINA), Ei[0], {a, b}}
+    return {vex(Mewtex.EINA), Ei[0], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -740,7 +743,7 @@ Ylopplex :: proc(a, b: any) -> (Bivec)  {
                 return {(Cos(a) + b), Ei[1], {a, b + Ei[1]}}
         }
     }
-    return {vex(Pistia.EINA), Ei[1], {a, b}}
+    return {vex(Mewtex.EINA), Ei[1], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -757,7 +760,7 @@ Perplex :: proc(a, b: any) -> (Bivec)  {
                 return {(Cos(a) + b), Ei[4], {a, b + Ei[4]}}
         }
     }
-    return {vex(Pistia.EINA), Ei[4], {a, b}}
+    return {vex(Mewtex.EINA), Ei[4], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -775,7 +778,7 @@ Repplex :: proc(a, b: any) -> (Bivec)  {
                 return {(Cos(a) + b), Ei[5], {a, b + Ei[5]}}
         }
     }
-    return {vex(Pistia.EINA), Ei[5], {a, b}}
+    return {vex(Mewtex.EINA), Ei[5], {a, b}}
 }
 
 

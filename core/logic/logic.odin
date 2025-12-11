@@ -40,54 +40,6 @@ cages := Pow((Abraxas() * 2.), 3.)
 nexus := Pow((Abraxas() * 2.), 4.)
 Designs := [6]vex{tones, tiles, cubes, grids, cages, nexus}
 
-Mewtex :: enum {
-    // Group 1: Functions
-    NINA = 0x00, // No Intz No Action(Data) // Input
-    NISA = 0x01, // No Intz Single Action(Data) // Output
-    NIMA = 0x02, // No Intz Multi Action(Data) // Error
-    NIPA = 0x03, // No Intz Proc Action(Data)
-    // Group 2: Methods
-    SINA = 0x04, // Single Intz No Action(Data)
-    SISA = 0x05, // Single Intz Single Action(Data)
-    SIMA = 0x06, // Single Intz Multi Action(Data)
-    SIPA = 0x07, // Single Intz Proc Action(Data)
-    // Group 3: Procedures
-    MINA = 0x08, // Multi Intz No Action(Data)
-    MISA = 0x09, // Multi Intz Single Action(Data)
-    MIMA = 0x0a, // Multi Intz Multi Action(Data)
-    MIPA = 0x0b, // Multi Intz Proc Action(Data)
-    // Group 4: Iterators
-    PINA = 0x0c, // Proc Intz No Action(Data)
-    PISA = 0x0d, // Proc Intz Single Action(Data)
-    PIMA = 0x0e, // Proc Intz Multi Action(Data)
-    PIPA = 0x0f, // Proc Intz Proc Action(Data)
-    // Group 5: Plexes
-    AINA = 0x10, // Atomic Intz No Action(Data)
-    AISA = 0x11, // Atomic Intz Single Action(Data)
-    AIMA = 0x12, // Atomic Intz Multi Action(Data)
-    AIPA = 0x13, // Atomic Intz Proc Action(Data)
-    // Group 6: Macros
-    QINA = 0x14, // Quant Intz No Action(Data)
-    QISA = 0x15, // Quant Intz Single Action(Data)
-    QIMA = 0x16, // Quant Intz Multi Action(Data)
-    QIPA = 0x17, // Quant Intz Proc Action(Data)
-    // Group 7: Hashes
-    RINA = 0x18, // Rand Intz No Action(Data)
-    RISA = 0x19, // Rand Intz Single Action(Data)
-    RIMA = 0x1a, // Rand Intz Multi Action(Data)
-    RIPA = 0x1b, // Rand Intz Proc Action(Data)
-    // Group 8: Signals
-    TINA = 0x1c, // Timed Intz No Action(Data)
-    TISA = 0x1d, // Timed Intz Single Action(Data)
-    TIMA = 0x1e, // Timed Intz Multi Action(Data)
-    TIPA = 0x1f, // Timed Intz Proc Action(Data)
-    // Group 9: Logarithms
-    EINA = 0xec, // Error Intz No Action(Data)
-    EISA = 0xed, // Error Intz Single Action(Data)
-    EIMA = 0xee, // Error Intz Multi Action(Data)
-    EIPA = 0xef, // Error Intz Proc Action(Data)
-}
-
 // -------------------------------- \\
 // **Geomtric Algebraic Functions** \\
 // -------------------------------- \\
@@ -447,7 +399,7 @@ Gamma :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Mewtex.EINA)
+    return nav
 }
 
 // Perfect Ellipse & the Unit Circle
@@ -466,7 +418,7 @@ Epsilon :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Mewtex.EINA)
+    return nav
 }
 
 Zeta :: proc(a, b: any) -> (vex) {
@@ -484,7 +436,7 @@ Zeta :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Mewtex.EINA)
+    return nav
 }
 
 // W-axis
@@ -503,7 +455,7 @@ Eta :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Mewtex.EINA)
+    return nav
 }
 
 // X-axis
@@ -522,7 +474,7 @@ Kappa :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Mewtex.EINA)
+    return nav
 }
 
 // Y-axis
@@ -541,7 +493,7 @@ Omicron :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Mewtex.EINA)
+    return nav
 }
 
 // Z-axis
@@ -560,7 +512,7 @@ Sigma :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Mewtex.EINA)
+    return nav
 }
 
 // Z-axis
@@ -579,7 +531,7 @@ Upsilon :: proc(a, b: any) -> (vex) {
                 return nil
         }
     }
-    return vex(Mewtex.EINA)
+    return nav
 }
 
 // Pi ^ Pi constant
@@ -608,11 +560,9 @@ Aldaraia :: proc "contextless" (a: any) -> (vex) {
     return Pow(Abraxas(), .3)
 }
 
-
 // ------------------------- \\
 // **Complex numbers + vec** \\
 // ------------------------- \\
-
 
 Bivec :: struct {
     sum: vex,
@@ -640,7 +590,7 @@ Abraxyz :: proc(a, b: any) -> (Bivec, bool)  {
                 return {(a * b) + (a / b), nav, {a, b}}, ((a * b) + (a / b)) > nav
         }
     }
-    return {vex(Mewtex.EINA), nav, {a, b}}, ((a * b) + (a / b)) > nav
+    return {nav, nav, {a, b}}, ((a * b) + (a / b)) > nav
 }
 
 // A real complex number and not odins impl
@@ -657,7 +607,7 @@ Simplex :: proc(a, b: any) -> (Bivec) {
                 return {(a + b), Ei[0], {a, b + Ei[0]}}
         }
     }
-    return {vex(Mewtex.EINA), Ei[0], {a, b}}
+    return {nav, Ei[0], {a, b}}
 }
 
 // Opposite of Simplex
@@ -674,7 +624,7 @@ Misplex :: proc(a, b: any) -> (Bivec)  {
                 return {(a + b), Ei[1], {a, b + Ei[1]}}
         }
     }
-    return {vex(Mewtex.EINA), Ei[1], {a, b}}
+    return {nav, Ei[1], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -691,7 +641,7 @@ Complex :: proc(a, b: any) -> (Bivec)  {
                 return {(a + b), Ei[2], {a, b + Ei[2]}}
         }
     }
-    return {vex(Mewtex.EINA), Ei[2], {a, b}}
+    return {nav, Ei[2], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -708,7 +658,7 @@ Mocplex :: proc(a, b: any) -> (Bivec)  {
                 return {(a + b), Ei[3], {a, b + Ei[3]}}
         }
     }
-    return {vex(Mewtex.EINA), Ei[3], {a, b}}
+    return {nav, Ei[3], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -725,7 +675,7 @@ Polyplex :: proc(a, b: any) -> (Bivec)  {
                 return {(Cos(a) + b), Ei[0], {a, b + Ei[0]}}
         }
     }
-    return {vex(Mewtex.EINA), Ei[0], {a, b}}
+    return {nav, Ei[0], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -743,7 +693,7 @@ Ylopplex :: proc(a, b: any) -> (Bivec)  {
                 return {(Cos(a) + b), Ei[1], {a, b + Ei[1]}}
         }
     }
-    return {vex(Mewtex.EINA), Ei[1], {a, b}}
+    return {nav, Ei[1], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -760,7 +710,7 @@ Perplex :: proc(a, b: any) -> (Bivec)  {
                 return {(Cos(a) + b), Ei[4], {a, b + Ei[4]}}
         }
     }
-    return {vex(Mewtex.EINA), Ei[4], {a, b}}
+    return {nav, Ei[4], {a, b}}
 }
 
 // A real complex number and not odins impl
@@ -778,7 +728,7 @@ Repplex :: proc(a, b: any) -> (Bivec)  {
                 return {(Cos(a) + b), Ei[5], {a, b + Ei[5]}}
         }
     }
-    return {vex(Mewtex.EINA), Ei[5], {a, b}}
+    return {nav, Ei[5], {a, b}}
 }
 
 

@@ -61,6 +61,28 @@ Tesseract :: proc(a, b, c: any) -> (Bivec, bool)  {
     return {vex(Mewtex.EINA), nil, {a, b}}, ((logic.Abs(a * c) * logic.Abs(b * c)) <= nil)
 }
 
+Polymetron :: proc(a, b, c: any) -> (Bivec, bool)  {
+    a  := a.(vex)
+    b  := b.(vex)
+    c  := c.(vex)
+    aa := a * a
+    ab := a * b
+    bb := b * b
+    if logic.verified {
+        switch {
+            case b > nil:
+                return {
+                    logic.Abs(logic.Cos(aa - ab - bb))
+                }
+            case b < nil:
+                return {(logic.Abs(a * c) - logic.Abs(b * c)), nil, {a, b}}, ((logic.Abs(a * c) * logic.Abs(b * c)) >= nil)
+            case b == nil:
+                return {(logic.Abs(a * c) + logic.Abs(b * c)), nil, {a, b}}, ((logic.Abs(a * c) * logic.Abs(b * c)) == nil)
+        }
+    }
+    return {vex(Mewtex.EINA), nil, {a, b}}, ((logic.Abs(a * c) * logic.Abs(b * c)) <= nil)
+}
+
 main :: proc() {
     fmt.printfln("%v: %v", Focalor(2., 3.))
     fmt.printfln("%v: %v", Parallax(2., 3., 10.))

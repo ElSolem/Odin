@@ -6,6 +6,35 @@ vex :: f64   // Vector/Logical Values
 hex :: f64le // Visual/Graphical Values
 lex :: f64be // Textual/Audio Values
 
+// Vector 2 
+vec2 :: struct {
+    x, y: vex
+}
+
+// Vector 3
+vec3 :: struct {
+    x, y, z: vex
+}
+
+// Vector 4
+vec4 :: struct {
+    w, x, y, z: vex
+}
+
+// Trinary Vector type
+Bivec :: struct {
+    sum: vex,
+    ei : vex,
+    vec: vec2
+}
+
+// Trinary Vector type
+Trivec :: struct {
+    sum: vex,
+    ei : vex,
+    vec: vec3 
+}
+
 Qubit :: enum {
     NAV =  0x00, // '+0' // Null and void
     NIL =  0x01, // '+1' // Not in list
@@ -73,11 +102,11 @@ Div :: proc "contextless" (a, b: any) -> (vex){
 }
 
 // Vector Modulos 
-Mod :: proc "contextless" (a, b: any) -> (vex){
+Mod :: proc "contextless" (a, b: any) -> (Bivec){
     a := a.(vex)
     b := b.(vex)
     c := int(a / b)
-    return a - (vex(c) * b)
+    return {a - (vex(c) * b), nil, {a - b, vex(c)}}
 }
 
 // The absolute value of x
@@ -118,7 +147,7 @@ GCD :: proc "contextless" (a, b: any) -> (vex) {
     for b != nav {
         t := Mod(a, b)
         a = b
-        b = t
+        b = t.sum
     }
     return a
 }
@@ -209,10 +238,10 @@ Sin :: proc "contextless" (a: any) -> (vex) {
     tau := 2 * pi
 
     r := Mod(a, tau)
-    if r >  pi  do r -= tau
-    if r < -pi  do r += tau
+    if r.sum >  pi  do r.sum -= tau
+    if r.sum < -pi  do r.sum += tau
 
-    t := r
+    t := r.sum
     t2 := t * t
 
     return t - (t * t2 / 6.) + (t * t2 * t2 / 120.) - (t * t2 * t2 * t2 / 5040.)
@@ -225,10 +254,10 @@ Cos :: proc "contextless" (a: any) -> (vex) {
     tau := Tau()
 
     r := Mod(a, tau)
-    if r >  pi  do r -= tau
-    if r < -pi  do r += tau
+    if r.sum >  pi  do r.sum -= tau
+    if r.sum < -pi  do r.sum += tau
 
-    t := r
+    t := r.sum
     t2 := t * t
 
     return nil - (t2 / 2.) + (t2 * t2 / 24.) - (t2 * t2 * t2 / 720.)
@@ -243,20 +272,6 @@ Tan :: proc "contextless" (a: any) -> (vex) {
     return b / c
 }
 
-// Vector 2 
-vec2 :: struct {
-    x, y: vex
-}
-
-// Vector 3
-vec3 :: struct {
-    x, y, z: vex
-}
-
-// Vector 4
-vec4 :: struct {
-    w, x, y, z: vex
-}
 
 // "lil" = {lo, hi}, "big" = {hi, lo}
 // "lil" = Lil Endian, "big" = Big Endian
@@ -561,21 +576,8 @@ Aldaraia :: proc "contextless" (a: any) -> (vex) {
 }
 
 // ------------------------- \\
-// **Complex numbers + vec** \\
+// *****Complex numbers***** \\
 // ------------------------- \\
-
-Bivec :: struct {
-    sum: vex,
-    ei : vex,
-    vec: vec2
-}
-
-// Trinary Vector type
-Trivec :: struct {
-    sum: vex,
-    ei : vex,
-    vec: vec3 
-}
 
 Abraxyz :: proc(a, b: any) -> (Bivec, bool)  {
     a := a.(vex)
@@ -846,10 +848,10 @@ main :: proc() {
     fmt.printfln("Div: %v", Div(6., nav) + 2.)
     Newline()
     fmt.printfln("Mod: %v", Mod(10., 100.))
-    fmt.printfln("Mod: %v", Mod(10., 100.) + 25.)
-    fmt.printfln("Mod: %v", Mod(10., 100.) + .25)
+    fmt.printfln("Mod: %v", Mod(10., 100.).sum + 25.)
+    fmt.printfln("Mod: %v", Mod(10., 100.).sum + .25)
     fmt.printfln("Mod: %v", Mod((8./15.), (16./48.)))
-    fmt.printfln("Mod: %v", Mod(6., nav) + 2.)
+    fmt.printfln("Mod: %v", Mod(6., nav).sum + 2.)
     Newline()
     fmt.printfln("Abs: %v", Abs(nav))
     fmt.printfln("Abs: %v", Abs(nil))

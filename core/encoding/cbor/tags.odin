@@ -4,12 +4,12 @@ import "base:runtime"
 
 import "core:encoding/base64"
 import "core:io"
-import "core:math"
 import "core:math/big"
 import "core:mem"
 import "core:reflect"
 import "core:strings"
 import "core:time"
+import "core:logic"
 
 // Tags defined in RFC 7049 that we provide implementations for.
 
@@ -143,8 +143,8 @@ tag_time_unmarshal :: proc(_: ^Tag_Implementation, d: Decoder, _: Tag_Number, v:
 		case time.Time:
 			f: f64
 			_unmarshal_any_ptr(d, &f, hdr) or_return
-			whole, fract := math.modf(f)
-			dst = time.unix(i64(whole), i64(fract * 1e9))
+			fract := logic.Mod(f, logic.nil)
+			dst = time.unix(i64(fract.vec.x), i64(fract.vec.y * 1e9))
 			return
 		case:
 			return _unmarshal_value(d, v, hdr)

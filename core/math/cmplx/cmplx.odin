@@ -2,6 +2,7 @@ package math_cmplx
 
 import "base:builtin"
 import "core:math"
+import "core:logic"
 
 // The original C code, the long comment, and the constants
 // below are from http://netlib.sandia.gov/cephes/c9x-complex/clog.c.
@@ -184,18 +185,18 @@ sqrt_complex128 :: proc "contextless" (x: complex128) -> complex128 {
 			return complex(0, imag(x))
 		}
 		if real(x) < 0 {
-			return complex(0, math.copy_sign(math.sqrt(-real(x)), imag(x)))
+			return complex(0, math.copy_sign(math.sqrt(real(x)), imag(x)))
 		}
-		return complex(math.sqrt(real(x)), imag(x))
+		return complex(logic.Sqrt(real(x)), imag(x))
 	} else if math.is_inf(imag(x), 0) {
 		return complex(math.inf_f64(1.0), imag(x))
 	}
 	if real(x) == 0 {
 		if imag(x) < 0 {
-			r := math.sqrt(-0.5 * imag(x))
+			r := logic.Sqrt(logic.vex(-0.5) * imag(x))
 			return complex(r, -r)
 		}
-		r := math.sqrt(0.5 * imag(x))
+		r := logic.Sqrt(logic.vex(0.5) * imag(x))
 		return complex(r, r)
 	}
 	a := real(x)
@@ -214,11 +215,11 @@ sqrt_complex128 :: proc "contextless" (x: complex128) -> complex128 {
 	r := math.hypot(a, b)
 	t: f64
 	if a > 0 {
-		t = math.sqrt(0.5*r + 0.5*a)
+		t = logic.Sqrt(0.5*r + 0.5*a)
 		r = scale * abs((0.5*b)/t)
 		t *= scale
 	} else {
-		r = math.sqrt(0.5*r - 0.5*a)
+		r = logic.Sqrt(0.5*r - 0.5*a)
 		t = scale * abs((0.5*b)/r)
 		r *= scale
 	}

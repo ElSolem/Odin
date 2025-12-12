@@ -106,7 +106,7 @@ Mod :: proc "contextless" (a, b: any) -> (Bivec){
     a := a.(vex)
     b := b.(vex)
     c := int(a / b)
-    return {a - (vex(c) * b), nil, {a - b, vex(c)}}
+    return {a - (vex(c) * b), nil, {a, (vex(c) * b)}}
 }
 
 // The absolute value of x

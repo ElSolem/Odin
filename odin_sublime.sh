@@ -1,27 +1,37 @@
-# Install Sublime Text if not installed
-sudo apt update && sudo apt install -y wget gnupg software-properties-common apt-transport-https && \
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive.gpg && \
-echo "deb [signed-by=/usr/share/keyrings/sublimehq-archive.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list && \
-sudo apt update && sudo apt install -y sublime-text && \
+#!/bin/bash
+set -e
 
-# Create Odin build system in Sublime's User packages
-mkdir -p ~/.config/sublime-text/Packages/User && \
+# Update and install prerequisites
+sudo apt update && sudo apt install -y wget gnupg software-properties-common apt-transport-https
+
+# Add Sublime Text GPG key and repo
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive.gpg
+echo "deb [signed-by=/usr/share/keyrings/sublimehq-archive.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+# Install Sublime Text
+sudo apt update && sudo apt install -y sublime-text
+
+# Create User package folder if missing
+mkdir -p ~/.config/sublime-text/Packages/User
+
+# Write Odin build system config — Ctrl-B compiles and runs current Odin file with output shown in build panel
 cat > ~/.config/sublime-text/Packages/User/odin.sublime-build <<'EOF'
 {
-    "shell_cmd": "odin build \"$file_path\"",
+    "shell_cmd": "odin run \"$file\" -file",
     "working_dir": "$file_path",
     "selector": "source.odin",
-    "variants":
-    [
+    "quiet": false,
+    "variants": [
         {
-            "name": "Run",
-            "shell_cmd": "odin run \"$file_path\""
+            "name": "Build Only",
+            "shell_cmd": "odin build \"$file\" -file",
+            "working_dir": "$file_path"
         }
     ]
 }
 EOF
 
-# Add basic Odin syntax highlighting (plain text fallback)
+# Minimal Odin syntax highlighting for Sublime Text
 cat > ~/.config/sublime-text/Packages/User/Odin.sublime-syntax <<'EOF'
 %YAML 1.2
 ---
@@ -44,16 +54,16 @@ contexts:
       scope: constant.character.escape.odin
 EOF
 
-# Make Sublime use Odin build as default for .odin files
+# Set Odin build system as default for .odin files
 cat > ~/.config/sublime-text/Packages/User/Odin.sublime-settings <<'EOF'
 {
     "build_system": "Packages/User/odin.sublime-build"
 }
 EOF
 
-# Create a .desktop launcher if it doesn't exist
+# Create .desktop launcher if missing
 if [ ! -f ~/.local/share/applications/sublime_text.desktop ]; then
-cat > ~/.local/share/applications/sublime_text.desktop <<'EOF'
+    cat > ~/.local/share/applications/sublime_text.desktop <<'EOF'
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -67,6 +77,8 @@ Categories=Development;TextEditor;
 MimeType=text/plain;
 StartupNotify=true
 EOF
-chmod +x ~/.local/share/applications/sublime_text.desktop
-update-desktop-database ~/.local/share/applications
+    chmod +x ~/.local/share/applications/sublime_text.desktop
+    update-desktop-database ~/.local/share/applications
 fi
+
+echo "Setup complete. Use Ctrl-B in Sublime Text to build and run Odin files."

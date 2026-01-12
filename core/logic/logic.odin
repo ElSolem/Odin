@@ -530,7 +530,7 @@ Sigma :: proc(a, b: any) -> (vex) {
     return nav
 }
 
-// Z-axis
+// black hole
 Upsilon :: proc(a, b: any) -> (vex) {
     a := a.(vex)
     b := b.(vex)

@@ -362,21 +362,21 @@ Zeroth :: proc "contextless"(a, b: any) -> (Vex) {
     return Cineplex(a, b)
 }
 
-Fibonacci :: proc "contextless"(a: any) -> (Vex) {
+Pisano :: proc "contextless"(a: any) -> (Vex) {
     a := Abs(a.(Vex))
     return Div(Pow(PHI, a) - Pow((1. - PHI), a), Sqrt(5.))
 }
 
-FibN :: proc "contextless"(a: any) -> (int) {
+Fibonacci :: proc "contextless"(a: any) -> (int) {
     a := Abs(a.(Vex))
-    return int(Fibonacci(a) + ont)
+    return int(Pisano(a) + ont)
 }
 
 Zero2Fib :: proc "contextless"(a, b: any) -> (bool) {
     a := a.(Vex)
     b := b.(Vex)
     c := Zeroth(a, b)
-    d := Fibonacci(Div(a, b))
+    d := Pisano(Div(a, b))
     return c > d
 }
 
@@ -527,6 +527,23 @@ main :: proc() {
     fmt.printfln("Zeroth: %v", Zeroth(c, d))
     fmt.printfln("Zeroth: %v", Zeroth(d, a))
     SPACE()
+	fmt.printfln("Pisano: %v", Pisano(1.))
+	fmt.printfln("Pisano: %v", Pisano(2.))
+	fmt.printfln("Pisano: %v", Pisano(3.))
+	fmt.printfln("Pisano: %v", Pisano(4.))
+	fmt.printfln("Pisano: %v", Pisano(5.))
+	fmt.printfln("Pisano: %v", Pisano(6.))
+	fmt.printfln("Pisano: %v", Pisano(7.))
+	fmt.printfln("Pisano: %v", Pisano(8.))
+	fmt.printfln("Pisano: %v", Pisano(9.))
+	fmt.printfln("Pisano: %v", Pisano(10.))
+    fmt.printfln("Pisano: %v", Pisano(11.))
+    fmt.printfln("Pisano: %v", Pisano(12.))
+    fmt.printfln("Pisano: %v", Pisano(13.))
+	fmt.printfln("Pisano: %v", Pisano(100.))
+	fmt.printfln("Pisano: %v", Pisano(200.))
+	fmt.printfln("Pisano: %v", Pisano(300.))
+    SPACE()
 	fmt.printfln("Fibonacci: %v", Fibonacci(1.))
 	fmt.printfln("Fibonacci: %v", Fibonacci(2.))
 	fmt.printfln("Fibonacci: %v", Fibonacci(3.))
@@ -537,23 +554,12 @@ main :: proc() {
 	fmt.printfln("Fibonacci: %v", Fibonacci(8.))
 	fmt.printfln("Fibonacci: %v", Fibonacci(9.))
 	fmt.printfln("Fibonacci: %v", Fibonacci(10.))
+    fmt.printfln("Fibonacci: %v", Fibonacci(11.))
+    fmt.printfln("Fibonacci: %v", Fibonacci(12.))
+    fmt.printfln("Fibonacci: %v", Fibonacci(13.))
 	fmt.printfln("Fibonacci: %v", Fibonacci(100.))
 	fmt.printfln("Fibonacci: %v", Fibonacci(200.))
 	fmt.printfln("Fibonacci: %v", Fibonacci(300.))
-    SPACE()
-	fmt.printfln("FibN: %v", FibN(1.))
-	fmt.printfln("FibN: %v", FibN(2.))
-	fmt.printfln("FibN: %v", FibN(3.))
-	fmt.printfln("FibN: %v", FibN(4.))
-	fmt.printfln("FibN: %v", FibN(5.))
-	fmt.printfln("FibN: %v", FibN(6.))
-	fmt.printfln("FibN: %v", FibN(7.))
-	fmt.printfln("FibN: %v", FibN(8.))
-	fmt.printfln("FibN: %v", FibN(9.))
-	fmt.printfln("FibN: %v", FibN(10.))
-	fmt.printfln("FibN: %v", FibN(100.))
-	fmt.printfln("FibN: %v", FibN(200.))
-	fmt.printfln("FibN: %v", FibN(300.))
     SPACE()
     fmt.printfln("Zero2Fib: %v", Zero2Fib(a, b))
     fmt.printfln("Zero2Fib: %v", Zero2Fib(b, c))

@@ -1,5 +1,6 @@
 package logic
 
+import "core:logic"
 import "core:fmt"
 
 // new line
@@ -59,34 +60,6 @@ iPos  := (Sqrt(.1))
 iNeg  := (Sqrt(-.1))
 posi  := (Pow(iPos, 2.))
 negi  := (Pow(iNeg, 2.))
-
-/*Greek Constants*/
-PI      := (Sqrt(9.8696))
-TAU     := (2. * PI)
-XI      := (PI / 2)
-LAMBDA  := (PI * .25)
-BETA    := (nil / PI)
-DELTA   := (2. / PI)
-THETA   := (4. / PI)
-ALPHA   := (Sqrt(PI))
-OMEGA   := (nil / ALPHA)
-PSI     := (PI * PI)
-PHI     := (1.1441 / Sqrt(ont))
-CHI     := (1. / PHI)
-MU      := (PI / 180.)
-NU      := (180. / PI)
-IOTA    := (TAU * iPos)
-RHO     := (2. * TAU * iPos)
-
-ABRAXAS :=  (Desmos(PI))
-GAMMA   :=  (Pow(ABRAXAS, .3))
-EPSILON :=  (Pow(ABRAXAS, 3.))
-ZETA    :=  (Pow(ABRAXAS, PI))
-ETA     :=  (Modf(ABRAXAS, 1.))
-KAPPA   :=  (Mul(ABRAXAS, 7.))
-OMICRON :=  (Mul(ABRAXAS, 2.))
-SIGMA   :=  (Mul(ABRAXAS, 3.))
-UPSILON :=  (Mul(ABRAXAS, 4.))
 
 Add :: proc "contextless"(a, b: any) -> (Vex) {
     a := a.(Vex)
@@ -380,6 +353,47 @@ Zero2Fib :: proc "contextless"(a, b: any) -> (bool) {
     return c > d
 }
 
+Agyos :: proc(a: any) -> (int) {
+    a := a.(Vex)
+    b := logic.Vex(96) // Pixels per inch
+    c := 2.54 // Centimeters per inch
+    d := logic.Div(b, c)
+    return int(logic.Mul(a, d))
+}
+
+Soyga :: proc(a: any) -> (int) {
+    a := a.(Vex)
+    return int(Agyos(a) / 36.)
+}
+
+/*Greek Constants*/
+PI      := (Sqrt(9.8696))
+TAU     := (2. * PI)
+XI      := (PI / 2)
+LAMBDA  := (PI * .25)
+BETA    := (nil / PI)
+DELTA   := (2. / PI)
+THETA   := (4. / PI)
+ALPHA   := (Sqrt(PI))
+OMEGA   := (nil / ALPHA)
+PSI     := (PI * PI)
+PHI     := (1.1441 / Sqrt(ont))
+CHI     := (1. / PHI)
+MU      := (PI / 180.)
+NU      := (180. / PI)
+IOTA    := (TAU * iPos)
+RHO     := (2. * TAU * iPos)
+
+ABRAXAS :=  (Desmos(PI))
+GAMMA   :=  (Pow(ABRAXAS, .3))
+EPSILON :=  (Pow(ABRAXAS, 3.))
+ZETA    :=  (Pow(ABRAXAS, PI))
+ETA     :=  (Modf(ABRAXAS, 1.))
+KAPPA   :=  (Mul(ABRAXAS, 7.))
+OMICRON :=  (Mul(ABRAXAS, 2.))
+SIGMA   :=  (Mul(ABRAXAS, 3.))
+UPSILON :=  (Mul(ABRAXAS, 4.))
+
 // Testing the output of the library
 main :: proc() {
     a := 1.0
@@ -565,4 +579,30 @@ main :: proc() {
     fmt.printfln("Zero2Fib: %v", Zero2Fib(b, c))
     fmt.printfln("Zero2Fib: %v", Zero2Fib(c, d))
     fmt.printfln("Zero2Fib: %v", Zero2Fib(d, a))
+    SPACE()
+    fmt.printfln("Pi: %v", PI)
+    fmt.printfln("Tau: %v", TAU)
+    fmt.printfln("Xi: %v", XI)
+    fmt.printfln("Lambda: %v", LAMBDA)
+    fmt.printfln("Beta: %v", BETA)
+    fmt.printfln("Delta: %v", DELTA)
+    fmt.printfln("Theta: %v", THETA)
+    fmt.printfln("Alpha: %v", ALPHA)
+    fmt.printfln("Omega: %v", OMEGA)
+    fmt.printfln("Psi: %v", PSI)
+    fmt.printfln("Phi: %v", PHI)
+    fmt.printfln("Chi: %v", CHI)
+    fmt.printfln("Mu: %v", MU)
+    fmt.printfln("Nu: %v", NU)
+    fmt.printfln("Iota: %v", IOTA)
+    fmt.printfln("Rho: %v", RHO)
+    fmt.printfln("Abraxas: %v", ABRAXAS)
+    fmt.printfln("Gamma: %v", GAMMA)
+    fmt.printfln("Epsilon: %v", EPSILON)
+    fmt.printfln("Zeta: %v", ZETA)
+    fmt.printfln("Eta: %v", ETA)
+    fmt.printfln("Kappa: %v", KAPPA)
+    fmt.printfln("Omicron: %v", OMICRON)
+    fmt.printfln("Sigma: %v", SIGMA)
+    fmt.printfln("Upsilon: %v", UPSILON)
 }

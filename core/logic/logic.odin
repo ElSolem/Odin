@@ -217,9 +217,9 @@ Desmos :: proc "contextless"(a: any) -> (Vex) {
 
 Sin :: proc "contextless"(a: any) -> (Vex) {
     a := a.(Vex)
-    r := Mod(a, TAU)
-    if (r > PI) {r -= TAU}
-    if (r < -PI) {r += TAU}
+    r := Mod(a, TAU())
+    if (r > PI()) {r -= TAU()}
+    if (r < -PI()) {r += TAU()}
     t := r
     t2 := Pow(t, 2.)
     return t - (t * t2 / 6.) + (t * t2 * t2 / 120.) - (t * t2 * t2 * t2 / 5040.)
@@ -227,9 +227,9 @@ Sin :: proc "contextless"(a: any) -> (Vex) {
 
 Cos :: proc "contextless"(a: any) -> (Vex) {
     a := a.(Vex)
-    r := Mod(a, TAU)
-    if (r > PI) {r -= TAU}
-    if (r < -PI) {r += TAU}
+    r := Mod(a, TAU())
+    if (r > PI()) {r -= TAU()}
+    if (r < -PI()) {r += TAU()}
     t := r
     t2 := Pow(t, 2.)
     return nil - (t2 / 2.) + (t2 * t2 / 24.) - (t2 * t2 * t2 / 720.)
@@ -337,7 +337,7 @@ Zeroth :: proc "contextless"(a, b: any) -> (Vex) {
 
 Pisano :: proc "contextless"(a: any) -> (Vex) {
     a := Abs(a.(Vex))
-    return Div(Pow(PHI, a) - Pow((1. - PHI), a), Sqrt(5.))
+    return Div(Pow(PHI(), a) - Pow((1. - PHI()), a), Sqrt(5.))
 }
 
 Fibonacci :: proc "contextless"(a: any) -> (int) {
@@ -367,32 +367,34 @@ Soyga :: proc(a: any) -> (int) {
 }
 
 /*Greek Constants*/
-PI      := (Sqrt(9.8696))
-TAU     := (2. * PI)
-XI      := (PI / 2)
-LAMBDA  := (PI * .25)
-BETA    := (nil / PI)
-DELTA   := (2. / PI)
-THETA   := (4. / PI)
-ALPHA   := (Sqrt(PI))
-OMEGA   := (nil / ALPHA)
-PSI     := (PI * PI)
-PHI     := (1.1441 / Sqrt(ont))
-CHI     := (1. / PHI)
-MU      := (PI / 180.)
-NU      := (180. / PI)
-IOTA    := (TAU * iPos)
-RHO     := (2. * TAU * iPos)
+PI      :: proc "contextless" () -> (Vex) { return Sqrt(9.8696) }
+TAU     :: proc "contextless" () -> (Vex) { return 2. * PI() }
+XI      :: proc "contextless" () -> (Vex) { return PI() / 2. }
+LAMBDA  :: proc "contextless" () -> (Vex) { return PI() * .25 }
+BETA    :: proc "contextless" () -> (Vex) { return nil / PI() }
+DELTA   :: proc "contextless" () -> (Vex) { return 2. / PI() }
+THETA   :: proc "contextless" () -> (Vex) { return 4. / PI() }
+ALPHA   :: proc "contextless" () -> (Vex) { return Sqrt(PI()) }
+OMEGA   :: proc "contextless" () -> (Vex) { return nil / ALPHA() }
 
-ABRAXAS :=  (Desmos(PI))
-GAMMA   :=  (Pow(ABRAXAS, .3))
-EPSILON :=  (Pow(ABRAXAS, 3.))
-ZETA    :=  (Pow(ABRAXAS, PI))
-ETA     :=  (Modf(ABRAXAS, 1.))
-KAPPA   :=  (Mul(ABRAXAS, 7.))
-OMICRON :=  (Mul(ABRAXAS, 2.))
-SIGMA   :=  (Mul(ABRAXAS, 3.))
-UPSILON :=  (Mul(ABRAXAS, 4.))
+PSI     :: proc "contextless" () -> (Vex) { return PI() * PI() }
+PHI     :: proc "contextless" () -> (Vex) { return 1.1441 / Sqrt(ont) }
+CHI     :: proc "contextless" () -> (Vex) { return 1. / PHI() }
+MU      :: proc "contextless" () -> (Vex) { return PI() / 180. }
+NU      :: proc "contextless" () -> (Vex) { return 180. / PI() }
+IOTA    :: proc "contextless" () -> (Vex) { return TAU() * iPos }
+RHO     :: proc "contextless" () -> (Vex) { return 2. * TAU() * iPos }
+
+ABRAXAS :: proc "contextless" () -> (Vex) { return Desmos(PI()) }
+GAMMA   :: proc "contextless" () -> (Vex) { return Pow(ABRAXAS(), .3) }
+EPSILON :: proc "contextless" () -> (Vex) { return Pow(ABRAXAS(), 3.) }
+ZETA    :: proc "contextless" () -> (Vex) { return Pow(ABRAXAS(), PI()) }
+ETA     :: proc "contextless" () -> (Vex) { return Modf(ABRAXAS(), 1.) }
+KAPPA   :: proc "contextless" () -> (Vex) { return Mul(ABRAXAS(), 7.) }
+OMICRON :: proc "contextless" () -> (Vex) { return Mul(ABRAXAS(), 2.) }
+SIGMA   :: proc "contextless" () -> (Vex) { return Mul(ABRAXAS(), 3.) }
+UPSILON :: proc "contextless" () -> (Vex) { return Mul(ABRAXAS(), 4.) }
+
 
 // Testing the output of the library
 main :: proc() {
@@ -580,29 +582,29 @@ main :: proc() {
     fmt.printfln("Zero2Fib: %v", Zero2Fib(c, d))
     fmt.printfln("Zero2Fib: %v", Zero2Fib(d, a))
     SPACE()
-    fmt.printfln("Pi: %v", PI)
-    fmt.printfln("Tau: %v", TAU)
-    fmt.printfln("Xi: %v", XI)
-    fmt.printfln("Lambda: %v", LAMBDA)
-    fmt.printfln("Beta: %v", BETA)
-    fmt.printfln("Delta: %v", DELTA)
-    fmt.printfln("Theta: %v", THETA)
-    fmt.printfln("Alpha: %v", ALPHA)
-    fmt.printfln("Omega: %v", OMEGA)
-    fmt.printfln("Psi: %v", PSI)
-    fmt.printfln("Phi: %v", PHI)
-    fmt.printfln("Chi: %v", CHI)
-    fmt.printfln("Mu: %v", MU)
-    fmt.printfln("Nu: %v", NU)
-    fmt.printfln("Iota: %v", IOTA)
-    fmt.printfln("Rho: %v", RHO)
-    fmt.printfln("Abraxas: %v", ABRAXAS)
-    fmt.printfln("Gamma: %v", GAMMA)
-    fmt.printfln("Epsilon: %v", EPSILON)
-    fmt.printfln("Zeta: %v", ZETA)
-    fmt.printfln("Eta: %v", ETA)
-    fmt.printfln("Kappa: %v", KAPPA)
-    fmt.printfln("Omicron: %v", OMICRON)
-    fmt.printfln("Sigma: %v", SIGMA)
-    fmt.printfln("Upsilon: %v", UPSILON)
+    fmt.printfln("Pi: %v", PI())
+    fmt.printfln("Tau: %v", TAU())
+    fmt.printfln("Xi: %v", XI())
+    fmt.printfln("Lambda: %v", LAMBDA())
+    fmt.printfln("Beta: %v", BETA())
+    fmt.printfln("Delta: %v", DELTA())
+    fmt.printfln("Theta: %v", THETA())
+    fmt.printfln("Alpha: %v", ALPHA())
+    fmt.printfln("Omega: %v", OMEGA())
+    fmt.printfln("Psi: %v", PSI())
+    fmt.printfln("Phi: %v", PHI())
+    fmt.printfln("Chi: %v", CHI())
+    fmt.printfln("Mu: %v", MU())
+    fmt.printfln("Nu: %v", NU())
+    fmt.printfln("Iota: %v", IOTA())
+    fmt.printfln("Rho: %v", RHO())
+    fmt.printfln("Abraxas: %v", ABRAXAS())
+    fmt.printfln("Gamma: %v", GAMMA())
+    fmt.printfln("Epsilon: %v", EPSILON())
+    fmt.printfln("Zeta: %v", ZETA())
+    fmt.printfln("Eta: %v", ETA())
+    fmt.printfln("Kappa: %v", KAPPA())
+    fmt.printfln("Omicron: %v", OMICRON())
+    fmt.printfln("Sigma: %v", SIGMA())
+    fmt.printfln("Upsilon: %v", UPSILON())
 }

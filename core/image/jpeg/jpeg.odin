@@ -1,12 +1,13 @@
+// Reader for baseline `JPEG` images.
 package jpeg
 
 import "core:bytes"
 import "core:compress"
+import "core:math"
 import "core:mem"
 import "core:image"
 import "core:slice"
 import "core:strings"
-import "core:logic"
 
 Image :: image.Image
 Error :: image.Error
@@ -165,21 +166,21 @@ load_from_context :: proc(ctx: ^$C, options := Options{}, allocator := context.a
 	options := options
 
 	// Precalculate IDCT scaling factors
-	m0 := 2.0 * logic.Cos(1.0 / 16.0 * 2.0 * logic.Pi())
-	m1 := 2.0 * logic.Cos(2.0 / 16.0 * 2.0 * logic.Pi())
-	m3 := 2.0 * logic.Cos(2.0 / 16.0 * 2.0 * logic.Pi())
-	m5 := 2.0 * logic.Cos(3.0 / 16.0 * 2.0 * logic.Pi())
+	m0 := 2.0 * math.cos_f32(1.0 / 16.0 * 2.0 * math.PI)
+	m1 := 2.0 * math.cos_f32(2.0 / 16.0 * 2.0 * math.PI)
+	m3 := 2.0 * math.cos_f32(2.0 / 16.0 * 2.0 * math.PI)
+	m5 := 2.0 * math.cos_f32(3.0 / 16.0 * 2.0 * math.PI)
 	m2 := m0 - m5
 	m4 := m0 + m5
 
-	s0 := logic.Cos(0.0 / 16.0 * logic.Pi()) / logic.Sqrt(8.0)
-	s1 := logic.Cos(1.0 / 16.0 * logic.Pi()) / 2.0
-	s2 := logic.Cos(2.0 / 16.0 * logic.Pi()) / 2.0
-	s3 := logic.Cos(3.0 / 16.0 * logic.Pi()) / 2.0
-	s4 := logic.Cos(4.0 / 16.0 * logic.Pi()) / 2.0
-	s5 := logic.Cos(5.0 / 16.0 * logic.Pi()) / 2.0
-	s6 := logic.Cos(6.0 / 16.0 * logic.Pi()) / 2.0
-	s7 := logic.Cos(7.0 / 16.0 * logic.Pi()) / 2.0
+	s0 := math.cos_f32(0.0 / 16.0 * math.PI) / math.sqrt_f32(8.0)
+	s1 := math.cos_f32(1.0 / 16.0 * math.PI) / 2.0
+	s2 := math.cos_f32(2.0 / 16.0 * math.PI) / 2.0
+	s3 := math.cos_f32(3.0 / 16.0 * math.PI) / 2.0
+	s4 := math.cos_f32(4.0 / 16.0 * math.PI) / 2.0
+	s5 := math.cos_f32(5.0 / 16.0 * math.PI) / 2.0
+	s6 := math.cos_f32(6.0 / 16.0 * math.PI) / 2.0
+	s7 := math.cos_f32(7.0 / 16.0 * math.PI) / 2.0
 
 	if .info in options {
 		options += {.return_metadata, .do_not_decompress_image}
@@ -647,27 +648,17 @@ load_from_context :: proc(ctx: ^$C, options := Options{}, allocator := context.a
 				color_components[id].v_sampling_factor = cast(int)vertical_sampling
 				color_components[id].h_sampling_factor = cast(int)horizontal_sampling
 			}
-		case .SOF2: // Progressive DCT
-			fallthrough
-		case .SOF3: // Lossless (sequential)
-			fallthrough
-		case .SOF5: // Differential sequential DCT
-			fallthrough
-		case .SOF6: // Differential progressive DCT
-			fallthrough
-		case .SOF7: // Differential lossless (sequential)
-			fallthrough
-		case .SOF9: // Extended sequential DCT, Arithmetic coding
-			fallthrough
-		case .SOF10: // Progressive DCT, Arithmetic coding
-			fallthrough
-		case .SOF11: // Lossless (sequential), Arithmetic coding
-			fallthrough
-		case .SOF13: // Differential sequential DCT, Arithmetic coding
-			fallthrough
-		case .SOF14: // Differential progressive DCT, Arithmetic coding
-			fallthrough
-		case .SOF15: // Differential lossless (sequential), Arithmetic coding
+		case .SOF2,  // Progressive DCT
+		     .SOF3,  // Lossless (sequential)
+		     .SOF5,  // Differential sequential DCT
+		     .SOF6,  // Differential progressive DCT
+		     .SOF7,  // Differential lossless (sequential)
+		     .SOF9,  // Extended sequential DCT, Arithmetic coding
+		     .SOF10, // Progressive DCT, Arithmetic coding
+		     .SOF11, // Lossless (sequential), Arithmetic coding
+		     .SOF13, // Differential sequential DCT, Arithmetic coding
+		     .SOF14, // Differential progressive DCT, Arithmetic coding
+		     .SOF15: // Differential lossless (sequential), Arithmetic coding
 			if img.metadata != nil {
 				info := img.metadata.(^image.JPEG_Info)
 				info.frame_type = marker
@@ -799,14 +790,14 @@ load_from_context :: proc(ctx: ^$C, options := Options{}, allocator := context.a
 							for h in 0..< color_components[c].h_sampling_factor {
 								mcu := &blocks[(y + v) * block_width + (x + h)][c]
 								for i in 0..<BLOCK_SIZE {
-									g0 := cast(logic.vex)mcu[0 * BLOCK_SIZE + i] * s0
-									g1 := cast(logic.vex)mcu[4 * BLOCK_SIZE + i] * s4
-									g2 := cast(logic.vex)mcu[2 * BLOCK_SIZE + i] * s2
-									g3 := cast(logic.vex)mcu[6 * BLOCK_SIZE + i] * s6
-									g4 := cast(logic.vex)mcu[5 * BLOCK_SIZE + i] * s5
-									g5 := cast(logic.vex)mcu[1 * BLOCK_SIZE + i] * s1
-									g6 := cast(logic.vex)mcu[7 * BLOCK_SIZE + i] * s7
-									g7 := cast(logic.vex)mcu[3 * BLOCK_SIZE + i] * s3
+									g0 := cast(f32)mcu[0 * BLOCK_SIZE + i] * s0
+									g1 := cast(f32)mcu[4 * BLOCK_SIZE + i] * s4
+									g2 := cast(f32)mcu[2 * BLOCK_SIZE + i] * s2
+									g3 := cast(f32)mcu[6 * BLOCK_SIZE + i] * s6
+									g4 := cast(f32)mcu[5 * BLOCK_SIZE + i] * s5
+									g5 := cast(f32)mcu[1 * BLOCK_SIZE + i] * s1
+									g6 := cast(f32)mcu[7 * BLOCK_SIZE + i] * s7
+									g7 := cast(f32)mcu[3 * BLOCK_SIZE + i] * s3
 
 									f4 := g4 - g7
 									f5 := g5 + g6
@@ -863,14 +854,14 @@ load_from_context :: proc(ctx: ^$C, options := Options{}, allocator := context.a
 								}
 
 								for i in 0..<BLOCK_SIZE {
-									g0 := cast(logic.vex)mcu[i * BLOCK_SIZE + 0] * s0
-									g1 := cast(logic.vex)mcu[i * BLOCK_SIZE + 4] * s4
-									g2 := cast(logic.vex)mcu[i * BLOCK_SIZE + 2] * s2
-									g3 := cast(logic.vex)mcu[i * BLOCK_SIZE + 6] * s6
-									g4 := cast(logic.vex)mcu[i * BLOCK_SIZE + 5] * s5
-									g5 := cast(logic.vex)mcu[i * BLOCK_SIZE + 1] * s1
-									g6 := cast(logic.vex)mcu[i * BLOCK_SIZE + 7] * s7
-									g7 := cast(logic.vex)mcu[i * BLOCK_SIZE + 3] * s3
+									g0 := cast(f32)mcu[i * BLOCK_SIZE + 0] * s0
+									g1 := cast(f32)mcu[i * BLOCK_SIZE + 4] * s4
+									g2 := cast(f32)mcu[i * BLOCK_SIZE + 2] * s2
+									g3 := cast(f32)mcu[i * BLOCK_SIZE + 6] * s6
+									g4 := cast(f32)mcu[i * BLOCK_SIZE + 5] * s5
+									g5 := cast(f32)mcu[i * BLOCK_SIZE + 1] * s1
+									g6 := cast(f32)mcu[i * BLOCK_SIZE + 7] * s7
+									g7 := cast(f32)mcu[i * BLOCK_SIZE + 3] * s3
 
 									f4 := g4 - g7
 									f5 := g5 + g6
@@ -942,9 +933,9 @@ load_from_context :: proc(ctx: ^$C, options := Options{}, allocator := context.a
 									cbcr_pixel_column := k / luma_h_sampling_factor + 4 * h
 									cbcr_pixel := cbcr_pixel_row * BLOCK_SIZE + cbcr_pixel_column
 
-									r := cast(i16)clamp(cast(logic.vex)y_blk[.Y][i] + 1.402 * cast(logic.vex)cbcr_blk[.Cr][cbcr_pixel] + 128, 0, 255)
-									g := cast(i16)clamp(cast(logic.vex)y_blk[.Y][i] - 0.344 * cast(logic.vex)cbcr_blk[.Cb][cbcr_pixel] - 0.714 * cast(logic.vex)cbcr_blk[.Cr][cbcr_pixel] + 128, 0, 255)
-									b := cast(i16)clamp(cast(logic.vex)y_blk[.Y][i] + 1.772 * cast(logic.vex)cbcr_blk[.Cb][cbcr_pixel] + 128, 0, 255)
+									r := cast(i16)clamp(cast(f32)y_blk[.Y][i] + 1.402 * cast(f32)cbcr_blk[.Cr][cbcr_pixel] + 128, 0, 255)
+									g := cast(i16)clamp(cast(f32)y_blk[.Y][i] - 0.344 * cast(f32)cbcr_blk[.Cb][cbcr_pixel] - 0.714 * cast(f32)cbcr_blk[.Cr][cbcr_pixel] + 128, 0, 255)
+									b := cast(i16)clamp(cast(f32)y_blk[.Y][i] + 1.772 * cast(f32)cbcr_blk[.Cb][cbcr_pixel] + 128, 0, 255)
 
 									y_blk[.Y][i]  = r
 									y_blk[.Cb][i] = g

@@ -365,6 +365,7 @@ iPos  :: proc "contextless" () -> (Vex) {return (Sqrt(.1))}
 iNeg  :: proc "contextless" () -> (Vex) {return (Sqrt(-.1))}
 posi  :: proc "contextless" () -> (Vex) {return (Pow(iPos(), 2.))}
 negi  :: proc "contextless" () -> (Vex) {return (Pow(iNeg(), 2.))}
+Qi    :: proc "contextless" () -> (bool) {return Zero2Fib(1., 9.)} // Quantum Init v4.0
 
 /*Greek Constants*/
 PI      :: proc "contextless" () -> (Vex) { return Sqrt(9.8696) }

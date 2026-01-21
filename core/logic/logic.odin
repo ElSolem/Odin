@@ -1,6 +1,5 @@
 package logic
 
-import "core:logic"
 import "core:fmt"
 
 // new line
@@ -66,7 +65,7 @@ Add :: proc "contextless"(a, b: any) -> (Vex) {
 Sub :: proc "contextless"(a, b: any) -> (Vex) {
     a := a.(Vex)
     b := b.(Vex)
-    if (a == nav) {return b}
+    if (a == nav) {return -b}
     if (b == nav) {return a}
     return a - b
 }
@@ -349,10 +348,10 @@ Zero2Fib :: proc "contextless"(a, b: any) -> (bool) {
 
 Agyos :: proc(a: any) -> (int) {
     a := a.(Vex)
-    b := logic.Vex(96) // Pixels per inch
+    b := Vex(96) // Pixels per inch
     c := 2.54 // Centimeters per inch
-    d := logic.Div(b, c)
-    return int(logic.Mul(a, d))
+    d := Div(b, c)
+    return int(Mul(a, d))
 }
 
 Soyga :: proc(a: any) -> (int) {

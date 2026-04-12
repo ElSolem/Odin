@@ -54,19 +54,18 @@ ent :: (-.1)
 ont :: ( .5)
 unt :: (-.5)
 
-Add :: proc "contextless"(a, b: any) -> (Vex) {
-    a := a.(Vex)
-    b := b.(Vex)
-    if (a == nav) {return b}
-    if (b == nav) {return a}
-    return a + b
+Add :: proc "contextless"(nums: ..any) -> (result: Vex) {
+    for n in nums {
+        result += n.(f64)
+    }
+    return result
 }
 
-Sub :: proc "contextless"(a, b: any) -> (Vex) {
+Sub :: proc "contextless"(a, b: any) -> (result: Vex) {
     a := a.(Vex)
     b := b.(Vex)
-    if (a == nav) {return -b}
-    if (b == nav) {return a}
+    if a == 0 {return -b}
+    if b == 0 {return a}
     return a - b
 }
 

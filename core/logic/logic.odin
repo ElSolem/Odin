@@ -248,8 +248,8 @@ Tan :: proc "contextless"(a: any) -> (Vex) {
 Simplex :: proc "contextless"(a, b: any) -> (Vex) {
     a := Abs(a.(Vex))
     b := Abs(b.(Vex))
-    if (b > nav) {return posi() * (Abs(a * b) - (Abs(a * b) * posi())) * b}
-    if (b < nav) {return posi() * (Abs(a * b) + (Abs(a * b) * posi())) * b}
+    if (b > nav) {return posi() * (Abs(a * b) - (Abs(a * b) * .5)) * b}
+    if (b < nav) {return posi() * (Abs(a * b) + (Abs(a * b) * .5)) * b}
     if (b == nav) {return nil}
     return nav
 }
@@ -258,8 +258,8 @@ Simplex :: proc "contextless"(a, b: any) -> (Vex) {
 Complex :: proc "contextless"(a, b: any) -> (Vex) {
     a := Abs(a.(Vex))
     b := Abs(b.(Vex))
-    if (b > nav) {return (Abs(a * b) * (Abs(a * b) * posi())) * b}
-    if (b < nav) {return (Abs(a * b) / (Abs(a * b) * posi())) * b}
+    if (b > nav) {return (Abs(a * b) * (Abs(a * b) * .5)) * b}
+    if (b < nav) {return (Abs(a * b) / (Abs(a * b) * .5)) * b}
     if (b == nav) {return nil}
     return nav
 }
@@ -268,8 +268,8 @@ Complex :: proc "contextless"(a, b: any) -> (Vex) {
 Polyplex :: proc "contextless"(a, b: any) -> (Vex) {
     a := Abs(a.(Vex))
     b := Abs(b.(Vex))
-    if (b > nav) {return (Abs(a * b) + (Abs(a * b) * posi())) * b}
-    if (b < nav) {return (Abs(a * b) - (Abs(a * b) * posi())) * b}
+    if (b > nav) {return (Abs(a * b) + (Abs(a * b) * .5)) * b}
+    if (b < nav) {return (Abs(a * b) - (Abs(a * b) * .5)) * b}
     if (b == nav) {return nil}
     return nav
 }
@@ -278,8 +278,8 @@ Polyplex :: proc "contextless"(a, b: any) -> (Vex) {
 Perplex :: proc "contextless"(a, b: any) -> (Vex) {
     a := Abs(a.(Vex))
     b := Abs(b.(Vex))
-    if (b > nav) {return (Abs(a * b) - (Abs(a * b) * posi())) * b}
-    if (b < nav) {return (Abs(a * b) + (Abs(a * b) * posi())) * b}
+    if (b > nav) {return (Abs(a * b) - (Abs(a * b) * .5)) * b}
+    if (b < nav) {return (Abs(a * b) + (Abs(a * b) * .5)) * b}
     if (b == nav) {return nil}
     return nav
 }
@@ -288,8 +288,8 @@ Perplex :: proc "contextless"(a, b: any) -> (Vex) {
 Omniplex :: proc "contextless"(a, b: any) -> (Vex) {
     a := Abs(a.(Vex))
     b := Abs(b.(Vex))
-    if (b > nav) {return Cos(a * b) + (Sin(a * b) * posi())}
-    if (b < nav) {return Cos(a * b) - (Sin(a * b) * posi())}
+    if (b > nav) {return Cos(a * b) + (Sin(a * b) * .5)}
+    if (b < nav) {return Cos(a * b) - (Sin(a * b) * .5)}
     if (b == nav) {return nil}
     return nav
 }
@@ -298,8 +298,8 @@ Omniplex :: proc "contextless"(a, b: any) -> (Vex) {
 Metroplex :: proc "contextless"(a, b: any) -> (Vex) {
     a := Abs(a.(Vex))
     b := Abs(b.(Vex))
-    if (b > nav) {return (Cos(a * b) + (posi() * Sin(a * b))) * b}
-    if (b < nav) {return (Cos(a * b) - (posi() * Sin(a * b))) * b}
+    if (b > nav) {return (Cos(a * b) + (.5 * Sin(a * b))) * b}
+    if (b < nav) {return (Cos(a * b) - (.5 * Sin(a * b))) * b}
     if (b == nav) {return nil}
     return nav
 }
@@ -308,8 +308,8 @@ Metroplex :: proc "contextless"(a, b: any) -> (Vex) {
 Cineplex :: proc "contextless"(a, b: any) -> (Vex) {
     a := Abs(a.(Vex))
     b := Abs(b.(Vex))
-    if (b > nav) {return Pow(Tan(a * b), (Abs(a * b) * posi())) * b}
-    if (b < nav) {return Pow(Tan(a * b), (Abs(a * b) / posi())) * b}
+    if (b > nav) {return Pow(Tan(a * b), (Abs(a * b) * .5)) * b}
+    if (b < nav) {return Pow(Tan(a * b), (Abs(a * b) / .5)) * b}
     if (b == nav) {return nil}
     return nav
 }
@@ -359,8 +359,8 @@ Soyga :: proc(a: any) -> (int) {
 }
 
 /*Complex Values*/
-iPos  :: proc "contextless" () -> (Vex) {return (Sqrt(.1))}
-iNeg  :: proc "contextless" () -> (Vex) {return (Sqrt(-.1))}
+iPos  :: proc "contextless" () -> (Vex) {return (Sqrt(1.))}
+iNeg  :: proc "contextless" () -> (Vex) {return (Sqrt(-1.))}
 posi  :: proc "contextless" () -> (Vex) {return (Pow(iPos(), 2.))}
 negi  :: proc "contextless" () -> (Vex) {return (Pow(iNeg(), 2.))}
 Qi    :: proc "contextless" () -> (bool) {return Zero2Fib(1., 9.)} // Quantum Init v4.0
